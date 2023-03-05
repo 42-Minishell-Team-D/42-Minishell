@@ -6,13 +6,13 @@
 #    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 09:52:07 by ddantas-          #+#    #+#              #
-#    Updated: 2023/03/05 19:28:01 by loris            ###   ########.fr        #
+#    Updated: 2023/03/05 19:55:25 by loris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CFLAGS = -g -pthread -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 RM = rm
 LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c
