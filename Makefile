@@ -1,17 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/04 09:52:07 by ddantas-          #+#    #+#              #
-#    Updated: 2023/03/05 19:59:41 by loris            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = minishell
 
-
-CFLAGS = -g -pthread -Wall -Wextra -Werror 
+CFLAGS = -g -pthread -Wall -Wextra -Werror
 RM = rm
 LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c
