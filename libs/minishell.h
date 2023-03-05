@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:54:01 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/05 17:09:34 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:58:56 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
 # define _XOPEN_SOURCE_EXTENDED 1
 # define _POSIX_SOURCE
 
+# include "./libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <curses.h>

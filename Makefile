@@ -3,16 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+         #
+#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 09:52:07 by ddantas-          #+#    #+#              #
-#    Updated: 2023/03/05 17:13:02 by ddantas-         ###   ########.fr        #
+#    Updated: 2023/03/05 19:59:41 by loris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
 
-CFLAGS = -g -Wall -Wextra -Werror 
+CFLAGS = -g -pthread -Wall -Wextra -Werror 
 RM = rm
 LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c
@@ -22,7 +21,7 @@ OBJS = $(FILESC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
