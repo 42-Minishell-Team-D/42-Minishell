@@ -6,13 +6,12 @@ static void handler(int sig, siginfo_t *id, void *content)
 	(void)content;
 	if (sig == SIGINT)
 	{
-		(void)sig;
 		write(2, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
+	else if (sig == SIGQUIT)
 	{
 	}
 	return ;
@@ -29,7 +28,7 @@ int	select_arg(char *prompt, int *rt)
 	else if (prompt[0] == 'e' && prompt[1] == 'x' && prompt[2] == 'i' && prompt[3] == 't' && prompt[4] == '\0')
 		exit(0);	// That causes leak, even if free(prompt); is implemented
 	else if (prompt[0] == '.' && prompt[1] == '/')
-		printf("exec_prog\n");
+		*rt = exec_prog(prompt);
 	else
 		printf("minishell: %s command not found :\\\n", prompt);
 	return (0);
@@ -40,7 +39,9 @@ int	main(void)
 	struct sigaction	sa;
 	char				*prompt;
 	int					rt;
+	t_data				*data;
 
+	data->id = 0;
 	sa.sa_sigaction = handler;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);

@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -g -pthread -Wall -Wextra -Werror
+CFLAGS = -g -pthread -Wall -Wextra -Werror #-fsanitize=address
 RM = rm
 LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c ./src/functions1.c
@@ -10,7 +10,7 @@ OBJS = $(FILESC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -fsanitize=address $(LIBFT) -lreadline
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<

@@ -33,3 +33,23 @@ int exec_cd(char *prompt)
 		chdir("/");
 	return (0);
 }
+
+int exec_prog(char *prompt)
+{
+	char	**args;
+	int			n;
+	pid_t		id;
+
+	id = fork();
+	if (id == -1)
+		return (1);
+	args = ft_split(prompt, ' ');
+	if (id == 0)
+	{
+		execve(args[0], args, NULL);
+	}
+	n = 0;
+	while (args[n])
+		free(args[n++]);
+	return (0);
+}
