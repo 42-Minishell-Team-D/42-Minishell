@@ -2,27 +2,27 @@
 
 int	exec_pwd(void)
 {
-	char cwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("%s\n", cwd);
-	else 
+	else
 		return (1);
 	return (0);
 }
 
 int	exec_env(void)
 {
-	extern char **environ;
+	extern char	**environ;
 	char		**temp;
 
 	temp = environ;
-	while (*(temp + 2) != NULL)		// +2 because the first two elements of the environ array are reserved for the program name and arguments
-    	printf("%s\n", *temp++);
+	while (*(temp + 2) != NULL)		// +2 because the last two elements of the environ array
+    	printf("%s\n", *temp++);	// are reserved for the lines and columns
 	return (0);
 }
 
-int exec_cd(char *prompt)
+int	exec_cd(char *prompt)
 {
 	char	*temp;
 
@@ -34,11 +34,11 @@ int exec_cd(char *prompt)
 	return (0);
 }
 
-int exec_prog(char *prompt)
+int	exec_prog(char *prompt)
 {
 	char	**args;
-	int			n;
-	pid_t		id;
+	int		n;
+	pid_t	id;
 
 	id = fork();
 	if (id == -1)

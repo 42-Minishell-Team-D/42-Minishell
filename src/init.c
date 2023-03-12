@@ -25,12 +25,10 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sa.sa_sigaction = handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
-
 	sa.sa_sigaction = handler;
 	sigemptyset(&sb.sa_mask);
 	sb.sa_handler = SIG_IGN;
 	sb.sa_flags = 0;
-
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sb, NULL);
 }

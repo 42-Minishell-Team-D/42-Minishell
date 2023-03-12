@@ -3,7 +3,7 @@
 int	exec_echo(char *args, int n, size_t i)
 {
 	(void)i;
-	while(args[n] != '\0')
+	while (args[n] != '\0')
 	{
 		write(2, &args[n++], 1);
 	}
@@ -39,9 +39,9 @@ int	exec_echo(char *args, int n, size_t i)
 }
 */
 
-void exec_exit(char *p)
+void	exec_exit(char *p)
 {
-	int ret;
+	int	ret;
 
 	rl_clear_history();
 	if (p[0] == 'e' && p[1] == 'x' && p[2] == 'i' && p[3] == 't' && p[4] == '\0')
