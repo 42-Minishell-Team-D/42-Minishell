@@ -6,13 +6,10 @@ void	handler(int sig, siginfo_t *id, void *content)
 	(void)content;
 	if (sig == SIGINT)
 	{
-		write(2, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
+		printf("\n");
+		rl_replace_line("", 0);	// Replace the contents of rl_line_buffer with text.
+		rl_on_new_line();		// Tell the update functions that we have moved onto a new (empty) line, usually after outputting a newline.
+		rl_redisplay();			// Change what’s displayed on the screen to reflect the current contents of rl_line_buffer
 	}
 	return ;
 }
@@ -23,18 +20,24 @@ void	init_data(t_data *data)
 	data->pid = 0;
 }
 
-void	init_sa(struct sigaction sa)
+void	init_sa(struct sigaction sa, struct sigaction sb)
 {
 	sa.sa_sigaction = handler;
-	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+
+	sa.sa_sigaction = handler;
+	sigemptyset(&sb.sa_mask);
+	sb.sa_handler = SIG_IGN;
+	sb.sa_flags = 0;
+
 	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
+	sigaction(SIGQUIT, &sb, NULL);
 }
 
 
 void	init_stuff(t_data *data)
 {
 	init_data(data);
-	init_sa(data->sa);
+	init_sa(data->sa, data->sb);
 }

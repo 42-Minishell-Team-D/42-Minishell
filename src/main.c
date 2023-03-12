@@ -39,5 +39,7 @@ int	main(void)
 		if (prompt)
 			select_arg(prompt, &data);
 	}
+	rl_clear_history();
+	free(prompt);
 	return (0);
 }
