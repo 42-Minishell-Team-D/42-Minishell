@@ -32,9 +32,9 @@ void	init_sa(struct sigaction sa)
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
-
-void	init_stuff(t_data *data)
+void	init_stuff(t_data *data, char **prompt)
 {
 	init_data(data);
 	init_sa(data->sa);
+	*prompt = (char *)1;
 }
