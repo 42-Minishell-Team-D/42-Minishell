@@ -1,6 +1,6 @@
 #include "../libs/minishell.h"
 
-int	exec_pwd()
+int	exec_pwd(void)
 {
 	char cwd[PATH_MAX];
 
@@ -8,5 +8,11 @@ int	exec_pwd()
 		printf("%s\n", cwd);
 	else 
 		return (1);
+	return (0);
+}
+
+int	exec_env(void)
+{
+	printf("SHELL=%s\n", getenv("SHELL"));
 	return (0);
 }

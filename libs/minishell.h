@@ -24,8 +24,11 @@
 
 // missing: ttyslot, sigaddset, lstat
 
-/*			src/main.c 			*/
 /*			src/functions1.c	*/
-int	exec_pwd();
+int			exec_pwd(void);
+int			exec_env(void);
+
+/*			src/main.c 			*/
+int			select_arg(char *prompt, int *rt);
 
 #endif

@@ -20,6 +20,8 @@ int	select_arg(char *prompt, int *rt)
 {
 	if (prompt[0] == 'p' && prompt[1] == 'w' && prompt[2] == 'd' && prompt[3] == '\0')
 		*rt = exec_pwd();
+	if (prompt[0] == 'e' && prompt[1] == 'n' && prompt[2] == 'v' && prompt[3] == '\0')
+		*rt = exec_env();
 	if (prompt[0] == '.' && prompt[1] == '/')
 		printf("exec_prog\n");
 
