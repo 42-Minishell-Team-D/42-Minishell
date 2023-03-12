@@ -26,7 +26,9 @@
 
 typedef	struct minishell
 {
-	pid_t	id;
+	int					pid;
+	int					rt;
+	struct sigaction	sa;
 }				t_data;
 
 
@@ -37,6 +39,6 @@ int			exec_cd(char *prompt);
 int			exec_prog(char *prompt);
 
 /*			src/main.c 			*/
-int			select_arg(char *prompt, int *rt);
+int			select_arg(char *p, t_data *data);
 
 #endif
