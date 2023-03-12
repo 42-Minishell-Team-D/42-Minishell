@@ -24,17 +24,16 @@
 
 // missing: ttyslot, sigaddset, lstat
 
-typedef	struct minishell
-{
-	pid_t	id;
-}				t_data;
-
-
 /*			src/functions1.c	*/
 int			exec_pwd(void);
 int			exec_env(void);
+int			exec_export(char *p);
+int			exec_unset(char *p);
 int			exec_cd(char *prompt);
 int			exec_prog(char *prompt);
+void 		exec_exit(char *p);
+
+
 
 /*			src/main.c 			*/
 int			select_arg(char *prompt, int *rt);
