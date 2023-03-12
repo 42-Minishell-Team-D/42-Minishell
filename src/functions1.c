@@ -11,8 +11,12 @@ int	exec_pwd(void)
 	return (0);
 }
 
+
 int	exec_env(void)
 {
-	printf("SHELL=%s\n", getenv("SHELL"));
+	extern char **environ;
+
+	while (*(environ + 2) != NULL)
+    	printf("%s\n", *environ++);
 	return (0);
 }
