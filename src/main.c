@@ -1,13 +1,16 @@
 #include "../libs/minishell.h"
 
-
 static void handler(int sig, siginfo_t *id, void *content)
 {
 	(void)id;
 	(void)content;
 	if (sig == SIGINT)
 	{
-		printf("\nminishell$");
+		(void)sig;
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 	{
@@ -36,7 +39,6 @@ int	main(void)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-
 	prompt = (char *)1;
 	while (prompt)
 	{
