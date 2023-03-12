@@ -32,7 +32,6 @@ typedef	struct minishell
 	struct sigaction	sb;
 }				t_data;
 
-
 /*			src/functions1.c	*/
 int		exec_pwd(void);
 int		exec_env(void);
@@ -42,11 +41,15 @@ int		exec_cd(char *prompt);
 int		exec_prog(char *prompt);
 void 	exec_exit(char *p);
 
+/*			src/functions2.c	*/
+void	find_var(char *str);
+int		exec_echo(char *args, int n, size_t i);
+
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
 void	init_data(t_data *data);
 void	init_sa(struct sigaction sa, struct sigaction sb);
-void	init_stuff(t_data *data);
+void	init_stuff(t_data *data, char **prompt);
 
 /*			src/main.c 			*/
 int		select_arg(char *p, t_data *data);

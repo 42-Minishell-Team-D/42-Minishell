@@ -60,7 +60,7 @@ int exec_prog(char *prompt)
 	args = ft_split(prompt, ' ');
 	if (id == 0)
 	{
-		execve(args[0], args, NULL);
+		execve(args[0], args, NULL); // exec the executable with the arguments
 	}
 	n = 0;
 	while (args[n])
