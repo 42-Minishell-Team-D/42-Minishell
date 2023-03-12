@@ -14,7 +14,6 @@ static void handler(int sig, siginfo_t *id, void *content)
 	}
 	if (sig == SIGQUIT)
 	{
-		
 	}
 	return ;
 }
@@ -25,7 +24,6 @@ int	select_arg(char *prompt, int *rt)
 		*rt = exec_pwd();
 	if (prompt[0] == '.' && prompt[1] == '/')
 		printf("exec_prog\n");
-
 	return (0);
 }
 
@@ -45,6 +43,7 @@ int	main(void)
 	while (prompt)
 	{
 		prompt = readline("minishell$");
+		add_history(prompt);
 		if (prompt)
 			select_arg(prompt, &rt);
 	}
