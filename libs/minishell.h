@@ -35,15 +35,17 @@ typedef	struct minishell
 /*			src/functions1.c	*/
 int		exec_pwd(void);
 int		exec_env(void);
+int		exec_export(char *p);
+int		exec_unset(char *p);
 int		exec_cd(char *prompt);
 int		exec_prog(char *prompt);
+void 	exec_exit(char *p);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
 void	init_data(t_data *data);
 void	init_sa(struct sigaction sa);
 void	init_stuff(t_data *data);
-
 
 /*			src/main.c 			*/
 int		select_arg(char *p, t_data *data);
