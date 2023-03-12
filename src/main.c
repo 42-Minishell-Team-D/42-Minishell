@@ -6,14 +6,23 @@ static void handler(int sig, siginfo_t *id, void *content)
 	(void)id;
 	(void)content;
 	if (sig == SIGINT)
+	{
 		printf("\nminishell$");
+	}
+	if (sig == SIGQUIT)
+	{
+		
+	}
 	return ;
 }
 
 int	select_arg(char *prompt)
 {
 	if (prompt[0] == 'p' && prompt[1] == 'w' && prompt[2] == 'd' && prompt[3] == '\0')
-		printf("executing pwd\n");
+		printf("exec_pwd\n");
+	if (prompt[0] == '.' && prompt[1] == '/')
+		printf("exec_prog\n");
+
 	return (0);
 }
 
