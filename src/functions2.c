@@ -2,23 +2,9 @@
 
 int	exec_echo(char *args, int n, size_t i)
 {
-	int	single;
-	int	_double;
-
-	single = 0;
-	_double = 0;
 	(void)i;
 	while(args[n])
 	{
-		if (args[n] == '\'')
-		{
-			if (single == 1)
-			{
-				single = 0;
-				n++;
-				continue ;
-			}
-		}
 		write(2, &args[n++], 1);
 	}
 	write(2, "\n", 1);
