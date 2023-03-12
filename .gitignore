@@ -1,6 +1,6 @@
 # Prerequisites
 *.d
-valgring.txt
+*.txt
 minishell
 .vscode/
 # Object files

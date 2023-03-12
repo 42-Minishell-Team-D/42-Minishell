@@ -22,12 +22,16 @@ int	select_arg(char *prompt, int *rt)
 {
 	if (prompt[0] == 'p' && prompt[1] == 'w' && prompt[2] == 'd' && prompt[3] == '\0')
 		*rt = exec_pwd();
-	if (prompt[0] == 'e' && prompt[1] == 'n' && prompt[2] == 'v' && prompt[3] == '\0')
+	else if (prompt[0] == 'e' && prompt[1] == 'n' && prompt[2] == 'v' && prompt[3] == '\0')
 		*rt = exec_env();
-	if (prompt[0] == 'e' && prompt[1] == 'x' && prompt[2] == 'i' && prompt[3] == 't' && prompt[4] == '\0')
+	else if (prompt[0] == 'c' && prompt[1] == 'd')
+		*rt = exec_cd(prompt);
+	else if (prompt[0] == 'e' && prompt[1] == 'x' && prompt[2] == 'i' && prompt[3] == 't' && prompt[4] == '\0')
 		exit(0);	// That causes leak, even if free(prompt); is implemented
-	if (prompt[0] == '.' && prompt[1] == '/')
+	else if (prompt[0] == '.' && prompt[1] == '/')
 		printf("exec_prog\n");
+	else
+		printf("minishell: %s command not found :\\\n", prompt);
 	return (0);
 }
 

@@ -27,6 +27,7 @@
 /*			src/functions1.c	*/
 int			exec_pwd(void);
 int			exec_env(void);
+int			exec_cd(char *prompt);
 
 /*			src/main.c 			*/
 int			select_arg(char *prompt, int *rt);

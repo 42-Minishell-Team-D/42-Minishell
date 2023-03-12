@@ -14,8 +14,22 @@ int	exec_pwd(void)
 int	exec_env(void)
 {
 	extern char **environ;
+	char		**temp;
 
-	while (*(environ + 2) != NULL)
-    	printf("%s\n", *environ++);
+	temp = environ;
+	while (*(temp + 2) != NULL)
+    	printf("%s\n", *temp++);
+	return (0);
+}
+
+int exec_cd(char *prompt)
+{
+	char	*temp;
+
+	temp = prompt + 3;
+	if (*temp != '\0')
+		chdir(temp);
+	else
+		chdir("/");
 	return (0);
 }
