@@ -10,7 +10,7 @@ OBJS = $(FILESC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -fsanitize=address $(LIBFT) -lreadline
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<

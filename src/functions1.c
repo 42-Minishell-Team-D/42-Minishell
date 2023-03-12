@@ -11,7 +11,6 @@ int	exec_pwd(void)
 	return (0);
 }
 
-
 int	exec_env(void)
 {
 	extern char **environ;
