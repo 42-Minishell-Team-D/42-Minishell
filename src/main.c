@@ -1,22 +1,5 @@
 #include "../libs/minishell.h"
 
-static void handler(int sig, siginfo_t *id, void *content)
-{
-	(void)id;
-	(void)content;
-	if (sig == SIGINT)
-	{
-		write(2, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-	}
-	return ;
-}
-
 int select_arg(char *p, t_data *data)
 {
 	if (p[0] == 'e' && p[1] == 'c' && p[2] == 'h' && p[3] == 'o')
@@ -40,19 +23,12 @@ int select_arg(char *p, t_data *data)
 	return (0);
 }
 
-
 int	main(void)
 {
 	t_data	data;
 	char	*prompt;
 
-	data.pid = 0;
-	data.rt = 0;
-	data.sa.sa_sigaction = handler;
-	data.sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&data.sa.sa_mask);
-	sigaction(SIGINT, &data.sa, NULL);
-	sigaction(SIGQUIT, &data.sa, NULL);
+	init_stuff(&data);
 	prompt = (char *)1;
 	while (prompt)
 	{

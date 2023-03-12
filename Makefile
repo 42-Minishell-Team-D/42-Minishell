@@ -3,7 +3,7 @@ NAME = minishell
 CFLAGS = -g -pthread -Wall -Wextra -Werror #-fsanitize=address
 RM = rm
 LIBFT = ./libs/libft/libft.a
-FILESC = ./src/main.c ./src/functions1.c
+FILESC = ./src/main.c ./src/functions1.c ./src/init.c
 
 OBJS = $(FILESC:.c=.o)
 
