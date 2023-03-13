@@ -1,43 +1,45 @@
 #include "../libs/minishell.h"
 
-int	exec_echo(char *args, int n, size_t i)
+int	exec_echo(char *arg, int n, int	in_single, int	in_double)
 {
-	(void)i;
-	while (args[n] != '\0')
+	
+	while (arg[n] != '\0')
 	{
-		write(2, &args[n++], 1);
+		if (arg[n] == '\'')
+		{
+			if (in_single == 0 && in_double == 0)
+			{
+				in_single = 1;
+				n++;
+				continue ;
+			}
+			else if (in_single == 1)
+			{
+				in_single = 0;
+				n++;
+				continue ;
+			}
+		}
+		if (arg[n] == '"')
+		{
+			if (in_single == 0 && in_double == 0)
+			{
+				in_double = 1;
+				n++;
+				continue ;
+			}
+			else if (in_double == 1)
+			{
+				in_double = 0;
+				n++;
+				continue ;
+			}
+		}
+		write(2, &arg[n++], 1);
 	}
 	write(2, "\n", 1);
 	return (0);
 }
-
-/* Experimenting with another echo
-int	exec_echo(char *args, int n, size_t i)
-{
-	while (args[n])
-	{
-		if (args[n][0] == '\'')
-			while (i < ft_strlen((const char*)args[n]) - 1)
-				write(2, &args[n][i++], 1);
-		else
-			{
-				while (i < ft_strlen((const char*)args[n]) - 1)
-				{
-					if (args[n][i] == '"' )
-						i++;
-					else
-						write(2, &args[n][i++], 1);
-				}
-			}
-		n++;
-		i = 1;
-		if (args[n])
-			write(2, " ", 1);
-	}
-	printf("\n");
-	return (0);
-}
-*/
 
 void	exec_exit(char *p)
 {
