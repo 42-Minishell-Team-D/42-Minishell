@@ -1,6 +1,6 @@
 #include "../libs/minishell.h"
 
-int find_echo_var(char *arg, int n)
+int find_echo_var(char *arg, int n, t_data *data)
 {
 	char	*var;
 	int		i;
@@ -15,15 +15,17 @@ int find_echo_var(char *arg, int n)
 	}
 	var = (char *)malloc(i * sizeof(char));
 	if (!var)
-		return (-1);
-	ft_strlcpy(var, &arg[init], i);
-	printf("var = %s", var);
-	//printf("%s", getenv(var));
+		return (ft_strlen(arg) - 1);
+	ft_strlcpy(var, &arg[init], i + 1);
+	if (ft_strncmp(var, "?", 2) == 0)
+		printf("%d", data->rt);
+	else if (getenv(var))
+		printf("%s", getenv(var));
 	free(var);
-	return (n);
+	return (n + 1);
 }
 
-int	exec_echo(char *arg, int n, int	in_single, int	in_double)
+int	exec_echo(char *arg, int n, int	in_single, int	in_double, t_data * data)
 {
 	while  (arg[n] == ' ')
 		n++;
@@ -60,10 +62,11 @@ int	exec_echo(char *arg, int n, int	in_single, int	in_double)
 			}
 		}
 		if (in_single == 0 && arg[n] == '$')
-			n =+ find_echo_var(arg, ++n);
-		write(2, &arg[n++], 1);
+			n =+ find_echo_var(arg, ++n, data);
+		else
+			printf("%c", arg[n++]);
 	}
-	write(2, "\n", 1);
+	printf("\n");
 	return (0);
 }
 
