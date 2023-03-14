@@ -25,48 +25,29 @@ int find_echo_var(char *arg, int n, t_data *data)
 	return (n + 1);
 }
 
-int	exec_echo(char *arg, int n, int	in_single, int	in_double, t_data * data)
+int	exec_echo(char *arg, int in_single, int	in_double, t_data * data)
 {
-	while  (arg[n] == ' ')
-		n++;
-	while (arg[n] != '\0')
+	int		n;
+	char	*init_arg;
+
+	init_arg = arg;
+	while (*arg == ' ')
+		arg++;
+	while (*arg)
 	{
-		if (arg[n] == '\'')
+    	if (*arg == '\'' && !in_double)
+			in_single = !in_single;
+    	if (*arg == '"' && !in_single)
+			in_double = !in_double;
+    	if (*arg == '$' && !in_single)
 		{
-			if (in_single == 0 && in_double == 0)
-			{
-				in_single = 1;
-				n++;
-				continue ;
-			}
-			else if (in_single == 1)
-			{
-				in_single = 0;
-				n++;
-				continue ;
-			}
+			n += find_echo_var(arg, arg - init_arg, data);
+			arg += n;
 		}
-		if (arg[n] == '"')
-		{
-			if (in_single == 0 && in_double == 0)
-			{
-				in_double = 1;
-				n++;
-				continue ;
-			}
-			else if (in_double == 1)
-			{
-				in_double = 0;
-				n++;
-				continue ;
-			}
-		}
-		if (in_single == 0 && arg[n] == '$')
-			n =+ find_echo_var(arg, ++n, data);
-		else
-			printf("%c", arg[n++]);
+    	else
+			write(2, arg++, 1);
 	}
-	printf("\n");
+	write(2, "\n", 1);
 	return (0);
 }
 
