@@ -11,17 +11,6 @@ int	exec_pwd(void)
 	return (0);
 }
 
-int	exec_env(void)
-{
-	extern char	**environ;
-	char		**temp;
-
-	temp = environ;
-	while (*(temp + 2) != NULL)		// +2 because the last two elements of the environ array
-    	printf("%s\n", *temp++);	// are reserved for the lines and columns
-	return (0);
-}
-
 int	exec_cd(char *prompt)
 {
 	char	*temp;

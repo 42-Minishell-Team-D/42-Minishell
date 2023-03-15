@@ -35,6 +35,9 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 
 void	init_stuff(t_data *data, char **prompt)
 {
+	extern char	**environ;
+
+	data->env = environ;
 	init_data(data);
 	init_sa(data->sa, data->sb);
 	*prompt = (char *)1;
