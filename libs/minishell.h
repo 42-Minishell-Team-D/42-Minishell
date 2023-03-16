@@ -29,6 +29,7 @@ typedef struct minishell
 	int					pid;
 	int					rt;
 	char				**env;
+	char				**export;
 	struct sigaction	sa;
 	struct sigaction	sb;
 }				t_data;
@@ -54,7 +55,7 @@ int		nb_char_max(char **s);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
-void	init_data(t_data *data);
+void	init_data(t_data *data, int i);
 void	init_sa(struct sigaction sa, struct sigaction sb);
 void	init_stuff(t_data *data, char **prompt);
 

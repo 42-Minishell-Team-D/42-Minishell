@@ -10,54 +10,53 @@ int	exec_env(t_data *data)
 	return (0);
 }
 
-char **sort_export_ASCII(char **export, int size, int i, int j)
+void sort_export_ASCII(char **export, int size, int i, int j)
 {
 	// need to change functions for libft funcs
-	// fixing the logic. need to allocated memory with malloc for both env and export
-	char temp[nb_char_max(export)];
+	char *temp;
 
-	while(i < size)
+	while (i < size)
 	{
-    	while(j < size - 1 - i)
+		j = 0;
+		while (j < size - i - 1)
 		{
-     		if(strcmp(export[j], export[j+1]) > 0)
+			if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
 			{
-				//swap export[j] and export[j+1]
-				strcpy(temp, export[j]);
-				strcpy(export[j], export[j + 1]);
-				strcpy(export[j + 1], temp);
-    		}
+				temp = export[j];
+				export[j] = export[j+1];
+				export[j+1] = temp;
+			}
 			j++;
-    	}
+		}
 		i++;
 	}
+
 	// append "declare -x"
 	// i = 0;
 	// while (i < size)
-	// 	strcat("declare -x", export[i++]);
-
-	return (export);
+	// {
+	// 	ft_strlcat("declare -x", export[i++], nb_char_max(export));
+	// 	printf("ok\n");
+	// }
 }
 
-void print_export(char **env)
+void print_export(t_data *data)
 {
 	int i;
-	char *export[array_size(env)];
-	char **export2;
 
 	i = 0;
-	// clone env into export
-	while (env[i] != NULL)
+	data->export = malloc(sizeof(char *) * (array_size(data->env) + 1));
+	while (i < array_size(data->env))
 	{
-		export[i] = env[i];
+		data->export[i] = ft_strdup(data->env[i]);
 		i++;
 	}
-	export[i] = NULL;
-	export2 = sort_export_ASCII(export, array_size(export), 0, 0);
-
+	data->export[i] = NULL;
+	sort_export_ASCII(data->export, array_size(data->export), 0, 0);
 	i = 0;
-	while (export2[i] != NULL)	
-    	printf("%s\n", export2[i++]);
+	while (data->export[i] != NULL)	
+    	printf("%s\n", data->export[i++]);
+	free(data->export);
 }
 
 int	exec_export(t_data *data, char *p)
@@ -68,7 +67,7 @@ int	exec_export(t_data *data, char *p)
 	arg = ft_split(p + 7, ' ');
 	i = 0;
 	if (p[6] == '\0')	// "export    " should still work
-		print_export(data->env);
+		print_export(data);
 	else if (p[6] != ' ')
 		printf("minishell: %s command not found :\n", p);
 	else
