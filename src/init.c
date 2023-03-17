@@ -14,10 +14,19 @@ void	handler(int sig, siginfo_t *id, void *content)
 	return ;
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, int i)
 {
+	extern char	**environ;
+
 	data->rt = 0;
 	data->pid = 0;
+	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
+	while (i < array_size(environ))
+	{
+		data->env[i] = ft_strdup(environ[i]);
+		i++;
+	}
+	data->env[i] = NULL;
 }
 
 void	init_sa(struct sigaction sa, struct sigaction sb)
@@ -35,10 +44,7 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 
 void	init_stuff(t_data *data, char **prompt)
 {
-	extern char	**environ;
-
-	data->env = environ;
-	init_data(data);
+	init_data(data, 0);
 	init_sa(data->sa, data->sb);
 	*prompt = (char *)1;
 }
