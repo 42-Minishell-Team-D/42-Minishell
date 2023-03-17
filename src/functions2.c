@@ -31,6 +31,7 @@ int	exec_echo(char *arg, int in_single, int	in_double, t_data * data)
 	char	*init_arg;
 
 	init_arg = arg;
+	n = 0;
 	while (*arg == ' ')
 		arg++;
 	while (*arg)
