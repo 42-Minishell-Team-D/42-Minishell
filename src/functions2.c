@@ -1,41 +1,52 @@
 #include "../libs/minishell.h"
 
-int	exec_echo(char *arg, int n, int	in_single, int	in_double)
+int find_echo_var(char *arg, int n, t_data *data)
 {
-	
-	while (arg[n] != '\0')
+	char	*var;
+	int		i;
+	int		init;
+
+	i = 0;
+	init = n;
+	while (arg[n] != ' ' && arg[n] != '\0')
 	{
-		if (arg[n] == '\'')
+		n++;
+		i++;
+	}
+	var = (char *)malloc(i * sizeof(char));
+	if (!var)
+		return (ft_strlen(arg) - 1);
+	ft_strlcpy(var, &arg[init], i + 1);
+	if (ft_strncmp(var, "?", 2) == 0)
+		printf("%d", data->rt);
+	else if (getenv(var))
+		printf("%s", getenv(var));
+	free(var);
+	return (n + 1);
+}
+
+int	exec_echo(char *arg, int in_single, int	in_double, t_data * data)
+{
+	int		n;
+	char	*init_arg;
+
+	init_arg = arg;
+	n = 0;
+	while (*arg == ' ')
+		arg++;
+	while (*arg)
+	{
+    	if (*arg == '\'' && !in_double)
+			in_single = !in_single;
+    	if (*arg == '"' && !in_single)
+			in_double = !in_double;
+    	if (*arg == '$' && !in_single)
 		{
-			if (in_single == 0 && in_double == 0)
-			{
-				in_single = 1;
-				n++;
-				continue ;
-			}
-			else if (in_single == 1)
-			{
-				in_single = 0;
-				n++;
-				continue ;
-			}
+			n += find_echo_var(arg, arg - init_arg, data);
+			arg += n;
 		}
-		if (arg[n] == '"')
-		{
-			if (in_single == 0 && in_double == 0)
-			{
-				in_double = 1;
-				n++;
-				continue ;
-			}
-			else if (in_double == 1)
-			{
-				in_double = 0;
-				n++;
-				continue ;
-			}
-		}
-		write(2, &arg[n++], 1);
+    	else
+			write(2, arg++, 1);
 	}
 	write(2, "\n", 1);
 	return (0);
