@@ -2,7 +2,6 @@
 # define MINISHELL_H
 # define _XOPEN_SOURCE_EXTENDED 1
 # define _POSIX_SOURCE
-# define MAX_ARGS 50
 
 # include "./libft/libft.h"
 # include <stdio.h>
@@ -29,7 +28,7 @@ typedef struct command
 {
 	char				*prompt;
 	int					argc;
-	char				*argv[MAX_ARGS];
+	char				**argv;
 }			t_command;
 
 typedef struct minishell
@@ -51,6 +50,9 @@ void	exec_exit(char *p);
 int		exec_export(t_data *data, char *p);
 int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
+
+/*		prompt_handler/handler.c	*/
+void	divide_prompt(t_command *cmd);
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);

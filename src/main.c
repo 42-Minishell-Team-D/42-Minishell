@@ -1,17 +1,5 @@
 #include "../libs/minishell.h"
 
-/*
-static void divide_prompt(t_command *cmd)
-{
-	int	n;
-
-	n = 0;
-	while (cmd->prompt[n] != ' ' || != cmd->prompt[n])
-	{
-		n++;
-	}
-}*/
-
 int select_arg(char *p, t_data *data)
 {
 	if (p[0] == 'e' && p[1] == 'c' && p[2] == 'h' && p[3] == 'o')
@@ -47,7 +35,10 @@ int	main(void)
 	{
 		cmd.prompt = readline("minishell$");
 		add_history(cmd.prompt);
-		//divide_promp(&cmd);
+		divide_prompt(&cmd);
+		free(cmd.prompt);
+		continue ;
+
 		if (cmd.prompt != NULL)
 			select_arg(cmd.prompt, &data);
 		free(cmd.prompt);

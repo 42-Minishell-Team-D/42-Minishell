@@ -6,14 +6,16 @@ LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c ./src/init.c \
 		./builtins/cd.c ./builtins/echo.c ./builtins/env.c	./builtins/exit.c \
 		./builtins/export.c ./builtins/pwd.c ./builtins/unset.c \
-		./src/functions1.c ./src/utils1.c
+		./prompt_handler/handler.c \
+		./src/functions1.c ./src/utils1.c \
+
 
 OBJS = $(FILESC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBFT) $(CFLAGS)
+	@$(CC) -o $(NAME) $(OBJS) $(LIBFT) $(CFLAGS) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
