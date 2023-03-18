@@ -3,7 +3,7 @@
 int select_arg(char *p, t_data *data)
 {
 	if (p[0] == 'e' && p[1] == 'c' && p[2] == 'h' && p[3] == 'o')
-		data->rt = exec_echo(p + 5, 0, 0, data);
+		data->rt = exec_echo(p + 5, 0, data);
 	else if (p[0] == 'c' && p[1] == 'd')
 		data->rt = exec_cd(p);
 	else if (p[0] == 'p' && p[1] == 'w' && p[2] == 'd' && p[3] == '\0')

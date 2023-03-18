@@ -40,7 +40,7 @@ int		exec_cd(char *prompt);
 int		exec_prog(char *prompt);
 
 /*			src/functions2.c	*/
-int		exec_echo(char *arg, int in_single, int	in_double, t_data *data);
+int		exec_echo(char *arg, int n, t_data *data);
 void	exec_exit(char *p);
 
 /*			src/functions3.c	*/
