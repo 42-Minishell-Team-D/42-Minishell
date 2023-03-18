@@ -1,6 +1,6 @@
 #include "../libs/minishell.h"
 
-int find_echo_var(char *arg, int n, int init, t_data *data)
+static int find_echo_var(char *arg, int n, int init, t_data *data)
 {
 	char	*var;
 

@@ -1,6 +1,6 @@
 #include "../libs/minishell.h"
 
-void sort_export_ASCII(char **export, int size, int i, int j)
+static void sort_export_ASCII(char **export, int size, int i, int j)
 {
 	// need to change functions for libft funcs
 	char *temp;
@@ -30,7 +30,7 @@ void sort_export_ASCII(char **export, int size, int i, int j)
 	// }
 }
 
-void print_export(t_data *data)
+static void print_export(t_data *data)
 {
 	int i;
 
