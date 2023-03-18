@@ -1,16 +1,16 @@
 #include "../libs/minishell.h"
 
-
+/*
 static void divide_prompt(t_command *cmd)
 {
 	int	n;
 
 	n = 0;
-	while (cmd->prompt[n] != ' ' cmd->prompt[n])
+	while (cmd->prompt[n] != ' ' || != cmd->prompt[n])
 	{
 		n++;
 	}
-}
+}*/
 
 int select_arg(char *p, t_data *data)
 {
