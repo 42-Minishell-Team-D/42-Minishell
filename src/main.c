@@ -16,7 +16,7 @@ int select_arg(char *p, t_data *data)
 		data->rt = exec_env(data);
 	else if (p[0] == 'e' && p[1] == 'x' && p[2] == 'i' && p[3] == 't')
 		exec_exit(p);
-	else if (p[0] == '.' && p[1] == '/')
+	else if ((p[0] == '.' && p[1] == '/') || (p[0] == '.' && p[1] == '.' && p[2] == '/'))
 		data->rt = exec_prog(p);
 	else if (p[0] == 0)	// enter is giving new prompt
 		return (0);

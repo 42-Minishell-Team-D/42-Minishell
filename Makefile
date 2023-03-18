@@ -4,7 +4,9 @@ CFLAGS = -g -pthread -Wall -Wextra -Werror -lreadline #-fsanitize=address
 RM = rm
 LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c ./src/init.c \
-		./src/functions1.c ./src/functions2.c ./src/functions3.c ./src/utils1.c
+		./builtins/cd.c ./builtins/echo.c ./builtins/env.c	./builtins/exit.c \
+		./builtins/export.c ./builtins/pwd.c ./builtins/unset.c \
+		./src/functions1.c ./src/utils1.c
 
 OBJS = $(FILESC:.c=.o)
 
