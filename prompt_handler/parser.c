@@ -34,7 +34,7 @@ void parser(char *prompt)
 	// the ideia is to separate the inputs into tokens
 	// each token is the whole command like "echo -n asas 'hii'"
 	// But first we need to try see how many arguments it has
-	// So we can allocate memory to it
+	// So we can allocate memory to it in the binary tree
 
 	i = 0;
 	n = 0;
