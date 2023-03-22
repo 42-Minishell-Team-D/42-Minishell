@@ -21,29 +21,26 @@ int select_arg(char *p, t_data *data)
 	else if (p[0] == 0)	// enter is giving new prompt
 		return (0);
 	else
-		printf("minishell: %s command not found :\n", p);
+		printf("minishell: %s command not found :/\n", p);
 	return (0);
 }
 
 int	main(void)
 {
 	t_data		data;
-	t_command	cmd;
 
-	init_stuff(&data, &cmd.prompt);
-	while (cmd.prompt)
+	init_stuff(&data, &data.prompt);
+	while (data.prompt)
 	{
-		cmd.prompt = readline("minishell$");
-		add_history(cmd.prompt);
-		divide_prompt(&cmd);
-		free(cmd.prompt);
-		continue ;
+		data.prompt = readline("minishell$");
+		add_history(data.prompt);
+		//parser(data.prompt);
 
-		if (cmd.prompt != NULL)
-			select_arg(cmd.prompt, &data);
-		free(cmd.prompt);
+		if (data.prompt != NULL)
+			select_arg(data.prompt, &data);
+		free(data.prompt);
 	}
 	rl_clear_history();
-	free(cmd.prompt);
+	free(data.prompt);
 	return (0);
 }

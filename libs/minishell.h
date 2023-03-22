@@ -24,23 +24,26 @@
 
 // missing: ttyslot, sigaddset, lstat
 
-typedef struct command
+typedef struct binary_tree
 {
-	char				*prompt;
-	int					argc;
-	char				**argv;
-}			t_command;
+	char				*args;
+	int					id;
+	void				*data;
+	struct binary_tree	*left;
+	struct binary_tree	*right;
+}					t_bt;
 
 typedef struct minishell
 {
 	int					pid;
 	int					rt;
+	char				*prompt;
+	char				*tokens;
 	char				**env;
 	char				**export;
 	struct sigaction	sa;
 	struct sigaction	sb;
-	struct t_command	*cmd;
-}				t_data;
+}					t_data;
 
 /*			builtins/			*/
 int		exec_cd(char *prompt);
@@ -51,8 +54,8 @@ int		exec_export(t_data *data, char *p);
 int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
-/*		prompt_handler/handler.c	*/
-void	divide_prompt(t_command *cmd);
+/*		prompt_handler/parser.c	*/
+void	parser(char *prompt);
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);
