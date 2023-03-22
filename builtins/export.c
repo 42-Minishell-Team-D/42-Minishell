@@ -1,8 +1,26 @@
 #include "../libs/minishell.h"
 
+static void quote(char *export, int i, int j)
+{
+	char temp[ft_strlen(export) + 2];
+
+	while (export[i] && export[i] != '=')
+		temp[j++] = export[i++];
+	if (export[i])
+	{
+		temp[j++] = export[i++];
+		temp[j++] = '"';
+		while (export[i])
+			temp[j++] = export[i++];
+		temp[j++] = '"';
+		temp[j++] = '\0';
+		free(export);
+		export = ft_strdup(temp);
+	}
+}
+
 static void sort_export_ASCII(char **export, int size, int i, int j)
 {
-	// need to change functions for libft funcs
 	char *temp;
 
 	while (i < size)
@@ -21,13 +39,12 @@ static void sort_export_ASCII(char **export, int size, int i, int j)
 		i++;
 	}
 
-	// append "declare -x"
-	// i = 0;
-	// while (i < size)
-	// {
-	// 	ft_strlcat("declare -x", export[i++], nb_char_max(export));
-	// 	printf("ok\n");
-	// }
+	i = 0;
+	while (i < size)
+	{
+		export[i] = ft_strjoin("declare -x ", export[i]);
+		quote(export[i++], 0, 0);
+	}
 }
 
 static void print_export(t_data *data)

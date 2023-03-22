@@ -21,7 +21,7 @@ void	init_data(t_data *data, int i)
 	data->rt = 0;
 	data->pid = 0;
 	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
-	while (i < array_size(environ))
+	while (i < array_size(environ) - 2)				// -2 because the last two elements of the environ export are reserved for the lines and columns
 	{
 		data->env[i] = ft_strdup(environ[i]);
 		i++;
