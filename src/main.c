@@ -32,7 +32,7 @@ int	main(void)
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
-		data.prompt = readline("minishell$");
+		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
 		//parser(data.prompt, data);
 

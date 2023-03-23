@@ -31,7 +31,14 @@ typedef struct binary_tree
 	void				*data;
 	struct binary_tree	*left;
 	struct binary_tree	*right;
+	struct binary_tree	*prev;
 }					t_bt;
+
+typedef struct pipe
+{
+	int			write_fd;
+	int			read_fd;
+}				t_pipe;
 
 typedef struct minishell
 {
