@@ -4,6 +4,8 @@
 # define _POSIX_SOURCE
 
 # include "./libft/libft.h"
+# include "./ft_printf_fd/ft_printf.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <curses.h>
