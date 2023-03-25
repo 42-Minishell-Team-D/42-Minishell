@@ -28,6 +28,14 @@ int select_arg(char *p, t_data *data)
 int	main(void)
 {
 	t_data		data;
+	// t_bt		tree;
+	char *parser[] = {
+    	"grep 'org'",
+    	"|",
+    	"grep 'GNOME'",
+    	"|",
+    	"export",
+	};
 
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
@@ -35,6 +43,7 @@ int	main(void)
 		data.prompt = readline("minishell$");
 		add_history(data.prompt);
 		//parser(data.prompt);
+		// executor(parser, &tree);
 
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);
