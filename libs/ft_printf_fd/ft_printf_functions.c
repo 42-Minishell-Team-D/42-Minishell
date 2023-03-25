@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:19:36 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/01/26 21:38:40 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:07:42 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ int	int_len(int n, int len)
 	return (len);
 }
 
-void	print_str(int fd, int i, char *str, int n, int len)
+void	print_str(int fd, char *str, int n, int len)
 {
+	int		i;
+
+	i = 0;
 	str[len] = '\0';
 	while (n >= 10)
 	{
@@ -74,7 +77,6 @@ int	nbr_function(int fd, int n)
 {
 	char	*str;
 	int		len;
-	int		i;
 
 	len = 0;
 	if (nbr_if(fd, n, -1) == 11)
@@ -85,10 +87,9 @@ int	nbr_function(int fd, int n)
 		len++;
 	}
 	len += int_len(n, len);
-	i = 0;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (0);
-	print_str(fd, i, str, n, len);
+	print_str(fd, str, n, len);
 	return (len);
 }

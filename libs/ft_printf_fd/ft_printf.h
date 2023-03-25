@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:45:43 by ddantas-          #+#    #+#             */
-/*   Updated: 2022/08/12 14:50:05 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:07:51 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_funcion_selector(int fd, char c, va_list ap);
 int		p_function(int fd, unsigned long int p);
 int		nbr_if(int fd, int n, int sinal);
 int		int_len(int n, int len);
-void	print_str(int fd, int i, char *str, int n, int len);
+void	print_str(int fd, char *str, int n, int len);
 int		nbr_function(int fd, int n);
 
 // ft_printf_function_2.c
