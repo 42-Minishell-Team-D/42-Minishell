@@ -33,12 +33,24 @@ typedef struct binary_tree
 	struct binary_tree	*right;
 }					t_bt;
 
+typedef struct pipe
+{
+	int			write_fd;
+	int			read_fd;
+}				t_pipe;
+
+typedef struct redirection
+{
+	int			write_fd;
+	int			read_fd;
+}				t_redirection;
+
 typedef struct minishell
 {
 	int					pid;
 	int					rt;
 	char				*prompt;
-	char				*tokens;
+	char				**tokens;
 	char				**env;
 	char				**export;
 	struct sigaction	sa;
@@ -56,6 +68,11 @@ int		exec_unset(t_data *data, char *p);
 
 /*		prompt_handler/parser.c	*/
 void	parser(char *prompt);
+
+/*		prompt_handler/create_node.c	*/
+void	create_node(char **parser, t_bt *tree);
+
+/*		prompt_handler/executor.c	*/
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);

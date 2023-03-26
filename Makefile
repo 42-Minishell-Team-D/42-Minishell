@@ -7,9 +7,8 @@ LIBFT = ./libs/libft/libft.a
 FILESC = ./src/main.c ./src/init.c \
 		./builtins/cd.c ./builtins/echo.c ./builtins/env.c	./builtins/exit.c \
 		./builtins/export.c ./builtins/pwd.c ./builtins/unset.c \
-		./prompt_handler/parser.c \
+		./prompt_handler/parser.c ./prompt_handler/create_node.c ./prompt_handler/executor.c \
 		./src/functions1.c ./src/utils1.c \
-
 
 OBJS = $(FILESC:.c=.o)
 

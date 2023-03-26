@@ -29,21 +29,22 @@ int	main(void)
 {
 	t_data		data;
 	// t_bt		tree;
-	char *parser[] = {
-    	"grep 'org'",
-    	"|",
-    	"grep 'GNOME'",
-    	"|",
-    	"export",
-	};
+	// char *parser[] = {
+    // 	"grep 'org'",
+    // 	"|",
+    // 	"grep 'GNOME'",
+    // 	"|",
+    // 	"export",
+	// };
 
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
 		data.prompt = readline("minishell$");
 		add_history(data.prompt);
-		//parser(data.prompt);
-		// executor(parser, &tree);
+		// parser(data.prompt);
+		// create_node(parser, &tree);
+		// executor(&data, &tree);
 
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);
