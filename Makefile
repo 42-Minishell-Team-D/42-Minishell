@@ -8,7 +8,7 @@ FT_PRINTF_FD = ./libs/ft_printf_fd/libftprintf.a
 FILESC = ./src/main.c ./src/init.c \
 		./builtins/cd.c ./builtins/echo.c ./builtins/env.c	./builtins/exit.c \
 		./builtins/export.c ./builtins/pwd.c ./builtins/unset.c \
-		./prompt_handler/parser.c \
+		./prompt_handler/parser/parser.c \
 		./src/functions1.c ./src/utils1.c \
 
 

@@ -24,6 +24,12 @@
 # include <readline/history.h>
 # include <linux/limits.h>
 
+# define GREAT 1 
+# define GREATGREAT 2
+# define LESS 3 
+# define LESSLESS 4
+# define PIPE 5
+
 // missing: ttyslot, sigaddset, lstat
 
 typedef struct binary_tree
@@ -42,16 +48,26 @@ typedef struct pipe
 	int			read_fd;
 }				t_pipe;
 
+typedef struct parser
+{
+	int 	n;
+	int 	i;
+	int 	in_double;
+	int 	in_single;
+	char	token[250];
+}				t_parser;
+
 typedef struct minishell
 {
 	int					pid;
 	int					rt;
 	char				*prompt;
-	char				*tokens;
+	char				**tokens;
 	char				**env;
 	char				**export;
 	struct sigaction	sa;
 	struct sigaction	sb;
+	struct parser		p;
 }					t_data;
 
 /*			builtins/			*/
@@ -64,7 +80,8 @@ int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
 /*		prompt_handler/parser.c	*/
-void	parser(char *prompt);
+int		parser(t_data *data);
+
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);

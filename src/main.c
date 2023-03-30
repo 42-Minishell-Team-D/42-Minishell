@@ -34,8 +34,7 @@ int	main(void)
 	{
 		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
-		//parser(data.prompt, data);
-
+		//parser(&data);
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);
 		free(data.prompt);
