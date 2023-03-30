@@ -58,8 +58,10 @@ typedef struct parser
 {
 	int 	n;
 	int 	i;
+	int 	temp;
 	int 	in_double;
 	int 	in_single;
+	char	*char_temp;
 	char	token[250];
 }				t_parser;
 

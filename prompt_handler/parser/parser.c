@@ -50,40 +50,51 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 	else if (special == GREAT)
 	{
 		data->tokens[p->i++][0] = '>';
-		return(ptr + 1);
+		return (ptr + 1);
 	}
 	return (ptr);
 }
 
 static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 {
-	char	*temp;
 	ptr++;
 	if (*ptr == '?')
 	{
-		temp = malloc(sizeof(char) * ft_strlen(ft_itoa(data->rt)));
-		temp = ft_itoa(data->rt);
-		temp = ft_strjoin(p->token, temp);
-		ft_strlcpy(p->token, temp, ft_strlen(temp) + 1);
+		p->char_temp = malloc(sizeof(char) * ft_strlen(ft_itoa(data->rt)));
+		if (p->char_temp == NULL)
+			return (NULL);
+		p->char_temp = ft_itoa(data->rt);
+		p->char_temp = ft_strjoin(p->token, p->char_temp);
+		ft_strlcpy(p->token, p->char_temp, ft_strlen(p->char_temp) + 1);
 		p->n += ft_strlen(ft_itoa(data->rt));
+		free(p->char_temp);
 		ptr++;
+	}
+	else if (*ptr != '\0' && *ptr != ' ')
+	{
+		while (*ptr != '\0' && *ptr == ' ')
+		{
+			ptr++;
+			p->temp++;
+		}
+		p->char_temp = malloc(sizeof(char) * p->temp);
+		if (p->char_temp == NULL)
+			return (NULL);
 	}
 	else
 	{
+		p->token[p->n++] = '$';
 	}
 	return (ptr);
 }
 
-static void	get_next_token(t_data *data, t_parser *p)
+static char	*get_next_token(t_data *data, t_parser *p)
 {
-	char *ptr = NULL;
+	char *ptr;
 
 	p->n = 0;
-	ft_bzero(p->token, 250);
-	if (ptr == NULL)
-		ptr = data->prompt;
-	if (*ptr == '\0')
-		return ;
+	ptr = data->prompt;
+
 	while (*ptr != '\0')
 	{
 		if (*ptr == '"' && !p->in_single)
@@ -91,7 +102,11 @@ static void	get_next_token(t_data *data, t_parser *p)
 		if (*ptr == '\'' && !p->in_double)
 			p->in_single = !p->in_single;
 		if (*ptr == '$' && !p->in_single)
+		{
 			ptr = handle_dollar(ptr, p, data);
+			if (ptr == NULL)
+				return (NULL);
+		}
 		if (is_new_token(*ptr, *ptr + 1) > 0)
 			ptr = handle_special_char(ptr, p, data);
 		else if (*ptr != '\0')
@@ -101,17 +116,22 @@ static void	get_next_token(t_data *data, t_parser *p)
 		}
 	}
 	ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
+	return (0);
 }
 
 int	parser(t_data *data)
 {
 	t_parser	*p;
 
+	if (data->prompt[0] == '\0')
+		return (0);
 	p = &data->p;
 	p->i = 0;
 	p->n = 0;
+	p->temp = 0;
 	p->in_double = 0;
 	p->in_single = 0;
+	ft_bzero(p->token, 250);
 	get_next_token(data, p);
 	/*int i = 0;
 	while (data->tokens[i] != NULL)

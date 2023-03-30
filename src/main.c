@@ -42,7 +42,8 @@ int	main(void)
 	{
 		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
-		//parser(&data);
+		if (data.prompt != NULL)
+			parser(&data);
 		// create_node(parser, &tree);
 		// executor(&data, &tree);
 		if (data.prompt != NULL)
