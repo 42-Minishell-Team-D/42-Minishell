@@ -23,6 +23,8 @@ void	init_data(t_data *data, int i)
 	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
 	if (!data->env)
 		return ;
+	if (data->env == NULL)
+		exit(write(1, "Error: malloc failed\n", 21));
 	while (i < array_size(environ) - 2)				// -2 because the last two elements of the environ export are reserved for the lines and columns
 	{
 		data->env[i] = ft_strdup(environ[i]);
@@ -44,9 +46,36 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sigaction(SIGQUIT, &sb, NULL);
 }
 
+static void init_parser(t_data *data)
+{
+	int i;
+
+	i = 10;
+	data->tokens = (char **)malloc(i * sizeof(char*));
+	if (data->tokens == NULL)
+	{
+		free(data->env);
+		exit(write(1, "Error: malloc failed\n", 21));
+	}
+	while (i-- > 0)
+	{
+		data->tokens[i] = (char *)malloc(250 * sizeof(char));
+		if(data->tokens[i] == NULL)
+		{
+			free(data->env);
+			free(data->tokens);
+			while (i++ < 0)
+				free(data->tokens[i]);
+			exit(write(1, "Error: malloc failed\n", 21));
+		}
+		ft_bzero(data->tokens[i], 250);
+	}
+}
+
 void	init_stuff(t_data *data, char **prompt)
 {
-	init_data(data, 0);
+	init_data(data, 10);
 	init_sa(data->sa, data->sb);
+	init_parser(data);
 	*prompt = (char *)1;
 }

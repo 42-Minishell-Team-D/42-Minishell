@@ -4,6 +4,8 @@
 # define _POSIX_SOURCE
 
 # include "./libft/libft.h"
+# include "./ft_printf_fd/ft_printf.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <curses.h>
@@ -22,6 +24,12 @@
 # include <readline/history.h>
 # include <linux/limits.h>
 
+# define GREAT 1 
+# define GREATGREAT 2
+# define LESS 3 
+# define LESSLESS 4
+# define PIPE 5
+
 // missing: ttyslot, sigaddset, lstat
 
 typedef struct binary_tree
@@ -31,6 +39,7 @@ typedef struct binary_tree
 	void				*data;
 	struct binary_tree	*left;
 	struct binary_tree	*right;
+	struct binary_tree	*prev;
 }					t_bt;
 
 typedef struct pipe
@@ -45,6 +54,15 @@ typedef struct redirection
 	int			read_fd;
 }				t_redirection;
 
+typedef struct parser
+{
+	int 	n;
+	int 	i;
+	int 	in_double;
+	int 	in_single;
+	char	token[250];
+}				t_parser;
+
 typedef struct minishell
 {
 	int					pid;
@@ -55,6 +73,7 @@ typedef struct minishell
 	char				**export;
 	struct sigaction	sa;
 	struct sigaction	sb;
+	struct parser		p;
 }					t_data;
 
 /*			builtins/			*/
@@ -67,7 +86,8 @@ int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
 /*		prompt_handler/parser.c	*/
-void	parser(char *prompt);
+int		parser(t_data *data);
+
 
 /*		prompt_handler/create_node.c	*/
 void	create_node(char **parser, t_bt *tree);
