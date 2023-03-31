@@ -1,4 +1,4 @@
-#include "../libs/minishell.h"
+#include "../../libs/minishell.h"
 
 void *init_parent_struct(char *token)
 {

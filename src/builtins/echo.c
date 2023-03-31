@@ -1,4 +1,4 @@
-#include "../libs/minishell.h"
+#include "../../libs/minishell.h"
 
 static int find_echo_var(char *arg, int n, int init, t_data *data)
 {

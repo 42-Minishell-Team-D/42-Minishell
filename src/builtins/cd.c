@@ -1,4 +1,4 @@
-#include "../libs/minishell.h"
+#include "../../libs/minishell.h"
 
 int	exec_cd(char *prompt)
 {

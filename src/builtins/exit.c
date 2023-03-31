@@ -1,4 +1,4 @@
-#include "../libs/minishell.h"
+#include "../../libs/minishell.h"
 
 void	exec_exit(char *p)
 {

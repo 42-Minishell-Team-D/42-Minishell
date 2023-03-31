@@ -28,7 +28,7 @@ int select_arg(char *p, t_data *data)
 int	main(void)
 {
 	t_data		data;
-	// t_bt		tree;
+	t_bt		tree;
 	// char *parser[] = {
     // 	"grep 'org'",
     // 	"|",
@@ -36,7 +36,7 @@ int	main(void)
     // 	"|",
     // 	"export",
 	// };
-
+	
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
@@ -44,7 +44,7 @@ int	main(void)
 		add_history(data.prompt);
 		if (data.prompt != NULL)
 			parser(&data);
-		// create_node(parser, &tree);
+		create_node(data.tokens, &tree);
 		// executor(&data, &tree);
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);

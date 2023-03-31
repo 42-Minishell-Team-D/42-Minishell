@@ -1,4 +1,4 @@
-#include "../libs/minishell.h"
+#include "../../libs/minishell.h"
 
 static void quote(char *export, int i, int j)
 {
