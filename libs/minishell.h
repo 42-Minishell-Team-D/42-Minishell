@@ -78,7 +78,7 @@ typedef struct minishell
 	struct parser		p;
 }					t_data;
 
-/*			builtins/			*/
+/*			src/builtins/			*/
 int		exec_cd(char *prompt);
 int		exec_echo(char *arg, int n, t_data *data);
 int		exec_env(t_data *data);
@@ -87,14 +87,11 @@ int		exec_export(t_data *data, char *p);
 int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
-/*		prompt_handler/parser.c	*/
+/*		src/parser	*/
 int		parser(t_data *data);
-
-
-/*		prompt_handler/create_node.c	*/
 void	create_node(char **parser, t_bt *tree);
 
-/*		prompt_handler/executor.c	*/
+/*		src/executor.c	*/
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);
