@@ -35,3 +35,4 @@ int nb_char_max(char **s)
 	}
 	return (ret);
 }
+

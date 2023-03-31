@@ -125,7 +125,7 @@ static char	*get_next_token(t_data *data, t_parser *p)
 	return (0);
 }
 
-int	parser(t_data *data)
+int	lexical_analyzer(t_data *data)
 {
 	t_parser	*p;
 

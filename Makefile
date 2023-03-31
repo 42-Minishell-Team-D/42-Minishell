@@ -8,8 +8,8 @@ FT_PRINTF_FD = ./libs/ft_printf_fd/libftprintf.a
 FILESC = ./src/main.c ./src/init.c \
 		./src/builtins/cd.c ./src/builtins/echo.c ./src/builtins/env.c	./src/builtins/exit.c \
 		./src/builtins/export.c ./src/builtins/pwd.c ./src/builtins/unset.c \
-		./src/parser/parser.c \
-		./src/parser/create_node.c ./src/executor/executor.c \
+		./src/parser/lexical_analyzer.c \
+		./src/parser/create_tree.c ./src/executor/executor.c \
 		./src/functions1.c ./src/utils1.c \
 
 OBJS = $(FILESC:.c=.o)
