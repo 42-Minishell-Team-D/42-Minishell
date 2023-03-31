@@ -72,21 +72,21 @@ static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 	}
 	else if (*ptr != '\0' && *ptr != ' ')
 	{
-		while (*ptr != '\0' && *ptr == ' ')
+		while (*ptr != '\0' && *ptr != ' ')
 		{
 			ptr++;
 			p->temp++;
 		}
-		p->char_temp = malloc(sizeof(char) * p->temp);
+		p->char_temp = malloc(sizeof(char) * p->temp + 1);
 		if (p->char_temp == NULL)
 			return (NULL);
 		ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
-		printf("char_temp: %s\n", p->char_temp);
 		if (getenv(p->char_temp))
 		{
-			ft_strlcpy(p->token, getenv(p->char_temp), ft_strlen(p->char_temp) + 1);
+			ft_strlcpy(&p->token[ft_strlen(p->token)], getenv(p->char_temp), ft_strlen(getenv(p->char_temp)) + 1);
 			p->n += ft_strlen(getenv(p->char_temp));
 			free(p->char_temp);
+			ptr--;
 		}
 	}
 	else
