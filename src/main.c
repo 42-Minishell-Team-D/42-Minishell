@@ -25,17 +25,36 @@ int select_arg(char *p, t_data *data)
 	return (0);
 }
 
+void print_lexical_analyzer(char **tokens)
+{
+	printf("Tokens:\n");
+	for (int i = 0; i < array_size(tokens); i++) {
+		printf("  %i: %s\n", i, tokens[i]);
+	}
+	printf("\n");
+}
+
+void print_tree(t_bt *tree)
+{
+	t_bt *left_tree = tree;
+	printf("Tree:\n");
+	while (tree != NULL)
+	{
+    	printf("ID: %i  Token: %s\n", tree->id, tree->args);
+		if (tree->left != NULL)
+		{
+			left_tree = tree->left;
+			printf("ID: %i  Token: %s\n", left_tree->id, left_tree->args);
+		}
+		tree = tree->right;
+	}
+	printf("\n");
+}
+
 int	main(void)
 {
 	t_data		data;
-	t_bt		tree;
-	// char *parser[] = {
-    // 	"grep 'org'",
-    // 	"|",
-    // 	"grep 'GNOME'",
-    // 	"|",
-    // 	"export",
-	// };
+	t_bt		*tree;
 	
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
@@ -43,9 +62,13 @@ int	main(void)
 		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
 		if (data.prompt != NULL)
-			parser(&data);
-		create_node(data.tokens, &tree);
-		// executor(&data, &tree);
+		{
+			lexical_analyzer(&data);
+			// print_tokens(data.tokens);
+			tree = create_tree(data.tokens, tree);
+    		// print_tree(tree);
+			// executor(&data, &tree);
+		}
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);
 		free(data.prompt);

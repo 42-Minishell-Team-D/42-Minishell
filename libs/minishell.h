@@ -39,7 +39,6 @@ typedef struct binary_tree
 	void				*data;
 	struct binary_tree	*left;
 	struct binary_tree	*right;
-	struct binary_tree	*prev;
 }					t_bt;
 
 typedef struct pipe
@@ -48,11 +47,29 @@ typedef struct pipe
 	int			read_fd;
 }				t_pipe;
 
-typedef struct redirection
+typedef struct great
 {
 	int			write_fd;
 	int			read_fd;
-}				t_redirection;
+}				t_great;
+
+typedef struct greatgreat
+{
+	int			write_fd;
+	int			read_fd;
+}				t_greatgreat;
+
+typedef struct less
+{
+	int			write_fd;
+	int			read_fd;
+}				t_less;
+
+typedef struct lessless
+{
+	int			write_fd;
+	int			read_fd;
+}				t_lessless;
 
 typedef struct parser
 {
@@ -78,7 +95,7 @@ typedef struct minishell
 	struct parser		p;
 }					t_data;
 
-/*			builtins/			*/
+/*		builtins/			*/
 int		exec_cd(char *prompt);
 int		exec_echo(char *arg, int n, t_data *data);
 int		exec_env(t_data *data);
@@ -87,30 +104,30 @@ int		exec_export(t_data *data, char *p);
 int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
-/*		prompt_handler/parser.c	*/
-int		parser(t_data *data);
+/*		parser/parser.c	*/
+int		lexical_analyzer(t_data *data);
 
 
-/*		prompt_handler/create_node.c	*/
-void	create_node(char **parser, t_bt *tree);
+/*		parser/create_node.c	*/
+t_bt	*create_tree(char **parser, t_bt *tree);
 
-/*		prompt_handler/executor.c	*/
+/*		executor/executor.c	*/
 
-/*			src/functions1.c	*/
+/*		functions1.c	*/
 int		exec_prog(char *prompt);
 
-/*			src/init.c			*/
+/*		init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
 void	init_data(t_data *data, int i);
 void	init_sa(struct sigaction sa, struct sigaction sb);
 void	init_stuff(t_data *data, char **prompt);
 
-/*			src/utils1.c		*/
+/*		tils1.c		*/
 int		array_size(char **s);
 int		search_var(char **s);
 int		nb_char_max(char **s);
 
-/*			src/main.c 			*/
+/*		main.c 			*/
 int		select_arg(char *p, t_data *data);
 
 #endif

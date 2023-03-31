@@ -3,7 +3,10 @@
 void *init_parent_struct(char *token)
 {
     t_pipe          *pipe;
-    t_redirection   *redirection;
+    t_great         *great;
+    // t_greatgreat    *greatgreat;
+    // t_less          *less;
+    // t_lessless      *lessless;
 
     if (ft_strncmp(token, "|", 1))
     {
@@ -14,10 +17,10 @@ void *init_parent_struct(char *token)
     }
     else if (ft_strncmp(token, ">", 1))
     {
-        redirection = malloc(sizeof(redirection));
-        if (!redirection)
+        great = malloc(sizeof(great));
+        if (!great)
             return NULL;
-        return (redirection);
+        return (great);
     }
     return NULL;
 }
@@ -37,7 +40,7 @@ t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 	return (node);
 }
 
-void create_node(char **parser, t_bt *tree)        // With current implementation: parser should always be an odd number of strings!
+t_bt *create_tree(char **parser, t_bt *tree)        // With current implementation: parser should always be an odd number of strings!
 {
     int     i;
     int     size;
@@ -48,7 +51,7 @@ void create_node(char **parser, t_bt *tree)        // With current implementatio
     tree = ft_btnew(parser[i], size - i, NULL, NULL);
     i++;
     if (!(i < size))
-        return ;
+        return NULL;
     tree = ft_btnew(parser[i], size - i, tree, NULL);
     i++;
     while (i + 1 < size)
@@ -59,4 +62,6 @@ void create_node(char **parser, t_bt *tree)        // With current implementatio
         i++;
     }
     tree = ft_btnew(parser[i], size - i, NULL, tree);
+    return (tree);
 }
+
