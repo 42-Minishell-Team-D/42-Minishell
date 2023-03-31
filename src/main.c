@@ -25,7 +25,7 @@ int select_arg(char *p, t_data *data)
 	return (0);
 }
 
-void print_lexical_analyzer(char **tokens)
+void print_tokens(char **tokens)
 {
 	printf("Tokens:\n");
 	for (int i = 0; i < array_size(tokens); i++) {
@@ -68,6 +68,7 @@ int	main(void)
 			tree = create_tree(data.tokens, tree);
     		// print_tree(tree);
 			// executor(&data, &tree);
+			free_tree(tree);
 		}
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);

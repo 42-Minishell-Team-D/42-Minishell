@@ -48,12 +48,6 @@ typedef struct pipe
 	int			read_fd;
 }				t_pipe;
 
-typedef struct redirection
-{
-	int			write_fd;
-	int			read_fd;
-}				t_redirection;
-
 typedef struct great
 {
 	int			write_fd;
@@ -114,6 +108,10 @@ int		exec_unset(t_data *data, char *p);
 /*		src/parser	*/
 int		lexical_analyzer(t_data *data);
 t_bt	*create_tree(char **parser, t_bt *tree);
+int		check_invalid_inputs(char **tokens);
+
+/*		src/free	*/
+void    free_tree(t_bt *tree);
 
 /*		src/executor	*/
 

@@ -1,5 +1,22 @@
 #include "../../libs/minishell.h"
 
+char **reverse_array(char **tokens, int size)
+{
+    int i;
+    char *tmp;
+
+    i = 0;
+    while (size > i)
+    {
+        tmp = tokens[size];
+        tokens[size] = tokens[i];
+        tokens[i] = tmp;
+        size--;
+        i++;
+    }
+    return (tokens);    
+}
+
 void *init_parent_struct(char *token)
 {
     t_pipe          *pipe;
@@ -27,7 +44,7 @@ void *init_parent_struct(char *token)
 
 t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 {
-	t_bt	*node;
+    t_bt	*node;
 
 	node = malloc(sizeof(*node));
 	if (!node)
@@ -40,28 +57,31 @@ t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 	return (node);
 }
 
-t_bt *create_tree(char **parser, t_bt *tree)        // With current implementation: parser should always be an odd number of strings!
+t_bt *create_tree(char **tokens, t_bt *tree)
 {
     int     i;
     int     size;
     t_bt    *tmp;
 
     i = 0;
-    size = array_size(parser);
-    tree = ft_btnew(parser[i], size - i, NULL, NULL);
+    // if (check_invalid_inputs(tokens) == 0)       // not working yet
+    //     return NULL;
+    size = array_size(tokens);
+    // tokens = reverse_array(tokens, size);        // cause seg fault from second prompt
+    tree = ft_btnew(tokens[i], size - i, NULL, NULL);
     i++;
     if (!(i < size))
         return NULL;
-    tree = ft_btnew(parser[i], size - i, tree, NULL);
+    tree = ft_btnew(tokens[i], size - i, tree, NULL);
     i++;
     while (i + 1 < size)
     {
-        tmp = ft_btnew(parser[i], size - i, NULL, NULL);
+        tmp = ft_btnew(tokens[i], size - i, NULL, NULL);
         i++;
-        tree = ft_btnew(parser[i], size - i, tmp, tree);
+        tree = ft_btnew(tokens[i], size - i, tmp, tree);
         i++;
     }
-    tree = ft_btnew(parser[i], size - i, NULL, tree);
+    tree = ft_btnew(tokens[i], size - i, NULL, tree);
     return (tree);
 }
 
