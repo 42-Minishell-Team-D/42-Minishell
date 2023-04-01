@@ -94,6 +94,7 @@ typedef struct minishell
 	struct sigaction	sa;
 	struct sigaction	sb;
 	struct parser		p;
+	struct binary_tree	*tree;
 }					t_data;
 
 /*			src/builtins/			*/
@@ -112,7 +113,7 @@ int		check_invalid_inputs(char **tokens);
 
 /*		src/free	*/
 void    free_tree(t_bt *tree);
-
+void    free_tokens(char **tokens);
 /*		src/executor	*/
 
 /*			src/functions1.c	*/

@@ -122,7 +122,26 @@ static char	*get_next_token(t_data *data, t_parser *p)
 		}
 	}
 	ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
+	data->tokens[p->i++] = NULL;
+	while (p->i < 10)
+		free(data->tokens[p->i++]);
 	return (0);
+}
+
+static void init_parser(t_data *data)
+{
+	int i;
+
+	i = 10;
+	data->tokens = (char **)malloc(i * sizeof(char*));
+	if (data->tokens == NULL)
+		exit(write(1, "Error: malloc failed\n", 21));
+	while (i-- > 0)
+	{
+		data->tokens[i] = (char *)malloc(ft_strlen(data->prompt) * sizeof(char));
+		if(data->tokens[i] == NULL)
+			exit(write(1, "Error: malloc failed\n", 21));
+	}
 }
 
 int	lexical_analyzer(t_data *data)
@@ -137,13 +156,13 @@ int	lexical_analyzer(t_data *data)
 	p->temp = 0;
 	p->in_double = 0;
 	p->in_single = 0;
+	init_parser(data);
 	ft_bzero(p->token, 250);
 	get_next_token(data, p);
-	// int i = 0;
-	// while (data->tokens[i] != NULL)
-	//  	printf("'%s'\n", data->tokens[i++]);
-	// printf("---------------------------\n");
-	// exit(1);
+	int i = 0;
+	while (data->tokens[i] != NULL)
+	 	printf("'%s'\n", data->tokens[i++]);
+	printf("---------------------------\n");
 	
 	return (0);
 }

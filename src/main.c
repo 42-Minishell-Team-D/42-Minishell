@@ -54,8 +54,7 @@ void print_tree(t_bt *tree)
 int	main(void)
 {
 	t_data		data;
-	t_bt		*tree;
-	
+
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
@@ -64,11 +63,12 @@ int	main(void)
 		if (data.prompt != NULL)
 		{
 			lexical_analyzer(&data);
-			print_tokens(data.tokens);
-			tree = create_tree(data.tokens, tree);
-    		print_tree(tree);
-			// executor(&data, &tree);
-			free_tree(tree);
+			// print_tokens(data.tokens);
+			data.tree = create_tree(data.tokens, data.tree);
+    		print_tree(data.tree);
+			// executor(&data, &data.tree);
+			free_tree(data.tree);
+			free_tokens(data.tokens);
 		}
 		if (data.prompt != NULL)
 			select_arg(data.prompt, &data);

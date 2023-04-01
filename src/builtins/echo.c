@@ -38,7 +38,7 @@ int	exec_echo(char *arg, int n, t_data *data)
     	else
     	    printf("%c", arg[n]);
     	n++;
-	}
+	}	
 	printf("\n");
 	return (0);
 }

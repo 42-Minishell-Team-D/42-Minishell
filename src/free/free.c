@@ -9,3 +9,13 @@ void free_tree(t_bt *tree)
         free(tree);
     }
 }
+
+void    free_tokens(char **tokens)
+{
+    int i;
+
+    i = 0;
+    while (tokens[i])
+        free(tokens[i++]);
+    free(tokens);
+}

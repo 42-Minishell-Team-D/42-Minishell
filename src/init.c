@@ -46,33 +46,9 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sigaction(SIGQUIT, &sb, NULL);
 }
 
-static void init_parser(t_data *data)
-{
-	int i;
-
-	i = 10;
-	data->tokens = (char **)ft_calloc(i, sizeof(char*));
-	if (data->tokens == NULL)
-	{
-		free(data->env);
-		exit(write(1, "Error: malloc failed\n", 21));
-	}
-	while (i-- > 0)
-	{
-		data->tokens[i] = (char *)ft_calloc(250, sizeof(char));
-		if(data->tokens[i] == NULL)
-		{
-				free(data->tokens[i]);
-			exit(write(1, "Error: malloc failed\n", 21));
-		}
-		ft_bzero(data->tokens[i], 250);
-	}
-}
-
 void	init_stuff(t_data *data, char **prompt)
 {
 	init_data(data, 10);
 	init_sa(data->sa, data->sb);
-	init_parser(data);
 	*prompt = (char *)1;
 }
