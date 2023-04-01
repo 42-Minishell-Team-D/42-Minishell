@@ -103,6 +103,7 @@ int	main(void)
 		free(data.prompt);
 	}
 	rl_clear_history();
+	free_at_exit(&data);
 	free(data.prompt);
 	return (0);
 }

@@ -114,6 +114,8 @@ int		check_invalid_inputs(char **tokens);
 /*		src/free	*/
 void    free_tree(t_bt *tree);
 void    free_tokens(char **tokens);
+void    free_at_exit(t_data *data);
+
 /*		src/executor	*/
 
 /*			src/functions1.c	*/
