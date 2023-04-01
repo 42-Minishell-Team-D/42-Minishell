@@ -39,7 +39,7 @@ typedef struct binary_tree
 	void				*data;
 	struct binary_tree	*left;
 	struct binary_tree	*right;
-	struct binary_tree	*prev;
+	struct binary_tree	*parent;
 }					t_bt;
 
 typedef struct pipe
