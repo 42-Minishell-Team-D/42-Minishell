@@ -2,19 +2,21 @@
 
 char **reverse_array(char **tokens, int size)
 {
-    int i;
-    char *tmp;
+    char    *tmp;
+    int     i;
+    int     j;
 
     i = 0;
-    while (size > i)
+    j = size - 1;
+    while (i < j)
     {
-        tmp = tokens[size];
-        tokens[size] = tokens[i];
-        tokens[i] = tmp;
-        size--;
+        tmp = tokens[i];
+        tokens[i] = tokens[j];
+        tokens[j] = tmp;
         i++;
+        j--;
     }
-    return (tokens);    
+    return (tokens);
 }
 
 void *init_parent_struct(char *token)
@@ -76,13 +78,14 @@ t_bt *create_tree(char **tokens, t_bt *tree)
 
     i = 0;
     size = array_size(tokens);
-    tokens = reverse_array(tokens, size);        // cause seg fault from second prompt
+    tokens = reverse_array(tokens, size);
     tree = ft_btnew(tokens[i], size - i, NULL, NULL);
     i++;
-    if (!(i < size))
-        return NULL;
-    tree = ft_btnew(tokens[i], size - i, tree, NULL);
-    i++;
+    if (size % 2 != 0 && i < size)
+    {
+        tree = ft_btnew(tokens[i], size - i, tree, NULL);
+        i++;
+    }
     while (i + 1 < size)
     {
         tmp = ft_btnew(tokens[i], size - i, NULL, NULL);
@@ -90,8 +93,8 @@ t_bt *create_tree(char **tokens, t_bt *tree)
         tree = ft_btnew(tokens[i], size - i, tmp, tree);
         i++;
     }
-    tree = ft_btnew(tokens[i], size - i, NULL, tree);
+    if (i < size)
+        tree = ft_btnew(tokens[i], size - i, NULL, tree);
     tree = gives_parents(tree, NULL);
     return (tree);
 }
-
