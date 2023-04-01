@@ -64,9 +64,9 @@ int	main(void)
 		if (data.prompt != NULL)
 		{
 			lexical_analyzer(&data);
-			// print_tokens(data.tokens);
+			print_tokens(data.tokens);
 			tree = create_tree(data.tokens, tree);
-    		// print_tree(tree);
+    		print_tree(tree);
 			// executor(&data, &tree);
 			free_tree(tree);
 		}
