@@ -80,3 +80,32 @@ int	main(void)
 	free(data.prompt);
 	return (0);
 }
+
+/*
+
+export EDITOR='vim'
+
+alias l="clear && ls -l"
+alias la="clear && ls -la"
+
+alias norm="clear && norminette -R checkforbiddensourceheader"
+alias psg='make -C /nfs/homes/ddantas-/Desktop/ps-game && /nfs/homes/ddantas-/Desktop/ps-game/push_swap'
+alias ms="clear && make && ./minishell"
+
+alias vg='make && valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --log-file="valgrind.txt"'
+
+alias add='git add'
+alias adds='git add . && git status'
+alias status='git status'
+alias push='git push'
+alias commit='git commit -m '
+alias pull='git pull'
+alias checkout='git checkout'
+alias merge='git merge'
+alias fclean='make fclean'
+alias clean='make clean'
+alias re='make re'
+echo "\033[32mAlias set :D"
+cd Desktop/minishell
+
+*/
