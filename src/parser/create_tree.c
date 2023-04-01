@@ -57,6 +57,17 @@ t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 	return (node);
 }
 
+t_bt    *gives_parents(t_bt *tree, t_bt *parent)
+{
+    if (tree)
+    {
+        tree->parent = parent;
+        gives_parents(tree->left, tree);
+        gives_parents(tree->right, tree);
+    }
+    return (tree);
+}
+
 t_bt *create_tree(char **tokens, t_bt *tree)
 {
     int     i;
@@ -64,10 +75,8 @@ t_bt *create_tree(char **tokens, t_bt *tree)
     t_bt    *tmp;
 
     i = 0;
-    // if (check_invalid_inputs(tokens) == 0)       // not working yet
-    //     return NULL;
     size = array_size(tokens);
-    // tokens = reverse_array(tokens, size);        // cause seg fault from second prompt
+    tokens = reverse_array(tokens, size);        // cause seg fault from second prompt
     tree = ft_btnew(tokens[i], size - i, NULL, NULL);
     i++;
     if (!(i < size))
@@ -82,6 +91,7 @@ t_bt *create_tree(char **tokens, t_bt *tree)
         i++;
     }
     tree = ft_btnew(tokens[i], size - i, NULL, tree);
+    tree = gives_parents(tree, NULL);
     return (tree);
 }
 

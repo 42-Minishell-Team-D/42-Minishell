@@ -40,11 +40,37 @@ void print_tree(t_bt *tree)
 	printf("Tree:\n");
 	while (tree != NULL)
 	{
-    	printf("ID: %i  Token: %s\n", tree->id, tree->args);
+		printf("ID: %i	Token: %s", tree->id, tree->args);
+		if (tree->left != NULL)
+			printf("	Left: %i", tree->left->id);
+		else
+			printf("	Left: NULL");
+		if (tree->right != NULL)
+			printf("	Right: %i", tree->right->id);
+		else
+			printf("	Right: NULL");
+		if (tree->parent != NULL)
+			printf("	Parent: %i", tree->parent->id);
+		else
+			printf("	Parent: NULL");
+		printf("\n");
 		if (tree->left != NULL)
 		{
 			left_tree = tree->left;
-			printf("ID: %i  Token: %s\n", left_tree->id, left_tree->args);
+			printf("ID: %i	Token: %s", left_tree->id, left_tree->args);
+			if (left_tree->left != NULL)
+				printf("	Left: %i", left_tree->left->id);
+			else
+				printf("	Left: NULL");
+			if (left_tree->right != NULL)
+				printf("	Right: %i", left_tree->right->id);
+			else
+				printf("	Right: NULL");
+			if (left_tree->parent != NULL)
+				printf("	Parent: %i", left_tree->parent->id);
+			else
+				printf("	Parent: NULL");
+			printf("\n");
 		}
 		tree = tree->right;
 	}
@@ -66,6 +92,8 @@ int	main(void)
 			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
     		print_tree(data.tree);
+			// if (check_invalid_inputs(tokens) == 0)       // not working yet
+    		//     return NULL;
 			// executor(&data, &data.tree);
 			free_tree(data.tree);
 			free_tokens(data.tokens);
