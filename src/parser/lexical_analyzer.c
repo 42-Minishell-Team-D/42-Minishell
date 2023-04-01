@@ -81,7 +81,6 @@ static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 		if (p->char_temp == NULL)
 			return (NULL);
 		ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
-		printf("char_temp: %s\n", p->char_temp);
 		if (getenv(p->char_temp))
 		{
 			ft_strlcpy(p->token, getenv(p->char_temp), ft_strlen(p->char_temp) + 1);
@@ -139,10 +138,10 @@ int	lexical_analyzer(t_data *data)
 	p->in_single = 0;
 	ft_bzero(p->token, 250);
 	get_next_token(data, p);
-	// int i = 0;
-	// while (data->tokens[i] != NULL)
-	//  	printf("'%s'\n", data->tokens[i++]);
-	// printf("---------------------------\n");
+	int i = 0;
+	while (data->tokens[i] != NULL)
+	 	printf("'%s'\n", data->tokens[i++]);
+	printf("---------------------------\n");
 	// exit(1);
 	
 	return (0);
