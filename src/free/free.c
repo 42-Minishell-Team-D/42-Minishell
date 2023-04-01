@@ -19,3 +19,8 @@ void    free_tokens(char **tokens)
         free(tokens[i++]);
     free(tokens);
 }
+
+void    free_at_exit(t_data *data)
+{
+    free(data->env);
+}
