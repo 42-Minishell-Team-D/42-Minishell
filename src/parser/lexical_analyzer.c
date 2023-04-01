@@ -140,6 +140,9 @@ int	lexical_analyzer(t_data *data)
 	ft_bzero(p->token, 250);
 	get_next_token(data, p);
 	ft_bzero(p->token, 250);
+	ft_bzero(p->token, 250);
+	ft_bzero(p->token, 250);
+	ft_bzero(p->token, 250);
 	// int i = 0;
 	// while (data->tokens[i][0] != '\0')
 	//  	printf("'%s'\n", data->tokens[i++]);
