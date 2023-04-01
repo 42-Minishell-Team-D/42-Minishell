@@ -51,6 +51,7 @@ static void init_parser(t_data *data)
 	int i;
 
 	i = ft_strlen(data->prompt);
+	// random comment
 	data->tokens = (char **)calloc(i, sizeof(char*));
 	if (data->tokens == NULL)
 	{
