@@ -64,6 +64,8 @@ t_bt *create_tree(char **tokens, t_bt *tree)
     t_bt    *tmp;
 
     i = 0;
+    // if (check_invalid_inputs(tokens) == 0)       // not working yet
+    //     return NULL;
     size = array_size(tokens);
     // tokens = reverse_array(tokens, size);        // cause seg fault from second prompt
     tree = ft_btnew(tokens[i], size - i, NULL, NULL);

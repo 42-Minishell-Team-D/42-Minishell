@@ -65,8 +65,6 @@ int	main(void)
 		{
 			lexical_analyzer(&data);
 			// print_tokens(data.tokens);
-			// if (check_invalid_inputs(tokens) == 0)       // not working yet
-    		//     return NULL;
 			tree = create_tree(data.tokens, tree);
     		// print_tree(tree);
 			// executor(&data, &tree);
