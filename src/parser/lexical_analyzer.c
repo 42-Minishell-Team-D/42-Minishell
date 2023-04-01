@@ -113,7 +113,7 @@ static char	*get_next_token(t_data *data, t_parser *p)
 			if (ptr == NULL)
 				return (NULL);
 		}
-		if (is_new_token(*ptr, *ptr + 1) > 0)
+		else if (is_new_token(*ptr, *ptr + 1) > 0)
 			ptr = handle_special_char(ptr, p, data);
 		else if (*ptr != '\0')
 		{
@@ -125,7 +125,7 @@ static char	*get_next_token(t_data *data, t_parser *p)
 	return (0);
 }
 
-int	parser(t_data *data)
+int	lexical_analyzer(t_data *data)
 {
 	t_parser	*p;
 
@@ -139,11 +139,16 @@ int	parser(t_data *data)
 	p->in_single = 0;
 	ft_bzero(p->token, 250);
 	get_next_token(data, p);
-	int i = 0;
-	while (data->tokens[i] != NULL)
-	 	printf("'%s'\n", data->tokens[i++]);
-	printf("---------------------------\n");
-	exit(1);
+	ft_bzero(p->token, 250);
+	get_next_token(data, p);
+	get_next_token(data, p);
+	get_next_token(data, p);
+	
+	// int i = 0;
+	// while (data->tokens[i][0] != '\0')
+	//  	printf("'%s'\n", data->tokens[i++]);
+	// printf("---------------------------\n");
+	// exit(1);
 	
 	return (0);
 }

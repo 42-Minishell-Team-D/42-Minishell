@@ -48,11 +48,29 @@ typedef struct pipe
 	int			read_fd;
 }				t_pipe;
 
-typedef struct redirection
+typedef struct great
 {
 	int			write_fd;
 	int			read_fd;
-}				t_redirection;
+}				t_great;
+
+typedef struct greatgreat
+{
+	int			write_fd;
+	int			read_fd;
+}				t_greatgreat;
+
+typedef struct less
+{
+	int			write_fd;
+	int			read_fd;
+}				t_less;
+
+typedef struct lessless
+{
+	int			write_fd;
+	int			read_fd;
+}				t_lessless;
 
 typedef struct parser
 {
@@ -88,10 +106,14 @@ int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
 /*		src/parser	*/
-int		parser(t_data *data);
-void	create_node(char **parser, t_bt *tree);
+int		lexical_analyzer(t_data *data);
+t_bt	*create_tree(char **parser, t_bt *tree);
+int		check_invalid_inputs(char **tokens);
 
-/*		src/executor.c	*/
+/*		src/free	*/
+void    free_tree(t_bt *tree);
+
+/*		src/executor	*/
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);
