@@ -50,8 +50,8 @@ static void init_parser(t_data *data)
 {
 	int i;
 
-	i = 10;
-	data->tokens = (char **)malloc(i * sizeof(char*));
+	i = ft_strlen(data->prompt);
+	data->tokens = (char **)calloc(i, sizeof(char*));
 	if (data->tokens == NULL)
 	{
 		free(data->env);
@@ -59,7 +59,7 @@ static void init_parser(t_data *data)
 	}
 	while (i-- > 0)
 	{
-		data->tokens[i] = (char *)malloc(250 * sizeof(char));
+		data->tokens[i] = (char *)calloc(250, sizeof(char));
 		if(data->tokens[i] == NULL)
 		{
 			free(data->env);
@@ -68,7 +68,6 @@ static void init_parser(t_data *data)
 				free(data->tokens[i]);
 			exit(write(1, "Error: malloc failed\n", 21));
 		}
-		ft_bzero(data->tokens[i], 250);
 	}
 }
 
