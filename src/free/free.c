@@ -16,8 +16,13 @@ void    free_tokens(char **tokens)
 
     i = 0;
     while (tokens[i])
-        free(tokens[i++]);
+	{
+		ft_bzero(tokens[i], ft_strlen(tokens[i]));
+        free(tokens[i]);
+		tokens[i++] = NULL;
+	}
     free(tokens);
+	tokens = NULL;
 }
 
 void    free_at_exit(t_data *data)
