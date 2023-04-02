@@ -1,10 +1,10 @@
 #include "../../libs/minishell.h"
 
-int	is_new_token(char c, char c2)
+static int	is_new_token(char c, char c2)
 {
-	if (c == '<' && c2 == '<')
+	if (c2 && c == '<' && c2 == '<')
 		return (LESSLESS);
-	else if (c == '>' && c2 == '>')
+	else if (c2 && c == '>' && c2 == '>')
 		return (GREATGREAT);
 	else if (c == '>')
 		return (GREAT);
@@ -22,7 +22,8 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 	if (p->in_single || p->in_double)
 		return (ptr);
 	special = is_new_token(*ptr, *(ptr + 1));
-	ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
+	if (p->n > 0)
+		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
 	ft_bzero(p->token, 250);
 	p->n = 0;
 	if (special == GREATGREAT)
@@ -72,22 +73,26 @@ static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 	}
 	else if (*ptr != '\0' && *ptr != ' ')
 	{
-		while (*ptr != '\0' && *ptr != ' ')
+		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 		{
 			if (p->in_double && *ptr == '"')
+				break ;
+			if (!p->in_single && !p->in_double && is_new_token(*ptr, *(ptr + 1)) > 0)
 				break ;
 			ptr++;
 			p->temp++;
 		}
-		p->char_temp = malloc(sizeof(char) * p->temp + 1);
+		p->char_temp = ft_calloc(p->temp + 1, sizeof(char));
 		if (p->char_temp == NULL)
 			return (NULL);
 		ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
+		p->temp = 0;
 		if (getenv(p->char_temp))
 		{
 			ft_strlcpy(&p->token[ft_strlen(p->token)], getenv(p->char_temp), ft_strlen(getenv(p->char_temp)) + 1);
 			p->n += ft_strlen(getenv(p->char_temp));
 			free(p->char_temp);
+			p->char_temp = NULL;
 		}
 	}
 	else
@@ -140,7 +145,7 @@ static void init_parser(t_data *data)
 		exit(write(1, "Error: malloc failed\n", 21));
 	while (i-- > 0)
 	{
-		data->tokens[i] = (char *)ft_calloc(250, sizeof(char));
+		data->tokens[i] = (char *)ft_calloc(10000, sizeof(char));
 		if(data->tokens[i] == NULL)
 			exit(write(1, "Error: malloc failed\n", 21));
 	}
@@ -161,10 +166,10 @@ int	lexical_analyzer(t_data *data)
 	init_parser(data);
 	ft_bzero(p->token, 250);
 	get_next_token(data, p);
-	// int i = 0;
-	// while (data->tokens[i] != NULL)
-	//  	printf("'%s'\n", data->tokens[i++]);
-	// printf("---------------------------\n");
+	int i = 0;
+	while (data->tokens[i] != NULL)
+	 	printf("'%s'\n", data->tokens[i++]);
+	printf("---------------------------\n");
 	
 	return (0);
 }

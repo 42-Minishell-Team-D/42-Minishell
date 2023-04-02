@@ -80,6 +80,7 @@ typedef struct parser
 	int 	in_double;
 	int 	in_single;
 	char	*char_temp;
+	int		token_alloc[10];
 	char	token[250];
 }				t_parser;
 
