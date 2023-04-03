@@ -94,7 +94,7 @@ int	main(void)
 			// print_tree(data.tree);
 			// if (check_invalid_inputs(tokens) == 0)	   // not working yet
 			//	 return NULL;
-			executor(&data);
+			// executor(&data);
 			free_after_execution(&data);
 		}
 		// if (data.prompt != NULL)

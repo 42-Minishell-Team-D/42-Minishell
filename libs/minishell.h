@@ -44,32 +44,30 @@ typedef struct binary_tree
 
 typedef struct pipe
 {
-	int			write_fd;
-	int			read_fd;
+	int			fd[2];
 }				t_pipe;
 
 typedef struct great
 {
-	int			write_fd;
-	int			read_fd;
+	int			fd[2];
 }				t_great;
 
 typedef struct greatgreat
 {
-	int			write_fd;
 	int			read_fd;
+	int			write_fd;
 }				t_greatgreat;
 
 typedef struct less
 {
-	int			write_fd;
 	int			read_fd;
+	int			write_fd;
 }				t_less;
 
 typedef struct lessless
 {
-	int			write_fd;
 	int			read_fd;
+	int			write_fd;
 }				t_lessless;
 
 typedef struct parser
