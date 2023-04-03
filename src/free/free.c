@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-void free_tree(t_bt *tree)
+void    free_tree(t_bt *tree)
 {
     if (tree != NULL) {
         free_tree(tree->left);
@@ -8,6 +8,7 @@ void free_tree(t_bt *tree)
         free(tree->data);
         free(tree);
     }
+    tree = NULL;
 }
 
 void    free_tokens(char **tokens)
@@ -23,6 +24,16 @@ void    free_tokens(char **tokens)
 	}
     free(tokens);
 	tokens = NULL;
+}
+
+void    free_after_execution(t_data *data)
+{
+    free_tree(data->tree);
+    if (data->tokens != NULL)
+        free_tokens(data->tokens);
+    if (data->prompt != NULL)
+	    free(data->prompt);
+
 }
 
 void    free_at_exit(t_data *data)

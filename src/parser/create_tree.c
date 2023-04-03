@@ -59,18 +59,18 @@ t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 	return (node);
 }
 
-t_bt    *gives_parents(t_bt *tree, t_bt *parent)
+t_bt    *assign_parents(t_bt *tree, t_bt *parent)
 {
     if (tree)
     {
         tree->parent = parent;
-        gives_parents(tree->left, tree);
-        gives_parents(tree->right, tree);
+        assign_parents(tree->left, tree);
+        assign_parents(tree->right, tree);
     }
     return (tree);
 }
 
-t_bt *create_tree(char **tokens, t_bt *tree)
+t_bt    *create_tree(char **tokens, t_bt *tree)
 {
     int     i;
     int     size;
@@ -95,6 +95,6 @@ t_bt *create_tree(char **tokens, t_bt *tree)
     }
     if (i < size)
         tree = ft_btnew(tokens[i], size - i, NULL, tree);
-    tree = gives_parents(tree, NULL);
+    tree = assign_parents(tree, NULL);
     return (tree);
 }

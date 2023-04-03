@@ -90,17 +90,15 @@ int	main(void)
 		{
 			lexical_analyzer(&data);
 			// print_tokens(data.tokens);
-			// data.tree = create_tree(data.tokens, data.tree);
+			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
 			// if (check_invalid_inputs(tokens) == 0)	   // not working yet
 			//	 return NULL;
-			// executor(&data, &data.tree);
-			// free_tree(data.tree);
-			free_tokens(data.tokens);
+			executor(&data);
+			free_after_execution(&data);
 		}
 		// if (data.prompt != NULL)
 			// select_arg(data.prompt, &data);
-		free(data.prompt);
 	}
 	rl_clear_history();
 	free_at_exit(&data);

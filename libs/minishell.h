@@ -115,9 +115,11 @@ int		check_invalid_inputs(char **tokens);
 /*		src/free	*/
 void    free_tree(t_bt *tree);
 void    free_tokens(char **tokens);
+void    free_after_execution(t_data *data);
 void    free_at_exit(t_data *data);
 
 /*		src/executor	*/
+void	executor(t_data *data);
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);

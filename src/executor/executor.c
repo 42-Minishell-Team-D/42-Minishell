@@ -1,9 +1,7 @@
 #include "../../libs/minishell.h"
 
-void executor(t_data *data, t_bt *tree)
+void    executor(t_data *data)
 {
 	(void)data;
-	(void)tree;
     data = NULL;
-    tree = NULL;
 }
