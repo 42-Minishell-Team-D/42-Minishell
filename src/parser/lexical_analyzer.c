@@ -82,8 +82,8 @@ static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 	}
 	else
 		p->token[p->n++] = '$';
-	// if (*ptr == '$')
-	// 	ptr = handle_dollar(ptr, p, data);
+	if (*ptr == '$')
+		ptr = handle_dollar(ptr, p, data);
 	return (ptr);
 }
 
@@ -147,6 +147,7 @@ int	lexical_analyzer(t_data *data)
 	p = &data->p;
 	p->i = 0;
 	p->n = 0;
+	p->temp = 0;
 	p->in_double = 0;
 	p->in_single = 0;
 	init_parser(data);
