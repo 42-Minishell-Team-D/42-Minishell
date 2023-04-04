@@ -46,9 +46,25 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sigaction(SIGQUIT, &sb, NULL);
 }
 
+/*static void	init_parser(t_data *data, t_parser *p)
+{
+	int i;
+
+	p->i = 0;
+	p->n = 0;
+	p->temp = 0;
+	p->in_double = 0;
+	p->in_single = 0;
+	i = 0;
+	data->tokens = NULL;
+	while (i < 10)
+		data->tokens[i++] = NULL;
+}*/
+
 void	init_stuff(t_data *data, char **prompt)
 {
 	init_data(data, 10);
 	init_sa(data->sa, data->sb);
+	// init_parser(data, &data->p);
 	*prompt = (char *)1;
 }
