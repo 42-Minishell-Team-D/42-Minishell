@@ -36,3 +36,17 @@ int nb_char_max(char **s)
 	return (ret);
 }
 
+int	is_new_token(char c, char c2)
+{
+	if (c2 && c == '<' && c2 == '<')
+		return (LESSLESS);
+	else if (c2 && c == '>' && c2 == '>')
+		return (GREATGREAT);
+	else if (c == '<')
+		return (LESS);
+	else if (c == '>')
+		return (GREAT);
+	else if (c == '|')
+		return (PIPE);
+	return (0);
+}

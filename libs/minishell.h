@@ -24,10 +24,10 @@
 # include <readline/history.h>
 # include <linux/limits.h>
 
-# define GREAT 1 
+# define LESSLESS 1
 # define GREATGREAT 2
-# define LESS 3 
-# define LESSLESS 4
+# define LESS 4
+# define GREAT 3
 # define PIPE 5
 
 // missing: ttyslot, sigaddset, lstat
@@ -132,6 +132,7 @@ void	init_stuff(t_data *data, char **prompt);
 int		array_size(char **s);
 int		search_var(char **s);
 int		nb_char_max(char **s);
+int		is_new_token(char c, char c2);
 
 /*			src/main.c 			*/
 int		select_arg(char *p, t_data *data);
