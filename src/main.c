@@ -88,7 +88,7 @@ int	main(void)
 		add_history(data.prompt);
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
-			lexical_analyzer(&data);
+			parser(&data);
 			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
@@ -97,8 +97,8 @@ int	main(void)
 			// executor(&data);
 			free_after_execution(&data);
 		}
-		// if (data.prompt != NULL)
-			// select_arg(data.prompt, &data);
+		if (data.prompt != NULL)
+			select_arg(data.prompt, &data);
 	}
 	rl_clear_history();
 	free_at_exit(&data);

@@ -6,7 +6,8 @@ int	valid_odd_token(char *token)
 	char	**valid_odd_inputs;
 
 	i = 0;
-	valid_odd_inputs = {"|", ">", "<", ">>", "<<", NULL};
+	valid_odd_inputs = NULL;
+	//valid_odd_inputs = {"|", ">", "<", ">>", "<<", NULL};
 	while (ft_strncmp(token, valid_odd_inputs[i], 3) != 0)
 		i++;
 	if (valid_odd_inputs[i] == NULL)
@@ -20,8 +21,12 @@ int	valid_even_token(char *token)
 	char	**valid_even_inputs;
 
 	i = 0;
+
+	valid_even_inputs = NULL;
+	/*
 	valid_even_inputs = {"echo\0", "echo ", "cd\0", "cd " "pwd\0", "pwd ",\
 	"export\0", "export ","unset\0", "unset ", "env\0", "env ", "exit\0", "exit ", NULL};
+	*/
 	while (ft_strncmp(token, valid_even_inputs[i], 100) != 0)
 		i++;
 	if (valid_even_inputs[i] == NULL)
