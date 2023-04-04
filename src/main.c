@@ -86,7 +86,7 @@ int	main(void)
 	{
 		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
-		if (data.prompt != NULL)
+		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			lexical_analyzer(&data);
 			// print_tokens(data.tokens);
