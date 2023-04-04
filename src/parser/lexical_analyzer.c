@@ -1,20 +1,5 @@
 #include "../../libs/minishell.h"
 
-static int	is_new_token(char c, char c2)
-{
-	if (c2 && c == '<' && c2 == '<')
-		return (LESSLESS);
-	else if (c2 && c == '>' && c2 == '>')
-		return (GREATGREAT);
-	else if (c == '>')
-		return (GREAT);
-	else if (c == '<')
-		return (LESS);
-	else if (c == '|')
-		return (PIPE);
-	return (0);
-}
-
 static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 {
 	int	special;
@@ -97,14 +82,14 @@ static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 	}
 	else
 		p->token[p->n++] = '$';
-	if (*ptr == '$')
-		ptr = handle_dollar(ptr, p, data);
+	// if (*ptr == '$')
+	// 	ptr = handle_dollar(ptr, p, data);
 	return (ptr);
 }
 
 static char	*get_next_token(t_data *data, t_parser *p)
 {
-	char *ptr;
+	char	*ptr;
 
 	p->n = 0;
 	ptr = data->prompt;
@@ -121,7 +106,7 @@ static char	*get_next_token(t_data *data, t_parser *p)
 			if (ptr == NULL)
 				return (NULL);
 		}
-		if (is_new_token(*ptr, *ptr + 1) > 0)
+		if (!p->in_double && !p->in_single && is_new_token(*ptr, *ptr + 1) > 0)
 			ptr = handle_special_char(ptr, p, data);
 		else if (*ptr != '\0')
 		{
@@ -162,7 +147,6 @@ int	lexical_analyzer(t_data *data)
 	p = &data->p;
 	p->i = 0;
 	p->n = 0;
-	p->temp = 0;
 	p->in_double = 0;
 	p->in_single = 0;
 	init_parser(data);
