@@ -9,8 +9,8 @@
 
 #include "../../libs/minishell.h"
 
-void    check_syntax(t_bt *tree)
+void	check_syntax(t_bt *tree)
 {
-    (void)tree;
-    tree = NULL;
+	(void)tree;
+	tree = NULL;
 }
