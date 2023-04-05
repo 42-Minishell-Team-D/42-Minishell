@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-void	delete_char(char *str)
+static void	delete_char(char *str)
 {
 	while (*str != '\0')
 	{
@@ -9,17 +9,13 @@ void	delete_char(char *str)
 	}
 }
 
-void lexical_filter(t_data *data, t_parser *p)
+void	lexical_filter(t_data *data, t_parser *p)
 {
-	int		i;
 	char	*ptr;
 
-	p->in_double = 0;
-	p->in_single = 0;
-	i = 0;
-	while (data->tokens[i] != NULL)
+	while (data->tokens[p->i] != NULL)
 	{
-		ptr = data->tokens[i];
+		ptr = data->tokens[p->i];
 		if (*ptr == ' ')
 		{
 			ptr++;
@@ -37,6 +33,6 @@ void lexical_filter(t_data *data, t_parser *p)
 			else
 				ptr++;
 		}
-		i++;
+		p->i++;
 	}
 }
