@@ -7,12 +7,20 @@ void	handler(int sig, siginfo_t *id, void *content)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("", 0);	// Replace the contents of rl_line_buffer with text.
-		rl_on_new_line();		// Tell the update functions that we have moved onto a new (empty) line, usually after outputting a newline.
-		rl_redisplay();			// Change what’s displayed on the screen to reflect the current contents of rl_line_buffer
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	return ;
 }
+
+// rl_replace_line("", 0);	// Replace the contents of rl_line_buffer with text.
+// rl_on_new_line();
+// Tell the update functions that we have moved onto a new (empty) line,
+// usually after outputting a newline.
+// rl_redisplay();
+// Change what’s displayed on the screen
+// to reflect the current contents of rl_line_buffer		
 
 void	init_data(t_data *data, int i)
 {
@@ -25,13 +33,17 @@ void	init_data(t_data *data, int i)
 		return ;
 	if (data->env == NULL)
 		exit(write(1, "Error: malloc failed\n", 21));
-	while (i < array_size(environ) - 2)				// -2 because the last two elements of the environ export are reserved for the lines and columns
+	while (i < array_size(environ) - 2)
 	{
 		data->env[i] = ft_strdup(environ[i]);
 		i++;
 	}
 	data->env[i] = NULL;
 }
+
+// while (i < array_size(environ) - 2)
+// -2 because the last two elements of the environ export
+// are reserved for the lines and columns
 
 void	init_sa(struct sigaction sa, struct sigaction sb)
 {
@@ -46,25 +58,9 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sigaction(SIGQUIT, &sb, NULL);
 }
 
-/*static void	init_parser(t_data *data, t_parser *p)
-{
-	int i;
-
-	p->i = 0;
-	p->n = 0;
-	p->temp = 0;
-	p->in_double = 0;
-	p->in_single = 0;
-	i = 0;
-	data->tokens = NULL;
-	while (i < 10)
-		data->tokens[i++] = NULL;
-}*/
-
 void	init_stuff(t_data *data, char **prompt)
 {
 	init_data(data, 10);
 	init_sa(data->sa, data->sb);
-	// init_parser(data, &data->p);
 	*prompt = (char *)1;
 }
