@@ -19,7 +19,8 @@ void    free_tokens(char **tokens)
     while (tokens[i])
 	{
 		ft_bzero(tokens[i], ft_strlen(tokens[i]));
-        free(tokens[i]);
+		if (tokens[i] != NULL)
+			free(tokens[i]);
 		tokens[i++] = NULL;
 	}
     free(tokens);
@@ -33,7 +34,6 @@ void    free_after_execution(t_data *data)
         free_tokens(data->tokens);
     if (data->prompt != NULL)
 	    free(data->prompt);
-
 }
 
 void    free_at_exit(t_data *data)

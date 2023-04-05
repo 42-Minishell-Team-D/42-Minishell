@@ -28,6 +28,7 @@ void	init_data(t_data *data, int i)
 
 	data->rt = 0;
 	data->pid = 0;
+	data->env = NULL;
 	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
 	if (!data->env)
 		return ;
