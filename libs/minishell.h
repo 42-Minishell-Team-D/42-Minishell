@@ -108,9 +108,9 @@ int		exec_unset(t_data *data, char *p);
 /*		src/parser	*/
 int		lexical_analyzer(t_data *data, t_parser *p);
 t_bt	*create_tree(char **parser, t_bt *tree);
-int		check_invalid_inputs(char **tokens);
 void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
+void    check_syntax(t_bt *tree);
 
 /*		src/free	*/
 void    free_tree(t_bt *tree);

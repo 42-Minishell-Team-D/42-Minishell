@@ -92,13 +92,12 @@ int	main(void)
 			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
-			// if (check_invalid_inputs(tokens) == 0)	   // not working yet
-			//	 return NULL;
-			// executor(&data);
+			// check_syntax(data.tree);
+			// executor(&data);				// seg fault
 			free_after_execution(&data);
 		}
-		if (data.prompt != NULL)
-			select_arg(data.prompt, &data);
+		// if (data.prompt != NULL)
+		// 	select_arg(data.prompt, &data);
 	}
 	rl_clear_history();
 	free_at_exit(&data);
