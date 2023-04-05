@@ -42,7 +42,7 @@ int	valid_odd_token(char *token)
 	valid_odd_token[13] = "exit ";
 	valid_odd_token[14] = NULL;
 	while (valid_odd_token[i] != NULL && \
-	ft_strncmp(token, valid_odd_token[i], 100) != 0)
+	ft_strncmp(token, valid_odd_token[i], 100) != 0)        // export ok doesnt work. but it should
 		i++;
 	if (valid_odd_token[i] == NULL)
 		return (1);
@@ -75,7 +75,7 @@ void	redirect(t_bt *tree, t_data *data)
 			printf("exit\n");
 			// exec_exit();
 	}
-	if (tree->id % 2 == 0 && valid_even_token(tree->args) == 0)
+	else if (tree->id % 2 == 0 && valid_even_token(tree->args) == 0)
 	{
 		if (ft_strncmp(tree->args, "|", 1) == 0)
 			printf("|\n");

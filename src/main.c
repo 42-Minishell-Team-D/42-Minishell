@@ -92,8 +92,8 @@ int	main(void)
 			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
-			// check_syntax(data.tree);		// next feature to work on
-			// executor(&data);
+			// if (check_syntax(data.tree) != 0)		// not acting like the shell yet
+				// executor(&data);
 			free_after_execution(&data);
 		}
 		// if (data.prompt != NULL)
