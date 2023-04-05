@@ -72,11 +72,11 @@ typedef struct lessless
 
 typedef struct parser
 {
-	int 	n;
-	int 	i;
-	int 	temp;
-	int 	in_double;
-	int 	in_single;
+	int		n;
+	int		i;
+	int		temp;
+	int		in_double;
+	int		in_single;
 	char	*char_temp;
 	int		token_alloc[10];
 	char	token[2500];
@@ -110,13 +110,13 @@ int		lexical_analyzer(t_data *data, t_parser *p);
 t_bt	*create_tree(char **parser, t_bt *tree);
 void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
-void    check_syntax(t_bt *tree);
+void	check_syntax(t_bt *tree);
 
 /*		src/free	*/
-void    free_tree(t_bt *tree);
-void    free_tokens(char **tokens);
-void    free_after_execution(t_data *data);
-void    free_at_exit(t_data *data);
+void	free_tree(t_bt *tree);
+void	free_tokens(char **tokens);
+void	free_after_execution(t_data *data);
+void	free_at_exit(t_data *data);
 
 /*		src/executor	*/
 void	executor(t_data *data);
