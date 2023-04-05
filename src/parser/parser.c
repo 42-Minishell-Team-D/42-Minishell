@@ -26,14 +26,24 @@ static void init_parser(t_data *data, t_parser *p)
 
 void	parser(t_data *data)
 {
-	init_parser(data, &data->p);
-	lexical_analyzer(data, &data->p);
+	t_parser	*p;
+
+	p = &data->p;
+	init_parser(data, p);
+	lexical_analyzer(data, p);
+	
+	data->tokens[p->i++] = NULL;
+	while (p->i < 10)
+	{
+		free(data->tokens[p->i]);
+		data->tokens[p->i++] = NULL;
+	}
 	lexical_filter(data, &data->p);
 
 	//	Parser Print	
-	/*	int	i = 0;
+	int	i = 0;
 	while (data->tokens[i] != NULL)
 	 	printf("'%s'\n", data->tokens[i++]);
 	printf("---------------------------\n");
-	*/
+	
 }

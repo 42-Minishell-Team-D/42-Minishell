@@ -1,23 +1,9 @@
 #include "../../libs/minishell.h"
 
-static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
+static char	*handle_special_char_2(char *ptr, int special,
+									t_parser *p, t_data *data)
 {
-	int	special;
-
-	if (p->in_single || p->in_double)
-		return (ptr);
-	special = is_new_token(*ptr, *(ptr + 1));
-	if (p->n > 0)
-		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
-	ft_bzero(p->token, 250);
-	p->n = 0;
-	if (special == GREATGREAT)
-	{
-		data->tokens[p->i][0] = '>';
-		data->tokens[p->i++][1] = '>';
-		return (ptr + 2);
-	}
-	else if (special == LESSLESS)
+	if (special == LESSLESS)
 	{
 		data->tokens[p->i][0] = '<';
 		data->tokens[p->i++][1] = '<';
@@ -41,7 +27,55 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 	return (ptr);
 }
 
-static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
+static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
+{
+	int	special;
+
+	if (p->in_single || p->in_double)
+		return (ptr);
+	special = is_new_token(*ptr, *(ptr + 1));
+	if (p->n > 0)
+		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
+	ft_bzero(p->token, 250);
+	p->n = 0;
+	if (special == GREATGREAT)
+	{
+		data->tokens[p->i][0] = '>';
+		data->tokens[p->i++][1] = '>';
+		return (ptr + 2);
+	}
+	return (handle_special_char_2(ptr, special, p, data));
+}
+
+static char	*handle_dollar_2(char *ptr, t_parser *p)
+{
+	while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
+	{
+		if (p->in_double && *ptr == '"')
+			break ;
+		if (!p->in_single && !p->in_double
+			&& is_new_token(*ptr, *(ptr + 1)) > 0)
+			break ;
+		ptr++;
+		p->temp++;
+	}
+	p->char_temp = ft_calloc(p->temp + 1, sizeof(char));
+	if (p->char_temp == NULL)
+		return (NULL);
+	ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
+	p->temp = 0;
+	if (getenv(p->char_temp))
+	{
+		ft_strlcpy(&p->token[ft_strlen(p->token)],
+			getenv(p->char_temp), ft_strlen(getenv(p->char_temp)) + 1);
+		p->n += ft_strlen(getenv(p->char_temp));
+		free(p->char_temp);
+		p->char_temp = NULL;
+	}
+	return (ptr);
+}
+
+static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 {
 	ptr++;
 	if (*ptr == '?')
@@ -57,29 +91,7 @@ static char *handle_dollar(char *ptr, t_parser *p, t_data *data)
 		ptr++;
 	}
 	else if (*ptr != '\0' && *ptr != ' ')
-	{
-		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
-		{
-			if (p->in_double && *ptr == '"')
-				break ;
-			if (!p->in_single && !p->in_double && is_new_token(*ptr, *(ptr + 1)) > 0)
-				break ;
-			ptr++;
-			p->temp++;
-		}
-		p->char_temp = ft_calloc(p->temp + 1, sizeof(char));
-		if (p->char_temp == NULL)
-			return (NULL);
-		ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
-		p->temp = 0;
-		if (getenv(p->char_temp))
-		{
-			ft_strlcpy(&p->token[ft_strlen(p->token)], getenv(p->char_temp), ft_strlen(getenv(p->char_temp)) + 1);
-			p->n += ft_strlen(getenv(p->char_temp));
-			free(p->char_temp);
-			p->char_temp = NULL;
-		}
-	}
+		ptr = handle_dollar_2(ptr, p);
 	else
 		p->token[p->n++] = '$';
 	if (*ptr == '$')
@@ -99,11 +111,7 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 		if (*ptr == '\'' && !p->in_double)
 			p->in_single = !p->in_single;
 		if (*ptr == '$' && !p->in_single)
-		{
 			ptr = handle_dollar(ptr, p, data);
-			if (ptr == NULL)
-				return (1);
-		}
 		if (!p->in_double && !p->in_single && is_new_token(*ptr, *ptr + 1) > 0)
 			ptr = handle_special_char(ptr, p, data);
 		else if (*ptr != '\0')
@@ -114,11 +122,5 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 	}
 	if (p->n != 0)
 		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
-	data->tokens[p->i++] = NULL;
-	while (p->i < 10)
-	{
-		free(data->tokens[p->i]);
-		data->tokens[p->i++] = NULL;
-	}
 	return (0);
 }
