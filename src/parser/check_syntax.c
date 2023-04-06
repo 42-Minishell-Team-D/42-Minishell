@@ -4,7 +4,7 @@
 // unlike 
 // ok | ok > ok
 
-// My understanding: Syntax is checked before executor runs, errors stop the process. and ouput "bash: syntax error near unexpected token `|'"
+// My understanding: Syntax is checked before executor runs, errors stop the process. and ouput "minishell: syntax error near unexpected token `|'"
 // If no syntax errors, executor run every command and ouput "ok: command not found".
 
 #include "../../libs/minishell.h"
@@ -31,35 +31,24 @@ int	invalid_odd_token(char *token)
 
 int	check_invalidity(t_bt *tree)
 {
-	if (tree->id % 2 != 0 && ft_strncmp(tree->args, "|", 1) == 0)
+	if (tree->id % 2 != 0)
 	{
-		if (ft_strncmp(tree->args, "|", 1) == 0)
+		if (ft_strncmp(tree->args, ">>", 1) == 0 || ft_strncmp(tree->args, "<<", 1) == 0)
 		{
-			printf("bash: syntax error near unexpected token `|'\n");
+			printf("minishell: syntax error ( °︠ ‿ ︡°) try again, you can do it!\n");
 			return (0);
 		}
-		else if (ft_strncmp(tree->args, ">", 1) == 0)
+		else if (ft_strncmp(tree->args, "|", 1) == 0)
 		{
-			printf("bash: syntax error near unexpected token `>'\n");
+			printf("minishell: syntax error ( °︠ ‿ ︡°) try again, you can do it!\n");
 			return (0);
 		}
-		else if (ft_strncmp(tree->args, "<", 1) == 0)
+		else if (ft_strncmp(tree->args, ">", 1) == 0 || ft_strncmp(tree->args, "<", 1) == 0)
 		{
-			printf("bash: syntax error near unexpected token `<'\n");
-			return (0);
-		}
-		else if (ft_strncmp(tree->args, ">>", 1) == 0)
-		{
-			printf("bash: syntax error near unexpected token `>>'\n");
-			return (0);
-		}
-		else if (ft_strncmp(tree->args, "<<", 1) == 0)
-		{
-			printf("bash: syntax error near unexpected token `<<'\n");
+			printf("minishell: syntax error ( °︠ ‿ ︡°) try again, you can do it!\n");
 			return (0);
 		}
 	}
-
 	return (1);
 }
 
