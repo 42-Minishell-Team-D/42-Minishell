@@ -31,9 +31,7 @@ void	init_data(t_data *data, int i)
 	data->env = NULL;
 	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
 	if (!data->env)
-		return ;
-	if (data->env == NULL)
-		exit(write(1, "Error: malloc failed\n", 21));
+		free_if_err(data, 1);
 	while (i < array_size(environ) - 2)
 	{
 		data->env[i] = ft_strdup(environ[i]);

@@ -44,12 +44,12 @@ void	parser(t_data *data)
 	}
 	init_parser_vars(p);
 	lexical_filter(data, &data->p);
-}
 
-//	Parser Print	
-/*
 	int	i = 0;
 	while (data->tokens[i] != NULL)
 	 	printf("'%s'\n", data->tokens[i++]);
 	printf("---------------------------\n");
-*/
+
+}
+
+//	Parser Print	

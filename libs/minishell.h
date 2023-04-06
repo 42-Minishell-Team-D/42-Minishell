@@ -113,7 +113,7 @@ void	parser(t_data *data);
 int		check_syntax(t_bt *tree);
 
 /*		src/free_if_err	*/
-void	free_if_err(t_data *data);
+void	free_if_err(t_data *data, int exit_code);
 
 /*		src/free	*/
 void	free_tree(t_bt *tree);
