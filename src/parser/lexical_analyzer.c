@@ -31,8 +31,6 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 {
 	int	special;
 
-	if (p->in_single || p->in_double)
-		return (ptr);
 	special = is_new_token(*ptr, *(ptr + 1));
 	if (p->n > 0)
 		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
@@ -44,6 +42,7 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 		data->tokens[p->i++][1] = '>';
 		return (ptr + 2);
 	}
+
 	return (handle_special_char_2(ptr, special, p, data));
 }
 
@@ -121,5 +120,6 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 	}
 	if (p->n != 0)
 		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
+	data->tokens[p->i++] = NULL;
 	return (0);
 }

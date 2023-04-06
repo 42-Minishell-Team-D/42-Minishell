@@ -64,7 +64,6 @@ void	token_memory_alloc(t_data *data, t_parser *p)
 	char	*ptr;
 
 	ptr = data->prompt;
-	(void)data;
 	while (*ptr != '\0')
 	{
 		if (*ptr == '"' && !p->in_single)
@@ -81,4 +80,7 @@ void	token_memory_alloc(t_data *data, t_parser *p)
 			ptr++;
 		}
 	}
+	// int i = 0;
+	// while (i < 10)
+	// 	printf("%d\n", p->token_alloc[i++] );
 }
