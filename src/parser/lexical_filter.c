@@ -1,5 +1,17 @@
 #include "../../libs/minishell.h"
 
+static void	delete_token(char **token)
+{
+	char	**ptr;
+
+	ptr = token;
+	while (*ptr != NULL)
+	{
+		*ptr = *(ptr + 1);
+		ptr++;
+	}
+}
+
 static void	delete_char(char *str)
 {
 	while (*str != '\0')
@@ -16,8 +28,13 @@ void	lexical_filter(t_data *data, t_parser *p)
 	while (data->tokens[p->i] != NULL)
 	{
 		ptr = data->tokens[p->i];
-		if (*ptr == ' ')
+		while (*ptr == ' ')
 			delete_char(ptr);
+		if (ft_strlen(ptr) == 0)
+		{
+			delete_token(data->tokens + p->i);
+			continue ;
+		}
 		while (*ptr != '\0')
 		{
 			if (*ptr == '"' && !p->in_single)

@@ -102,6 +102,8 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 	char	*ptr;
 
 	ptr = data->prompt;
+	while (*ptr == ' ')
+		ptr++;
 	while (*ptr != '\0')
 	{
 		if (*ptr == '"' && !p->in_single)
