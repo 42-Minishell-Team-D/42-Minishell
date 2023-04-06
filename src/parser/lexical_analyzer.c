@@ -53,8 +53,7 @@ static char	*handle_dollar_2(char *ptr, t_parser *p)
 	{
 		if (p->in_double && *ptr == '"')
 			break ;
-		if (!p->in_single && !p->in_double
-			&& is_new_token(*ptr, *(ptr + 1)) > 0)
+		if (is_new_token(*ptr, *(ptr + 1)) > 0)
 			break ;
 		ptr++;
 		p->temp++;

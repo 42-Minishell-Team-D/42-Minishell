@@ -21,7 +21,7 @@ int select_arg(char *p, t_data *data)
 	else if (p[0] == 0)	// enter is giving new prompt
 		return (0);
 	else
-		printf("minishell: %s command not found :/\n", p);
+		printf("minishell: %s command not found \n", p);
 	return (0);
 }
 
