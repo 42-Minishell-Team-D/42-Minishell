@@ -17,10 +17,7 @@ void	lexical_filter(t_data *data, t_parser *p)
 	{
 		ptr = data->tokens[p->i];
 		if (*ptr == ' ')
-		{
-			ptr++;
-			delete_char(ptr - 1);
-		}
+			delete_char(ptr);
 		while (*ptr != '\0')
 		{
 			if (*ptr == '"' && !p->in_single)

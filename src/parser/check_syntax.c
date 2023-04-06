@@ -76,7 +76,6 @@ int	check_syntax(t_bt *tree)
 			if (check_invalidity(left_tree) == 0)
 				return (0);
 		}
-
 		tree = tree->right;
 	}
 	return (1);
