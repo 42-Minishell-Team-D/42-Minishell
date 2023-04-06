@@ -59,6 +59,7 @@ int	check_invalidity(t_bt *tree)
 			return (0);
 		}
 	}
+
 	return (1);
 }
 
@@ -68,7 +69,7 @@ int	check_syntax(t_bt *tree)
 
 	while (tree != NULL)
 	{
-		if (check_invalidity(left_tree) == 0)
+		if (check_invalidity(tree) == 0)
 			return (0);
         if (tree->left != NULL)
 		{
