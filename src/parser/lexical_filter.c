@@ -5,6 +5,7 @@ static void	delete_token(char **token)
 	char	**ptr;
 
 	ptr = token;
+	free(*token);
 	while (*ptr != NULL)
 	{
 		*ptr = *(ptr + 1);
@@ -27,12 +28,12 @@ void	lexical_filter(t_data *data, t_parser *p)
 
 	while (data->tokens[p->i] != NULL)
 	{
-		ptr = data->tokens[p->i];
+		ptr = data->tokens[p->i++];
 		while (*ptr == ' ')
 			delete_char(ptr);
 		if (ft_strlen(ptr) == 0)
 		{
-			delete_token(data->tokens + p->i);
+			delete_token(data->tokens + --p->i);
 			continue ;
 		}
 		while (*ptr != '\0')
@@ -47,6 +48,5 @@ void	lexical_filter(t_data *data, t_parser *p)
 			else
 				ptr++;
 		}
-		p->i++;
 	}
 }

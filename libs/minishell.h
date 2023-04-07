@@ -79,7 +79,8 @@ typedef struct parser
 	int		in_single;
 	char	*char_temp;
 	int		token_alloc[10];
-	char	token[2500];
+	int		bigger_token;
+	char	*token;
 }				t_parser;
 
 typedef struct minishell
@@ -106,10 +107,12 @@ int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 
 /*		src/parser	*/
+void	reset_p_vars(t_parser *p);
 int		lexical_analyzer(t_data *data, t_parser *p);
-void	token_memory_alloc(t_data *data, t_parser *p);
+void	malloc_token(t_data *data, t_parser *p);
 void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
+
 t_bt	*create_tree(char **parser, t_bt *tree);
 
 int		check_syntax(t_bt *tree);

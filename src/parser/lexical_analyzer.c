@@ -34,7 +34,7 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 	special = is_new_token(*ptr, *(ptr + 1));
 	if (p->n > 0)
 		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
-	ft_bzero(p->token, 250);
+	ft_bzero(p->token, p->bigger_token + 1);
 	p->n = 0;
 	if (special == GREATGREAT)
 	{
@@ -42,7 +42,6 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 		data->tokens[p->i++][1] = '>';
 		return (ptr + 2);
 	}
-
 	return (handle_special_char_2(ptr, special, p, data));
 }
 

@@ -3,6 +3,7 @@
 *.txt
 minishell
 .vscode/
+
 # Object files
 *.o
 *.ko

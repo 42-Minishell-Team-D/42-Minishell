@@ -59,7 +59,7 @@ static char	*handle_special_char(char *ptr, t_parser *p)
 }
 
 
-void	token_memory_alloc(t_data *data, t_parser *p)
+static void	token_memory_alloc(t_data *data, t_parser *p)
 {
 	char	*ptr;
 
@@ -83,6 +83,32 @@ void	token_memory_alloc(t_data *data, t_parser *p)
 		}
 	}
 	// int i = 0;
-	// while (i < 10)
+	// while (p->token_alloc[i] > 0)
 	// 	printf("%d\n", p->token_alloc[i++] );
+}
+
+void	malloc_token(t_data *data, t_parser *p)
+{
+	reset_p_vars(p);
+	token_memory_alloc(data, p);
+	data->tokens = NULL;
+	data->tokens = (char **)ft_calloc(10, sizeof(char *));
+	if (data->tokens == NULL)
+		exit(write(1, "Error: malloc failed\n", 21));
+	p->i = 0;
+	p->bigger_token = 0;
+	while (p->token_alloc[p->i] > 0)
+	{
+		data->tokens[p->i] = NULL;
+		data->tokens[p->i] = (char *)ft_calloc(p->token_alloc[p->i] + 1, sizeof(char));
+		if (data->tokens[p->i] == NULL)
+				exit(write(1, "Error: malloc failed\n", 21));
+		if (p->bigger_token < p->token_alloc[p->i])
+			p->bigger_token = p->token_alloc[p->i];
+		p->i++;
+	}
+	p->token = (char *)ft_calloc(p->bigger_token + 1, sizeof(char));
+	if (p->token == NULL)
+		exit(write(1, "Error: malloc failed\n", 21));
+	p->i = 0;
 }
