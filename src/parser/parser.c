@@ -55,12 +55,12 @@ void	parser(t_data *data)
 		free(p->token);
 	reset_p_vars(p);
 	lexical_filter(data, &data->p);
-	int	i = 0;
-	while (data->tokens[i] != NULL)
-	 	printf("'%s'\n", data->tokens[i++]);
-	printf("---------------------------\n");
 }
 
 //	Parser Print	
 	// if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0)
 	// 	add_empty_token(data);
+	// int	i = 0;
+	// while (data->tokens[i] != NULL)
+	//  	printf("'%s'\n", data->tokens[i++]);
+	// printf("---------------------------\n");
