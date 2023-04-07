@@ -41,7 +41,7 @@ void	valid_odd_token(char *p, t_data *data)
 
 void	redirect(t_bt *tree, t_data *data)
 {
-	// execve(tree->args, NULL, data->env);
+	// execve(tree->args, data->tokens, data->env);
 	
 	if (tree->id % 2 != 0)
 		valid_odd_token(tree->args, data);
