@@ -58,7 +58,6 @@ static char	*handle_special_char(char *ptr, t_parser *p)
 	return (ptr);
 }
 
-
 static void	token_memory_alloc(t_data *data, t_parser *p)
 {
 	char	*ptr;
