@@ -29,10 +29,8 @@ void	executor(t_data *data)
 {
 	t_bt	*tree;
 	t_bt	*left_tree;
-	int 	nb_of_processes = get_number_of_processes(data->tree);
-	// data->pipes = malloc(sizeof(int) * (data-> + 1) * 2);
+	// data->pipes = malloc(sizeof(int) * (get_number_of_processes(data->tree) + 1));
 	(void)data;
-	(void)nb_of_processes;
 	
 	tree = data->tree;
 	while (tree != NULL)
