@@ -21,7 +21,7 @@ int		get_number_of_processes(t_bt *tree)
 		left_tree = tree->left;
 		tree = tree->right;
 	}
-	printf("Number of processes: %d", count);
+	// printf("Number of processes: %d", count);
 	return (count);
 }
 

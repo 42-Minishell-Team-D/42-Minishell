@@ -14,6 +14,31 @@ void	reset_p_vars(t_parser *p)
 		p->token_alloc[i++] = 0;
 }
 
+/*static void add_empty_token(t_data *data)
+{
+	int	i;
+	int	j;
+	char	**new_tokens;
+
+	i = 0;
+	j = 0;
+	new_tokens = ft_calloc(array_size(data->tokens) + 2, sizeof(char *));
+	if (new_tokens == NULL)
+		return ;
+	while (data->tokens[i] != NULL)
+	{
+		new_tokens[i] = ft_strdup(data->tokens[i]);
+		if (new_tokens[i] == NULL)
+			return ;
+		i++;
+	}
+	new_tokens[i] = ft_strdup("");
+	if (new_tokens[i] == NULL)
+		return ;
+	new_tokens[i + 1] = NULL;
+	free_tokens(data->tokens);
+	data->tokens = new_tokens;
+}*/
 void	parser(t_data *data)
 {
 	t_parser	*p;
@@ -25,12 +50,12 @@ void	parser(t_data *data)
 		free(p->token);
 	reset_p_vars(p);
 	lexical_filter(data, &data->p);
-	// if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0)
-	// 	add_empty(data);
-	// int	i = 0;
-	// while (data->tokens[i] != NULL)
-	//  	printf("'%s'\n", data->tokens[i++]);
-	// printf("---------------------------\n");
+	int	i = 0;
+	while (data->tokens[i] != NULL)
+	 	printf("'%s'\n", data->tokens[i++]);
+	printf("---------------------------\n");
 }
 
 //	Parser Print	
+	// if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0)
+	// 	add_empty_token(data);
