@@ -91,7 +91,7 @@ typedef struct minishell
 	char				**tokens;
 	char				**env;
 	char				**export;
-	int					*pipes[2];
+	int					**pipes;
 	struct sigaction	sa;
 	struct sigaction	sb;
 	struct parser		p;
