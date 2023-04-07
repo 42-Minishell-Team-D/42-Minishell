@@ -13,7 +13,6 @@ void	valid_even_token(char *p, t_data *data)
 	else if (p[0] == '>')
 		printf(">\n");
 	(void)data;
-	data = NULL;
 }
 
 void	valid_odd_token(char *p, t_data *data)
@@ -32,10 +31,9 @@ void	valid_odd_token(char *p, t_data *data)
 		printf("env\n");
 	else if (p[0] == 'e' && p[1] == 'x' && p[2] == 'i' && p[3] == 't' && (p[4] == '\0' || p[4] == ' '))
 		printf("exit\n");
-	else
-		printf("minishell: %s command not found :/\n", p);
+	// else
+	// 	printf("minishell: %s command not found :/\n", p);
 	(void)data;
-	data = NULL;
 }
 
 void	redirect(t_bt *tree, t_data *data)
