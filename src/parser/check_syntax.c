@@ -24,19 +24,24 @@ int	check_invalidity(t_bt *tree)
 {
 	if (tree->id % 2 != 0)
 	{
-		if (ft_strncmp(tree->args, ">>", 1) == 0 || ft_strncmp(tree->args, "<<", 1) == 0)
+		if (ft_strncmp(tree->args, ">>", 1) == 0 \
+		|| ft_strncmp(tree->args, "<<", 1) == 0)
 		{
-			printf("minishell: syntax error ( °︠ ‿ ︡°) try again, you can do it!\n");
+			printf("minishell: syntax error ( °︠ ‿ ︡°) \
+			try again, you can do it!\n");
 			return (0);
 		}
 		else if (ft_strncmp(tree->args, "|", 1) == 0)
 		{
-			printf("minishell: syntax error ( °︠ ‿ ︡°) try again, you can do it!\n");
+			printf("minishell: syntax error ( °︠ ‿ ︡°) \
+			try again, you can do it!\n");
 			return (0);
 		}
-		else if (ft_strncmp(tree->args, ">", 1) == 0 || ft_strncmp(tree->args, "<", 1) == 0)
+		else if (ft_strncmp(tree->args, ">", 1) == 0 \
+		|| ft_strncmp(tree->args, "<", 1) == 0)
 		{
-			printf("minishell: syntax error ( °︠ ‿ ︡°) try again, you can do it!\n");
+			printf("minishell: syntax error ( °︠ ‿ ︡°) \
+			try again, you can do it!\n");
 			return (0);
 		}
 	}
@@ -51,7 +56,7 @@ int	check_syntax(t_bt *tree)
 	{
 		if (check_invalidity(tree) == 0)
 			return (0);
-        if (tree->left != NULL)
+		if (tree->left != NULL)
 		{
 			left_tree = tree->left;
 			if (check_invalidity(left_tree) == 0)

@@ -1,8 +1,8 @@
 #include "../libs/minishell.h"
 
-int array_size(char **s)
+int	array_size(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] != NULL)
@@ -10,9 +10,9 @@ int array_size(char **s)
 	return (i);
 }
 
-int search_var(char **s)
+int	search_var(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] != NULL)
@@ -20,10 +20,10 @@ int search_var(char **s)
 	return (i);
 }
 
-int nb_char_max(char **s)
+int	nb_char_max(char **s)
 {
-	int i;
-	size_t ret;
+	int		i;
+	size_t	ret;
 	
 	i = 0;
 	ret = 0;

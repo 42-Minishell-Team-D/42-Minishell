@@ -1,6 +1,5 @@
 #include "../../libs/minishell.h"
 
-
 void	valid_even_token(char *p, t_data *data)
 {
 	if (p[0] == '>' && p[1] == '>')
