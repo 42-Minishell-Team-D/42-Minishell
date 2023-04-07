@@ -91,6 +91,7 @@ typedef struct minishell
 	char				**tokens;
 	char				**env;
 	char				**export;
+	int					*pipes[2];
 	struct sigaction	sa;
 	struct sigaction	sb;
 	struct parser		p;
@@ -117,17 +118,17 @@ t_bt	*create_tree(char **parser, t_bt *tree);
 
 int		check_syntax(t_bt *tree);
 
-/*		src/free_if_err	*/
-void	free_if_err(t_data *data, int exit_code);
-
 /*		src/free	*/
-void	free_tree(t_bt *tree);
-void	free_tokens(char **tokens);
 void	free_after_execution(t_data *data);
 void	free_at_exit(t_data *data);
+void	free_tokens(char **tokens);
+void	free_if_err(t_data *data, int exit_code);
 
 /*		src/executor	*/
 void	executor(t_data *data);
+
+/*		src/redirect	*/
+void	redirect(t_bt *tree, t_data *data);
 
 /*			src/functions1.c	*/
 int		exec_prog(char *prompt);

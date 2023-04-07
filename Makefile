@@ -12,7 +12,8 @@ FILESC = ./src/main.c ./src/init.c \
 		./src/parser/create_tree.c ./src/parser/parser.c  ./src/parser/lexical_filter.c \
 		./src/parser/token_memory.c \
 		./src/free/free.c ./src/free/free_if_err.c  \
-		./src/executor/executor.c \
+		./src/executor/executor.c ./src/executor/redirect.c\
+		./src/executor/tgps.c  \
 		./src/functions1.c ./src/utils1.c \
 
 OBJS = $(FILESC:.c=.o)
