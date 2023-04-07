@@ -40,8 +40,8 @@ void	reset_p_vars(t_parser *p)
 	data->tokens = new_tokens;
 }*/
 
-// 1. edge case: last token is a | or " or ' --> execute a readline to a new token
-// 2. edge case: first token is a redirection --> create new empty token at first position
+// 1. edge case: last token is a | or " or ' --> execute a readline to a new token			loris
+// 2. edge case: first token is a redirection --> create new empty token at first position	diogo
 // 3. heredoc: if token is a <<, read until the next token is the same as the first one
 
 void	parser(t_data *data)

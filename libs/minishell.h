@@ -85,12 +85,12 @@ typedef struct parser
 
 typedef struct minishell
 {
-	int					pid;
 	int					rt;
 	char				*prompt;
 	char				**tokens;
 	char				**env;
 	char				**export;
+	int					*pids;
 	int					**pipes;
 	struct sigaction	sa;
 	struct sigaction	sb;
@@ -113,9 +113,7 @@ int		lexical_analyzer(t_data *data, t_parser *p);
 void	malloc_token(t_data *data, t_parser *p);
 void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
-
 t_bt	*create_tree(char **parser, t_bt *tree);
-
 int		check_syntax(t_bt *tree);
 
 /*		src/free	*/
@@ -126,8 +124,10 @@ void	free_if_err(t_data *data, int exit_code);
 
 /*		src/executor	*/
 void	executor(t_data *data);
-
-/*		src/redirect	*/
+int		init_executor(t_data *data);
+void	close_free_pipes_pids(t_data *data);
+void	close_unused_pipes(t_data *data, int i);
+int		get_number_of_processes(t_bt *tree);
 void	redirect(t_bt *tree, t_data *data);
 
 /*			src/functions1.c	*/

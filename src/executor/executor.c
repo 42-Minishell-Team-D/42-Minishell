@@ -25,7 +25,27 @@ int		get_number_of_processes(t_bt *tree)
 	return (count);
 }
 
-void	close_pipes(t_data *data)
+void	close_unused_pipes(t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < get_number_of_processes(data->tree) + 1)
+	{
+		if (j != i)
+		{
+			if (data->pipes[j][0] != 0)
+				if (close(data->pipes[j][0]) == -1)
+					printf("Close failed pipe[%d][0]\n", j);
+			if (data->pipes[j][1] != 0)
+				if (close(data->pipes[j][1]) == -1)
+					printf("Close failed pipe[%d][1]\n", j);
+		}
+		j++;
+	}
+}
+
+void	close_free_pipes_pids(t_data *data)
 {
 	int	i;
 
@@ -33,9 +53,11 @@ void	close_pipes(t_data *data)
 	while (i < get_number_of_processes(data->tree) + 1)
 	{
 		if (data->pipes[i][0] != 0)
-			close(data->pipes[i][0]);
+			if (close(data->pipes[i][0]) == -1)
+				printf("Close failed pipe[%d][0]\n", i);
 		if (data->pipes[i][1] != 0)
-			close(data->pipes[i][1]);
+			if (close(data->pipes[i][1]) == -1)
+				printf("Close failed pipe[%d][1]\n", i);
 		if (data->pipes != NULL)
 			free(data->pipes[i]);
 		data->pipes[i] = NULL;
@@ -43,37 +65,59 @@ void	close_pipes(t_data *data)
 	}
 	if (data->pipes != NULL)
 		free(data->pipes);
+	if (data->pids != NULL)
+		free(data->pids);
 }
 
-static void	init_pipes(t_data *data)
-{
-	int	i;
+// uncomment this executor() function and comment out other one down below to test
 
-	i = 0;
-	data->pipes = (int **)ft_calloc(sizeof(int *), (get_number_of_processes(data->tree) + 1));
-	while (i < get_number_of_processes(data->tree) + 1)
-	{
-		data->pipes[i] = (int *)ft_calloc(2, sizeof(int));
-		data->pipes[i][0] = 0;
-		data->pipes[i][1] = 0;
-		i++;
-	}
-}
+// void	executor(t_data *data)
+// {
+// 	t_bt	*tree ;
+// 	t_bt	*left_tree;
+
+// 	if (init_executor(data) == 1)
+// 		return ;
+
+// 	// write()
+// 	tree = data->tree;
+// 	while (tree != NULL)
+// 	{
+// 		data->pids[tree->id - 1] = fork();
+// 		if (data->pids[tree->id - 1] == -1)
+// 		{
+// 			close_free_pipes_pids(data);
+// 			perror("Fork failed");
+// 			return ;
+// 		}
+// 		else if (data->pids[tree->id -1] == 0)
+// 		{
+// 			close_unused_pipes(data, tree->id - 1);
+// 			// dup2(data->pipes[tree->id - 1][1], 1);	// write
+// 			// dup2(data->pipes[tree->id - 1][0], 0);  // read
+// 			printf("pipe[%d][0]: %d\n", tree->id - 1, data->pipes[tree->id - 1][0]);
+// 			printf("pipe[%d][1]: %d\n", tree->id - 1, data->pipes[tree->id - 1][1]);
+// 			redirect(tree, data);
+// 			return ;
+// 		}
+// 		if (tree->left != NULL)
+// 		{
+// 			left_tree = tree->left;
+// 			redirect(left_tree, data);
+// 		}
+// 		tree = tree->right;
+// 	}
+// 	wait(NULL);
+
+// 	close_free_pipes_pids(data);
+// }
 
 void	executor(t_data *data)
 {
-	// t_bt	*tree ;
-	// t_bt	*left_tree;
-	int		i = 0;
-	// int		pid;
+	t_bt	*tree ;
+	t_bt	*left_tree;
 
-	init_pipes(data);	
-
-	while (i < get_number_of_processes(data->tree) + 1)
-		if (pipe(data->pipes[i++]) < 0)
-			close_pipes(data);
-
-	/*tree = data->tree;
+	tree = data->tree;
 	while (tree != NULL)
 	{
 		redirect(tree, data);
@@ -83,6 +127,5 @@ void	executor(t_data *data)
 			redirect(left_tree, data);
 		}
 		tree = tree->right;
-	}*/
-	close_pipes(data);
+	}
 }
