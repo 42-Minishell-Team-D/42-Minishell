@@ -19,15 +19,12 @@ void	parser(t_data *data)
 	t_parser	*p;
 
 	p = &data->p;
-
 	malloc_token(data, p);
 	lexical_analyzer(data, p);
 	if (p->token != NULL)
 		free(p->token);
 	reset_p_vars(p);
 	lexical_filter(data, &data->p);
-
-
 }
 
 //	Parser Print	
