@@ -40,6 +40,18 @@ void	reset_p_vars(t_parser *p)
 	data->tokens = new_tokens;
 }*/
 
+static void add_first_empty_token(t_data *data)
+{
+	int		i;
+	char	*empty_token;
+
+	i = 0;
+	while (i < array_size(data->tokens))
+		data->tokens[i + 1] = data->tokens[i++];
+	empty_token = (char *)ft_calloc(1, sizeof(char));
+	data->tokens[0] = empty_token;
+}
+
 // 1. edge case: last token is a | or " or ' --> execute a readline to a new token			loris
 // 2. edge case: first token is a redirection --> create new empty token at first position	diogo
 // 3. heredoc: if token is a <<, read until the next token is the same as the first one
@@ -51,6 +63,8 @@ void	parser(t_data *data)
 	p = &data->p;
 	malloc_token(data, p);
 	lexical_analyzer(data, p);
+	if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0)
+		add_first_empty_token(data);
 	if (p->token != NULL)
 		free(p->token);
 	reset_p_vars(p);

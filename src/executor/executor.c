@@ -71,46 +71,46 @@ void	close_free_pipes_pids(t_data *data)
 
 // uncomment this executor() function and comment out other one down below to test
 
-// void	executor(t_data *data)
-// {
-// 	t_bt	*tree ;
-// 	t_bt	*left_tree;
+/*void	executor(t_data *data)
+{
+	t_bt	*tree ;
+	t_bt	*left_tree;
 
-// 	if (init_executor(data) == 1)
-// 		return ;
+	if (init_executor(data) == 1)
+		return ;
 
-// 	// write()
-// 	tree = data->tree;
-// 	while (tree != NULL)
-// 	{
-// 		data->pids[tree->id - 1] = fork();
-// 		if (data->pids[tree->id - 1] == -1)
-// 		{
-// 			close_free_pipes_pids(data);
-// 			perror("Fork failed");
-// 			return ;
-// 		}
-// 		else if (data->pids[tree->id -1] == 0)
-// 		{
-// 			close_unused_pipes(data, tree->id - 1);
-// 			// dup2(data->pipes[tree->id - 1][1], 1);	// write
-// 			// dup2(data->pipes[tree->id - 1][0], 0);  // read
-// 			printf("pipe[%d][0]: %d\n", tree->id - 1, data->pipes[tree->id - 1][0]);
-// 			printf("pipe[%d][1]: %d\n", tree->id - 1, data->pipes[tree->id - 1][1]);
-// 			redirect(tree, data);
-// 			return ;
-// 		}
-// 		if (tree->left != NULL)
-// 		{
-// 			left_tree = tree->left;
-// 			redirect(left_tree, data);
-// 		}
-// 		tree = tree->right;
-// 	}
-// 	wait(NULL);
+	// write()
+	tree = data->tree;
+	while (tree != NULL)
+	{
+		data->pids[tree->id - 1] = fork();
+		if (data->pids[tree->id - 1] == -1)
+		{
+			close_free_pipes_pids(data);
+			perror("Fork failed");
+			return ;
+		}
+		else if (data->pids[tree->id -1] == 0)
+		{
+			close_unused_pipes(data, tree->id - 1);
+			dup2(data->pipes[tree->id - 1][1], 1);	// write
+			dup2(data->pipes[tree->id - 1][0], 0);  // read
+			printf("pipe[%d][0]: %d\n", tree->id - 1, data->pipes[tree->id - 1][0]);
+			printf("pipe[%d][1]: %d\n", tree->id - 1, data->pipes[tree->id - 1][1]);
+			redirect(tree, data);
+			return ;
+		}
+		if (tree->left != NULL)
+		{
+			left_tree = tree->left;
+			redirect(left_tree, data);
+		}
+		tree = tree->right;
+	}
+	wait(NULL);
 
-// 	close_free_pipes_pids(data);
-// }
+	close_free_pipes_pids(data);
+}*/
 
 void	executor(t_data *data)
 {
