@@ -50,3 +50,14 @@ int	is_new_token(char c, char c2)
 		return (PIPE);
 	return (0);
 }
+
+int	is_new_readline(char *token)
+{
+	if (ft_strncmp(&token[ft_strlen(token) - 1], "'\0", 2) == 0)
+		return (1);
+	else if (token[ft_strlen(token) - 1] == '"')
+		return (1);
+	else if (token[ft_strlen(token) - 1] == '|')
+		return (1);
+	return (0);
+}
