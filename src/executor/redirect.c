@@ -38,11 +38,18 @@ void	valid_odd_token(char *p, t_data *data)
 
 void	redirect(t_bt *tree, t_data *data)
 {
+
 	// execve(tree->args, data->tokens, data->env);
-	
-	
+	(void)tree;
+	(void)data;
+
+	// To avoid que spam
+
+
+	/*
 	if (tree->id % 2 != 0)
 		valid_odd_token(tree->args, data);
 	else
 		valid_even_token(tree->args, data);
+	*/
 }

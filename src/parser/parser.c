@@ -75,17 +75,15 @@ static void add_last_readline_token(t_data *data)
 
 static void add_first_empty_token(t_data *data)
 {
-	int		i;
-	char	*empty_token;
+	int	i;
 
-	i = 0;
-	while (i < array_size(data->tokens))
+	i = array_size(data->tokens) - 1;
+	while (i >= 0)
 	{
-		data->tokens[i + 1] = data->tokens[i];
-		i++;
+    	data->tokens[i + 1] = data->tokens[i];
+    	i--;
 	}
-	empty_token = (char *)ft_calloc(1, sizeof(char));
-	data->tokens[0] = empty_token;
+	data->tokens[0] = ft_strdup("\0");
 }
 
 // 1. edge case: last token is a | or " or ' --> execute a readline to a new token			loris
@@ -107,20 +105,21 @@ void	parser(t_data *data)
 	p = &data->p;
 	malloc_token(data, p);
 	lexical_analyzer(data, p);
+	reset_p_vars(p);
+	lexical_filter(data, &data->p);
 	if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0)
-		add_first_empty_token(data);	// seg fault when first token is a redirection or pipe
+		add_first_empty_token(data);	// doesn't segfault anymore :D
 	if (data->tokens[0][0] != '|')
 		if (is_new_readline(data->tokens[array_size(data->tokens) - 1]) > 0)
 			add_last_readline_token(data);
 	if (p->token != NULL)
 		free(p->token);
-	reset_p_vars(p);
-	lexical_filter(data, &data->p);
 }
 
 //	Parser Print	
-
 	// int	i = 0;
 	// while (data->tokens[i] != NULL)
 	//  	printf("'%s'\n", data->tokens[i++]);
 	// printf("---------------------------\n");
+	// exit(1);
+

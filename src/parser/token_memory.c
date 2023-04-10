@@ -81,9 +81,6 @@ static void	token_memory_alloc(t_data *data, t_parser *p)
 			ptr++;
 		}
 	}
-	// int i = 0;
-	// while (p->token_alloc[i] > 0)
-	// 	printf("%d\n", p->token_alloc[i++] );
 }
 
 void	malloc_token(t_data *data, t_parser *p)
