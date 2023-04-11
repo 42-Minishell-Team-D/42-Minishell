@@ -145,7 +145,11 @@ int		search_var(char **s);
 int		nb_char_max(char **s);
 int		is_new_token(char c, char c2);
 int		is_new_readline(char *token);
+void	*ft_realloc(void *ptr, size_t size);
+
 /*			src/main.c 			*/
 int		select_arg(char *p, t_data *data);
+void 	print_tokens(char **tokens);
+
 
 #endif

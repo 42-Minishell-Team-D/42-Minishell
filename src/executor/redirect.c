@@ -31,8 +31,8 @@ void	valid_odd_token(char *p, t_data *data)
 		printf("env\n");
 	else if (p[0] == 'e' && p[1] == 'x' && p[2] == 'i' && p[3] == 't' && (p[4] == '\0' || p[4] == ' '))
 		printf("exit\n");
-	// else
-	// 	printf("minishell: %s command not found :/\n", p);
+	else
+		printf("minishell: %s command not found :/\n", p);
 	(void)data;
 }
 
@@ -46,10 +46,8 @@ void	redirect(t_bt *tree, t_data *data)
 	// To avoid que spam
 
 
-	/*
-	if (tree->id % 2 != 0)
-		valid_odd_token(tree->args, data);
-	else
-		valid_even_token(tree->args, data);
-	*/
+	// if (tree->id % 2 != 0)
+	// 	valid_odd_token(tree->args, data);
+	// else
+	// 	valid_even_token(tree->args, data);
 }

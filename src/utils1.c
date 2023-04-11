@@ -61,3 +61,18 @@ int	is_new_readline(char *token)
 		return (1);
 	return (0);
 }
+
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	*new_ptr;
+
+	new_ptr = malloc(size);
+	if (new_ptr == NULL)
+		return (NULL);
+	if (ptr != NULL)
+	{
+		ft_memcpy(new_ptr, ptr, size);
+		free(ptr);
+	}
+	return (new_ptr);
+}
