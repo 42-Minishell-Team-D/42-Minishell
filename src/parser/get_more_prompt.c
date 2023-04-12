@@ -108,6 +108,7 @@ void	get_more_prompt(t_data *data)
 	// 	check_new_readline_array(data, p);
 	// else
 	// 	ft_putstr_fd("syntax error\n", 2);
+	add_history(data->prompt);
 	printf("%s\n", data->prompt);
 }
 

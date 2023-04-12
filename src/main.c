@@ -57,13 +57,14 @@ int	main(void)
 	t_data		data;
 
 	init_stuff(&data, &data.prompt);
+
 	while (data.prompt)
 	{
 		data.prompt = readline("minishell$ ");
-		add_history(data.prompt);
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data);
+
 			parser(&data);
 			print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
