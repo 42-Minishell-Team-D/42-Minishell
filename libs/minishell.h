@@ -111,12 +111,12 @@ int		exec_unset(t_data *data, char *p);
 void	reset_p_vars(t_parser *p);
 int		lexical_analyzer(t_data *data, t_parser *p);
 void	malloc_token(t_data *data, t_parser *p);
-void	lexical_prompt_filter(char *prompt);
 void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
 t_bt	*create_tree(char **parser, t_bt *tree);
 int		check_syntax(t_bt *tree);
-void	get_more_prompt(t_data *data);
+void	get_more_prompt(t_data *data, t_parser *p);
+
 
 /*		src/free	*/
 void	free_after_execution(t_data *data);

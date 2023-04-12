@@ -118,7 +118,6 @@ void	executor(t_data *data)
 	t_bt	*left_tree;
 
 	tree = data->tree;
-	printf("minshell ::DDDDD\n");
 	while (tree != NULL)
 	{
 		redirect(tree, data);

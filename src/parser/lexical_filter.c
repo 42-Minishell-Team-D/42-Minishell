@@ -22,30 +22,6 @@ static void	delete_char(char *str)
 	}
 }
 
-void	lexical_prompt_filter(char *prompt)
-{
-	int	in_single;
-	int	in_double;
-
-	in_single = 0;
-	in_double = 0;
-
-	while (*prompt == ' ')
-		delete_char(prompt);
-	while (*prompt != '\0')
-	{
-		if (*prompt == '"' && !in_single)
-			in_double = !in_double;
-		if (*prompt == '\'' && !in_double)
-			in_single = !in_single;
-		if (*prompt == ' ' && (*(prompt + 1) == ' ' || *(prompt + 1) == '\0')
-			&& !in_double && !in_single)
-			delete_char(prompt);
-		else
-			prompt++;
-	}
-}
-
 void	lexical_filter(t_data *data, t_parser *p)
 {
 	char	*ptr;

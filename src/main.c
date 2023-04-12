@@ -63,8 +63,7 @@ int	main(void)
 		data.prompt = readline("minishell$ ");
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
-			get_more_prompt(&data);
-
+			get_more_prompt(&data, &data.p);
 			parser(&data);
 			print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
