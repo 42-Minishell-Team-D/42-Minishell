@@ -14,7 +14,7 @@ void	reset_p_vars(t_parser *p)
 		p->token_alloc[i++] = 0;
 }
 
-static int check_if_quote(char *s, t_parser *p)
+/*static int check_if_quote(char *s, t_parser *p)
 {
 	int		i;
 
@@ -106,7 +106,7 @@ static int check_double_pipe(t_data *data)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 static void add_first_empty_token(t_data *data)
 {
@@ -128,7 +128,7 @@ static void add_first_empty_token(t_data *data)
 // 3. heredoc: if token is a <<, read until the next token is the same as the first one
 
 // noticed: ok |' crashes. Even without the new edge case features
-// prompt: ok | ok"   -->> puts all in token 0
+// prompt: ok | ok"   -->> puts all in token 0 | Diogo: I have no f* clue why :D
 
 void	parser(t_data *data)
 {
@@ -136,13 +136,15 @@ void	parser(t_data *data)
 
 	p = &data->p;
 	malloc_token(data, p);
+	p->in_double = 0;
+	p->in_single = 0;
 	lexical_analyzer(data, p);
 	reset_p_vars(p);
 	lexical_filter(data, &data->p);
 	if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0 && ft_strncmp(data->tokens[0], "|\0", 2) != 0)
 		add_first_empty_token(data);
-	if (check_double_pipe(data) == 0)		// this avoid having a readline if double pipe which is syntax error
-		check_new_readline_array(data, p);
+	// if (check_double_pipe(data) == 0)		// this avoid having a readline if double pipe which is syntax error
+		// check_new_readline_array(data, p);
 	if (p->token != NULL)
 		free(p->token);
 }
