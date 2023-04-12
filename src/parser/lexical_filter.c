@@ -22,7 +22,7 @@ static void	delete_char(char *str)
 	}
 }
 
-char	*lexical_prompt_filter(char *prompt)
+void	lexical_prompt_filter(char *prompt)
 {
 	int	in_single;
 	int	in_double;
@@ -44,7 +44,6 @@ char	*lexical_prompt_filter(char *prompt)
 		else
 			prompt++;
 	}
-	return (prompt);
 }
 
 void	lexical_filter(t_data *data, t_parser *p)
