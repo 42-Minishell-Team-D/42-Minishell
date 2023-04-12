@@ -61,6 +61,7 @@ int	main(void)
 	{
 		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
+		lexical_prompt_filter(data.prompt);
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data);
