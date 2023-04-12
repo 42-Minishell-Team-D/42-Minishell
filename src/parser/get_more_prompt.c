@@ -103,6 +103,7 @@ static int check_double_pipe(t_data *data)
 
 void	get_more_prompt(t_data *data)
 {
+	data->prompt = lexical_prompt_filter(data.prompt);
 	// if (check_double_pipe(data) == 0)		// this avoid having a readline if double pipe which is syntax error
 	// 	check_new_readline_array(data, p);
 	// else
@@ -117,3 +118,8 @@ void	get_more_prompt(t_data *data)
 // 1 bis. |
 // 2. edge case: first token is a redirection --> create new empty token at first position	diogo
 // 3. heredoc: if token is a <<, read until the next token is the same as the first one
+
+
+// if first char is a | -> error
+// handle ' and ", need to add newlines. 
+// detecting if last char is | -> two options: deleting last ' ' or looping into string backward until detecting |
