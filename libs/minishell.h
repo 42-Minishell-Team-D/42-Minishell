@@ -115,6 +115,7 @@ void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
 t_bt	*create_tree(char **parser, t_bt *tree);
 int		check_syntax(t_bt *tree);
+void	get_more_prompt(t_data *data);
 
 /*		src/free	*/
 void	free_after_execution(t_data *data);

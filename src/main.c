@@ -63,8 +63,9 @@ int	main(void)
 		add_history(data.prompt);
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
+			get_more_prompt(&data);
 			parser(&data);
-			// print_tokens(data.tokens);
+			print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
 			if (check_syntax(data.tree) != 0)
@@ -77,3 +78,7 @@ int	main(void)
 	free(data.prompt);
 	return (0);
 }
+
+// if first char is a | -> error
+// handle ' and ", need to add newlines. 
+// detecting if last char is | -> two options: deleting last ' ' or looping into string backward until detecting |
