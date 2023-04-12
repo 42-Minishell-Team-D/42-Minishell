@@ -61,7 +61,6 @@ int	main(void)
 	{
 		data.prompt = readline("minishell$ ");
 		add_history(data.prompt);
-		data.prompt = lexical_prompt_filter(data.prompt);
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data);
@@ -79,7 +78,3 @@ int	main(void)
 	free(data.prompt);
 	return (0);
 }
-
-// if first char is a | -> error
-// handle ' and ", need to add newlines. 
-// detecting if last char is | -> two options: deleting last ' ' or looping into string backward until detecting |
