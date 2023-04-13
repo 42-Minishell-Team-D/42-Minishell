@@ -117,6 +117,7 @@ void	executor(t_data *data)
 	t_bt	*tree ;
 	t_bt	*left_tree;
 
+
 	tree = data->tree;
 	while (tree != NULL)
 	{
@@ -128,4 +129,20 @@ void	executor(t_data *data)
 		}
 		tree = tree->right;
 	}
+	
+	/*char **split = ft_split(data->tokens[0], ' ');
+	int pid = fork();
+	if (pid == 0)
+	{
+		if (ft_strncmp(split[0], "env", 3) == 0)
+			exec_env(data);
+		else
+		{
+			char *join = ft_strjoin("/bin/", split[0]);
+			execve(split[0], split, data->env);
+			execve(join, split, data->env);
+		}
+		kill(getpid(), SIGKILL);
+	}
+	wait(NULL);*/
 }

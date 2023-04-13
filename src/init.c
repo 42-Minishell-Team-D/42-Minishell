@@ -6,6 +6,7 @@ void	handler(int sig, siginfo_t *id, void *content)
 	(void)content;
 	if (sig == SIGINT)
 	{
+		// kill(getpid(), SIGINT);
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();

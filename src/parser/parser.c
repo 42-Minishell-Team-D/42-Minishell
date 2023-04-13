@@ -36,12 +36,14 @@ void	parser(t_data *data)
 	p->in_double = 0;
 	p->in_single = 0;
 	lexical_analyzer(data, p);
-	reset_p_vars(p);
-	lexical_filter(data, &data->p);
-	if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0 && ft_strncmp(data->tokens[0], "|\0", 2) != 0)
-		add_first_empty_token(data);
 	if (p->token != NULL)
 		free(p->token);
+	reset_p_vars(p);
+	lexical_filter(data, &data->p);
+	if (data->tokens[0] == NULL)
+		return ;
+	if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0 && ft_strncmp(data->tokens[0], "|\0", 2) != 0)
+		add_first_empty_token(data);
 }
 
 //	Parser Print	
