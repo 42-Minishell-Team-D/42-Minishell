@@ -39,9 +39,21 @@ void	valid_odd_token(char *p, t_data *data)
 void	redirect(t_bt *tree, t_data *data)
 {
 
-	// execve(tree->args, data->tokens, data->env);
-	(void)tree;
 	(void)data;
+	int pid = fork();
+	char **split = ft_split(tree->args, ' ');
+
+	if (pid == 0)
+	{
+		execve(split[0], split, data->env);
+		char *join = ft_strjoin("/bin/", split[0]);
+		execve(join, split, data->env);
+		printf("tree->id: %d\n", tree->id);
+		kill(getpid(), SIGKILL);
+	}
+	wait(NULL);
+
+
 
 	// To avoid que spam
 
