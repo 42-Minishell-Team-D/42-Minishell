@@ -76,3 +76,16 @@ void	*ft_realloc(void *ptr, size_t size)
 	}
 	return (new_ptr);
 }
+
+/*
+int static determine_args(char *s, t_parser *p)
+{
+	
+}
+
+char	**ft_split_args(char *s, t_parser *p)
+{
+	char **split;
+
+	split = (char **)ft_calloc(sizeof(char *), determine_args(s, p));
+}*/
