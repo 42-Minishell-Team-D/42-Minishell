@@ -21,72 +21,28 @@ static int check_unclosed_quote(char *s, t_parser *p)
 	return (0);
 }
 
-static char *remove_after_last_occurrence(char *s, char c)
-{
-	// remove everything after the last occurrence of c in s
-	int i;
-
-	i = ft_strlen(s) - 1;
-	while (s[i] != c && i != 0)
-		i--;
-	if (s[i] == c)
-		s[i + 1] = '\0';
-	return (s);
-}
-
-static char *get_from_second_line(char *s)
-{
-	// get everything from second line
-	int i;
-
-	i = 0;
-	while (s[i] != '\n' && s[i] != '\0')
-		i++;
-	return (&s[i]);
-}
-
-// char *del_from_c_to_newline(char *p, char*tmp, char c)
-// {
-// 	int i;
-
-// 	i = ft_strlen(p) - 1;
-// 	while (p[i] != c && i != 0)
-// 		i--;
-// 	if (p[i] == c)
-// 		p[i + 1] = '\0';
-// 	i = 0;
-// 	while (tmp[i] != '\n' && tmp[i] != '\0')
-// 		i++;
-// 	p = ft_strjoin(p, tmp);
-// 	return (p);
-// }
-
 static char *quote_readline(char *prompt, t_parser *p)
 {
 	// quote " and ' will prompt for more until another ' or " is being input. Also adds newlines.
 	int i;
 	char c;
 	char *tmp;
-	char *tmp2;
 
-	tmp = ft_strdup(prompt);
-	while(check_unclosed_quote(tmp, p) == 1)
+	while(check_unclosed_quote(prompt, p) == 1)
 	{
-		i = ft_strlen(tmp) - 1;
+		i = ft_strlen(prompt) - 1;
 		if (p->in_single == 1)
 			c = '\'';
 		else
 			c = '"';
-		while (tmp[i] != c && i != 0)
+		while (prompt[i] != c && i != 0)
 			i--;
-		if (tmp[i] == c)
+		if (prompt[i] == c)
 		{
-			tmp2 = ft_strjoin("\n", readline("miniquote> "));
-			tmp = ft_strjoin(tmp, tmp2);
+			tmp = ft_strjoin("\n", readline("miniquote> "));
+			prompt = ft_strjoin(prompt, tmp);
 		}
 	}
-	prompt = ft_strjoin(remove_after_last_occurrence(prompt, c), get_from_second_line(tmp));
-	// prompt = del_from_c_to_newline(prompt, tmp, c);
 	return (prompt);
 }
 
