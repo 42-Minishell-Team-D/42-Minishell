@@ -48,7 +48,7 @@ void	redirect(t_bt *tree, t_data *data)
 		execve(split[0], split, data->env);
 		char *join = ft_strjoin("/bin/", split[0]);
 		execve(join, split, data->env);
-		printf("tree->id: %d\n", tree->id);
+		// printf("tree->id: %d\n", tree->id);
 		kill(getpid(), SIGKILL);
 	}
 	wait(NULL);
