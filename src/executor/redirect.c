@@ -42,7 +42,7 @@ void	redirect(t_bt *tree, t_data *data)
 	char	**split;
 	char	*join;
 	
-	split = ft_split(tree->args, ' ');
+	split = ft_split_args(tree->args, &data->p);
 	(void)data;
 	pid = fork();
 	if (pid == 0)
