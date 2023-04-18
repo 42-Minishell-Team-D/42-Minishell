@@ -93,12 +93,12 @@ static int determine_args(char *ptr, t_parser *p)
 
 }
 
-char	**ft_split_args(char *s, t_parser *p)
+char	**ft_split_args(char *token, t_parser *p)
 {
 	char **split;
 
 	reset_p_vars(p);
-	split = (char **)ft_calloc(sizeof(char *), determine_args(s, p));
+	split = (char **)ft_calloc(sizeof(char *), determine_args(token, p));
 
 	return (split);
 }
