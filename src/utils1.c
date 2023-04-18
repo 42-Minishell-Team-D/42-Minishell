@@ -77,15 +77,28 @@ void	*ft_realloc(void *ptr, size_t size)
 	return (new_ptr);
 }
 
-/*
-int static determine_args(char *s, t_parser *p)
+
+static int determine_args(char *ptr, t_parser *p)
 {
-	
+	while (ptr[p->i])
+	{
+		if (ptr[p->i] == '"' && !p->in_single)
+			p->in_double = !p->in_double;
+		if (ptr[p->i] == '\'' && !p->in_double)
+			p->in_single = !p->in_single;
+		if (ptr[p->i] == ' ' && !p->in_double && !p->in_single)
+			p->n++;
+		p->i++;
+	}
+
 }
 
 char	**ft_split_args(char *s, t_parser *p)
 {
 	char **split;
 
+	reset_p_vars(p);
 	split = (char **)ft_calloc(sizeof(char *), determine_args(s, p));
-}*/
+
+	return (split);
+}

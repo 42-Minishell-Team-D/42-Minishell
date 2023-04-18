@@ -38,25 +38,30 @@ void	valid_odd_token(char *p, t_data *data)
 
 void	redirect(t_bt *tree, t_data *data)
 {
-
+	int		pid;
+	char	**split;
+	char	*join;
+	
+	split = ft_split(tree->args, ' ');
 	(void)data;
-	int pid = fork();
-	char **split = ft_split(tree->args, ' ');
-
+	pid = fork();
 	if (pid == 0)
 	{
-		execve(split[0], split, data->env);
-		char *join = ft_strjoin("/bin/", split[0]);
+		join = ft_strjoin("/bin/", split[0]);
 		execve(join, split, data->env);
+		execve(split[0], split, data->env);
 		printf("tree->id: %d\n", tree->id);
+		printf("tree->args: %s\n", tree->args);
 		kill(getpid(), SIGKILL);
 	}
-	wait(NULL);
-
+	else
+	{
+		wait(&data->rt);
+		data->rt = WEXITSTATUS(data->rt);
+	}
 
 
 	// To avoid que spam
-
 
 	// if (tree->id % 2 != 0)
 	// 	valid_odd_token(tree->args, data);
