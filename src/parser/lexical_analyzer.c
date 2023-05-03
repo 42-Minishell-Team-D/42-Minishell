@@ -124,6 +124,3 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 	data->tokens[p->i++] = NULL;
 	return (0);
 }
-
-
-
