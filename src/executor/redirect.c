@@ -48,10 +48,14 @@ void	redirect(t_bt *tree, t_data *data)
 	if (pid == 0)
 	{
 		join = ft_strjoin("/bin/", split[0]);
+		dup2(data->pipes[tree->id / 2][0], 0);
+		dup2(data->pipes[tree->id / 2][1], 1);
+
+		// printf("data.pipes[0][0] = %d\n", data->pipes[0][0]);
+		// printf("data.pipes[0][1] = %d\n", data->pipes[0][1]);
 		execve(join, split, data->env);
 		execve(split[0], split, data->env);
-		printf("tree->id: %d\n", tree->id);
-		printf("tree->args: %s\n", tree->args);
+		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
 		kill(getpid(), SIGKILL);
 	}
 	else

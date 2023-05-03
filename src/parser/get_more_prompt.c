@@ -192,7 +192,7 @@ void	get_more_prompt(t_data *data, t_parser *p)
 		data->prompt = heredoc_readline(data->prompt);
 		hdoc_bool = 1;
 	}
-	printf("%s\n", data->prompt);
+	// printf("%s\n", data->prompt); Don't forget to comment stuff that's not suppose to appear :(
 
 	add_history(data->prompt);
 	if (check_unclosed_quote(data->prompt, p) == 1 || check_valid_last_pipe(data->prompt) == 1 || (check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0))

@@ -44,4 +44,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+# Leak checker without leaks from readline :D
+l: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=.ignore_readline --track-origins=yes --log-file="valgrind.txt" ./minishell
+
+.PHONY: all clean fclean re bonus l

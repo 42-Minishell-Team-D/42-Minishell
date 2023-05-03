@@ -115,44 +115,33 @@ void	close_free_pipes_pids(t_data *data)
 void	executor(t_data *data)
 {
 	t_bt	*tree;
-	// t_bt	*left_tree;
-
+	int		rd;
+	char	buf[1024];
 
 	tree = data->tree;
 	if (init_executor(data))
 		return ;
+	int anti_bomb = 0;
 	while (tree != NULL)
 	{
 		if (tree->id == 1)
 			redirect(tree, data);
+		else if (tree->left->id % 2 == 1)
+			redirect(tree->left, data);
+		rd = tree->id;
 		tree = tree->right;
+		anti_bomb++;
+		if (anti_bomb > 3) // Anti fork bomb mechanism
+			exit(99999);
 	}
-
-	/*tree = data->tree;
-	while (tree != NULL)
+	rd = read(data->pipes[rd / 2][0], buf, sizeof(buf));
+	while (rd > 0)
 	{
-		redirect(tree, data);
-		if (tree->left != NULL)
-		{
-			left_tree = tree->left;
-			redirect(left_tree, data);
-		}
-		tree = tree->right;
-	}*/
-	
-	/*char **split = ft_split(data->tokens[0], ' ');
-	int pid = fork();
-	if (pid == 0)
-	{
-		if (ft_strncmp(split[0], "env", 3) == 0)
-			exec_env(data);
-		else
-		{
-			char *join = ft_strjoin("/bin/", split[0]);
-			execve(split[0], split, data->env);
-			execve(join, split, data->env);
-		}
-		kill(getpid(), SIGKILL);
+		buf[rd] = '\0';
+		write(1, buf, rd);
+		if (rd < 1024)
+			break ;
+		rd = read(data->pipes[rd / 2][0], buf, sizeof(buf));
 	}
-	wait(NULL);*/
+	close_free_pipes_pids(data);
 }
