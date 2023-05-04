@@ -130,8 +130,7 @@ void	executor(t_data *data)
 			redirect(tree->left, data);
 		rd = tree->id;
 		tree = tree->right;
-		anti_bomb++;
-		if (anti_bomb > 3) // Anti fork bomb mechanism
+		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(99999);
 	}
 	rd = read(data->pipes[rd / 2][0], buf, sizeof(buf));
