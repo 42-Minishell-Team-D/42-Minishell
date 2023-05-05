@@ -59,6 +59,7 @@ void	redirect(t_bt *tree, t_data *data)
 		execve(split[0], split, data->env);
 		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
 		kill(getpid(), SIGKILL);
+		return ;
 	}
 	else
 	{

@@ -122,13 +122,13 @@ void	executor(t_data *data)
 	if (init_executor(data))
 		return ;
 	int anti_bomb = 0;
+	redirect(tree, data);
+	rd = tree->id;
+	tree = tree->right;
 	while (tree != NULL)
 	{
-		if (tree->id == 1)
-			redirect(tree, data);
-		else if (tree->left->id % 2 == 1)
-			redirect(tree->left, data);
 		rd = tree->id;
+		redirect(tree->left, data);
 		tree = tree->right;
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(99999);
