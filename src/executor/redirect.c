@@ -43,7 +43,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 		{
 			ft_printf_fd(1, "id : %d child reading from: %d\n", id, data->pipes[id - 1][0]);
 			dup2(data->pipes[id - 1][0], 0);
-			ft_printf_fd(1, "id : %d child writing to: %d\n", id, data->pipes[id - 1][1]);
+			ft_printf_fd(1, "id : %d child writing to: %d\n", id, data->pipes[id][1]);
 			dup2(data->pipes[id][1], 1);
 		}
 		execve(join, split, data->env);
