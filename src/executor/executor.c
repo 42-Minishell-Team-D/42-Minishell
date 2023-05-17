@@ -116,6 +116,7 @@ void	executor(t_data *data)
 {
 	t_bt	*tree;
 	int		rd;
+	int		last_id;
 	char	buf[1024];
 
 	tree = data->tree;
@@ -123,24 +124,25 @@ void	executor(t_data *data)
 		return ;
 	int anti_bomb = 0;
 	redirect(tree, data);
-	rd = tree->id;
+	rd = 0;
+	last_id = tree->id;
 	tree = tree->right;
 	while (tree != NULL)
 	{
-		rd = tree->id;
+		last_id = tree->id;
 		redirect(tree->left, data);
 		tree = tree->right;
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(99999);
 	}
-	rd = read(data->pipes[rd / 2][0], buf, sizeof(buf));
+	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
 	while (rd > 0)
 	{
 		buf[rd] = '\0';
 		write(1, buf, rd);
 		if (rd < 1024)
 			break ;
-		rd = read(data->pipes[rd / 2][0], buf, sizeof(buf));
+		rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
 	}
 	close_free_pipes_pids(data);
 }
