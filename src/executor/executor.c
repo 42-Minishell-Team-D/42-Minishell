@@ -138,7 +138,9 @@ void	executor(t_data *data)
 	}
 	wait(&data->rt);
 	data->rt = WEXITSTATUS(data->rt);
+	ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
 	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
+	ft_printf_fd(1, "rd: %d\n", rd);	
 	while (rd > 0)
 	{
 		buf[rd] = '\0';
