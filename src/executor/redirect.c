@@ -1,20 +1,5 @@
 #include "../../libs/minishell.h"
 
-void	valid_even_token(char *p, t_data *data)
-{
-	if (p[0] == '>' && p[1] == '>')
-		printf(">>\n");
-	else if (p[0] == '<' && p[1] == '<')
-		printf("<<\n");
-	else if (p[0] == '|')
-		printf("|\n");
-	else if (p[0] == '<')
-		printf("<\n");
-	else if (p[0] == '>')
-		printf(">\n");
-	(void)data;
-}
-
 void	valid_odd_token(char *p, t_data *data)
 {
 	if (p[0] == 'e' && p[1] == 'c' && p[2] == 'h' && p[3] == 'o' && (p[4] == '\0' || p[4] == ' '))
@@ -36,7 +21,7 @@ void	valid_odd_token(char *p, t_data *data)
 	(void)data;
 }
 
-void	redirect(t_bt *tree, t_data *data)
+void	redirect_pipe(t_bt *tree, t_data *data)
 {
 	int		pid;
 	char	**split;
@@ -58,20 +43,16 @@ void	redirect(t_bt *tree, t_data *data)
 		execve(join, split, data->env);
 		execve(split[0], split, data->env);
 		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
+		free(split);
+		free(join);
 		kill(getpid(), SIGKILL);
-		return ;
+		exit(0);
 	}
-	else
-	{
-		wait(&data->rt);
-		data->rt = WEXITSTATUS(data->rt);
-	}
-
-
-	// To avoid que spam
-
-	// if (tree->id % 2 != 0)
-	// 	valid_odd_token(tree->args, data);
+	if (split != NULL)
+		free(split);
 	// else
-	// 	valid_even_token(tree->args, data);
+	// {
+	// 	wait(&data->rt);
+	// 	data->rt = WEXITSTATUS(data->rt);
+	// }
 }

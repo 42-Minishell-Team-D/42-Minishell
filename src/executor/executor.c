@@ -123,18 +123,21 @@ void	executor(t_data *data)
 	if (init_executor(data))
 		return ;
 	int anti_bomb = 0;
-	redirect(tree, data);
+	redirect_pipe(tree, data);
 	rd = 0;
 	last_id = tree->id;
 	tree = tree->right;
 	while (tree != NULL)
 	{
 		last_id = tree->id;
-		redirect(tree->left, data);
+		if (is_new_token(tree->args[0], tree->args[1]) == PIPE)
+			redirect_pipe(tree->left, data);
 		tree = tree->right;
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(99999);
 	}
+	wait(&data->rt);
+	data->rt = WEXITSTATUS(data->rt);
 	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
 	while (rd > 0)
 	{

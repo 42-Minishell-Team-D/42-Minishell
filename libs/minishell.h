@@ -131,10 +131,7 @@ int		init_executor(t_data *data);
 void	close_free_pipes_pids(t_data *data);
 void	close_unused_pipes(t_data *data, int i);
 int		get_number_of_processes(t_bt *tree);
-void	redirect(t_bt *tree, t_data *data);
-
-/*			src/functions1.c	*/
-int		exec_prog(char *prompt);
+void	redirect_pipe(t_bt *tree, t_data *data);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
