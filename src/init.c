@@ -59,7 +59,7 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 
 void	init_stuff(t_data *data, char **prompt)
 {
-	init_data(data, 10);
+	init_data(data, 0);
 	init_sa(data->sa, data->sb);
 	reset_p_vars(&data->p);
 	*prompt = (char *)1;

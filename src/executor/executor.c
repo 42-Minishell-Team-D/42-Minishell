@@ -136,9 +136,10 @@ void	executor(t_data *data)
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(99999);
 	}
-	wait(&data->rt);
-	data->rt = WEXITSTATUS(data->rt);
+	wait(NULL);
 	ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
+	ft_printf_fd(1, "parent writes to %d\n", data->pipes[last_id / 2][1]);
+	write(data->pipes[last_id / 2][1], "\0", 1);
 	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
 	ft_printf_fd(1, "rd: %d\n", rd);	
 	while (rd > 0)

@@ -46,6 +46,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 			ft_printf_fd(1, "id : %d child writing to: %d\n", id, data->pipes[id][1]);
 			dup2(data->pipes[id][1], 1);
 		}
+		// ft_printf_fd(2, "data->env[0] = %s", data->env[0]);
 		execve(join, split, data->env);
 		execve(split[0], split, data->env);
 		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
