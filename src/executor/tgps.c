@@ -17,7 +17,7 @@ static void	init_pipes(t_data *data)
 
 int	init_executor(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->pids = malloc(sizeof(int) * (get_number_of_processes(data->tree)));

@@ -49,8 +49,6 @@ static void	pipe_child(int id, char **split, t_bt * tree, t_data *data)
 	free(split);
 	free(join);
 	write(1, "\0", 1);
-	kill(getpid(), SIGKILL);
-	exit(0);
 }
 
 void	redirect_pipe(t_bt *tree, t_data *data)
@@ -62,11 +60,17 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	int id = tree->id / 2;
 	pid = fork();
 	if (pid == 0)
+	{
+		// close_unused_pipes(data, id);
 		pipe_child(id, split, tree, data);
+		kill(getpid(), SIGKILL);
+		exit(0);
+	}
 	id = 0;
 	while (split[id])
 		free(split[id++]);
 	free(split);
+	wait(NULL);	// edge case: cat /dev/random | head -n 10
 }
 
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
