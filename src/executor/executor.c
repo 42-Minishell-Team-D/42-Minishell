@@ -103,11 +103,11 @@ void	executor(t_data *data)
 			exit(99999);
 	}
 	wait(NULL);
-	ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
-	ft_printf_fd(1, "parent writes to %d\n", data->pipes[last_id / 2][1]);
+	data->rt = WEXITSTATUS(data->rt);
+	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
 	write(data->pipes[last_id / 2][1], "\0", 1);
 	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
-	ft_printf_fd(1, "rd: %d\n", rd);	
+	// ft_printf_fd(1, "rd: %d\n", rd);	
 	while (rd > 0)
 	{
 		buf[rd] = '\0';

@@ -21,49 +21,54 @@ void	valid_odd_token(char *p, t_data *data)
 	(void)data;
 }
 
+static void	pipe_child(int id, char *join, char **split, t_data *data)
+{
+	join = ft_strjoin("/bin/", split[0]);
+	if (id == 0)
+	{
+		// ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
+		// ft_printf_fd(1, "id: 0 child reading from: %d\n", 0);
+		dup2(data->pipes[id][1], 1);
+	}
+	else
+	{
+		// ft_printf_fd(1, "id : %d child reading from: %d\n", id, data->pipes[id - 1][0]);
+		dup2(data->pipes[id - 1][0], 0);
+		// ft_printf_fd(1, "id : %d child writing to: %d\n", id, data->pipes[id][1]);
+		dup2(data->pipes[id][1], 1);
+	}
+
+	execve(join, split, data->env);
+	execve(split[0], split, data->env);
+	// ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
+	while (split[id])
+		free(split[id++]);
+	free(split);
+	free(join);
+	write(1, "\0", 1);
+	kill(getpid(), SIGKILL);
+	exit(0);
+}
+
 void	redirect_pipe(t_bt *tree, t_data *data)
 {
 	int		pid;
 	char	**split;
 	char	*join;
-	
+
+	join = NULL;
 	split = ft_split_args(tree->args, &data->p);
 	int id = tree->id / 2;
 	pid = fork();
 	if (pid == 0)
-	{
-		join = ft_strjoin("/bin/", split[0]);
-		if (id == 0)
-		{
-			ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
-			ft_printf_fd(1, "id: 0 child reading from: %d\n", 0);
-			dup2(data->pipes[id][1], 1);
-		}
-		else
-		{
-			ft_printf_fd(1, "id : %d child reading from: %d\n", id, data->pipes[id - 1][0]);
-			dup2(data->pipes[id - 1][0], 0);
-			ft_printf_fd(1, "id : %d child writing to: %d\n", id, data->pipes[id][1]);
-			dup2(data->pipes[id][1], 1);
-		}
-		execve(join, split, data->env);
-		execve(split[0], split, data->env);
-		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
-		while (split[id])
-			free(split[id++]);
-		free(split);
-		free(join);
-		write(1, "\0", 1);
-		kill(getpid(), SIGKILL);
-		exit(0);
-	}
+		pipe_child(id, join, split, data);
 	id = 0;
 	while (split[id])
 		free(split[id++]);
 	free(split);
 
-	wait(&data->rt);
-	data->rt = WEXITSTATUS(data->rt);
+	// wait(&data->rt);
+	// data->rt = WEXITSTATUS(data->rt);
 	// else
 	// {
 	// 	wait(&data->rt);
