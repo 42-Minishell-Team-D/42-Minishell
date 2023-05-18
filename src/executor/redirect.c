@@ -78,7 +78,7 @@ t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
 		fd = open(tree->args, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		ft_printf_fd(2, "minishell: %s: failed o open/create file :/\n", tree->args);
+		ft_printf_fd(2, "minishell: %s: failed to open/create file :/\n", tree->args);
 		return (tree->parent);
 	}
 	rd = read(data->pipes[tree->id / 2 - 1][0], buf, 1024);
