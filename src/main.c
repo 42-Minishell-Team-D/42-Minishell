@@ -61,7 +61,6 @@ int	main(void)
 	while (data.prompt)
 	{
 		data.prompt = readline("minishell$ ");
-		// data.prompt = ft_strdup("echo hi | grep hi");
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data, &data.p);
