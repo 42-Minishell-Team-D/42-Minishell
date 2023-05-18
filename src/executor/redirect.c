@@ -49,14 +49,19 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 		execve(join, split, data->env);
 		execve(split[0], split, data->env);
 		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
+		while (split[id])
+			free(split[id++]);
 		free(split);
 		free(join);
 		write(1, "\0", 1);
 		kill(getpid(), SIGKILL);
 		exit(0);
 	}
-	if (split != NULL)
-		free(split);
+	id = 0;
+	while (split[id])
+		free(split[id++]);
+	free(split);
+
 	wait(&data->rt);
 	data->rt = WEXITSTATUS(data->rt);
 	// else

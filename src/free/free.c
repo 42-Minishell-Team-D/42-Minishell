@@ -38,5 +38,15 @@ void	free_after_execution(t_data *data)
 
 void	free_at_exit(t_data *data)
 {
+	int i;
+
+	i = 0;
+	while (data->env[i])
+	{
+		ft_bzero(data->env[i], ft_strlen(data->env[i]));
+		if (data->env[i] != NULL)
+			free(data->env[i]);
+		data->env[i++] = NULL;
+	}
 	free(data->env);
 }

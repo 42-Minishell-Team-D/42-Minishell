@@ -75,6 +75,5 @@ int	main(void)
 	}
 	rl_clear_history();
 	free_at_exit(&data);
-	free(data.prompt);
 	return (0);
 }
