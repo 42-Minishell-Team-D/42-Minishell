@@ -139,9 +139,12 @@ char * get_eof(char *prompt)
 	if (prompt[i] == '<' && prompt[i - 1] == '<')
 	{
 		i++;
+		// while (prompt[i] == ' ' && i != 0)
 		while (prompt[i] == ' ' && i != 0)
 			i++;
-		while (prompt[i] != ' ' && prompt[i] != '\0')
+		if (prompt[i] == '"' || prompt[i] == '\'')
+			i++;
+		while (prompt[i] != ' ' && prompt[i] != '"' && prompt[i] != '\'' && prompt[i] != '\0')
 		{
 			eof[j] = prompt[i];
 			i++;
