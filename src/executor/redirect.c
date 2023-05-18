@@ -46,7 +46,6 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 			ft_printf_fd(1, "id : %d child writing to: %d\n", id, data->pipes[id][1]);
 			dup2(data->pipes[id][1], 1);
 		}
-		// ft_printf_fd(2, "data->env[0] = %s", data->env[0]);
 		execve(join, split, data->env);
 		execve(split[0], split, data->env);
 		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
@@ -65,4 +64,29 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	// 	wait(&data->rt);
 	// 	data->rt = WEXITSTATUS(data->rt);
 	// }
+}
+
+t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
+{
+	int		fd;
+	char	buf[1024];
+	int		rd;
+
+	if (option == GREAT)
+		fd = open(tree->args, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		fd = open(tree->args, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+	{
+		ft_printf_fd(2, "minishell: %s: failed o open/create file :/\n", tree->args);
+		return (tree->parent);
+	}
+	rd = read(data->pipes[tree->id / 2 - 1][0], buf, 1024);
+	while (rd > 0)
+	{
+		write(fd, buf, rd);
+		rd = read(fd, buf, 1024);
+	}
+	close(fd);
+	return(tree->parent);
 }

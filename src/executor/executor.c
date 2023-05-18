@@ -67,50 +67,9 @@ void	close_free_pipes_pids(t_data *data)
 		free(data->pipes);
 	if (data->pids != NULL)
 		free(data->pids);
+	data->pipes = NULL;
+	data->pids = NULL;
 }
-
-// uncomment this executor() function and comment out other one down below to test
-
-// void	executor(t_data *data)
-// {
-// 	t_bt	*tree ;
-// 	t_bt	*left_tree;
-
-// 	if (init_executor(data) == 1)
-// 		return ;
-
-// 	// write()
-// 	tree = data->tree;
-// 	while (tree != NULL)
-// 	{
-// 		data->pids[tree->id - 1] = fork();
-// 		if (data->pids[tree->id - 1] == -1)
-// 		{
-// 			close_free_pipes_pids(data);
-// 			perror("Fork failed");
-// 			return ;
-// 		}
-// 		else if (data->pids[tree->id -1] == 0)
-// 		{
-// 			close_unused_pipes(data, tree->id - 1);
-// 			dup2(data->pipes[tree->id - 1][1], 1);	// write
-// 			dup2(data->pipes[tree->id - 1][0], 0);  // read
-// 			printf("pipe[%d][0]: %d\n", tree->id - 1, data->pipes[tree->id - 1][0]);
-// 			printf("pipe[%d][1]: %d\n", tree->id - 1, data->pipes[tree->id - 1][1]);
-// 			redirect(tree, data);
-// 			return ;
-// 		}
-// 		if (tree->left != NULL)
-// 		{
-// 			left_tree = tree->left;
-// 			redirect(left_tree, data);
-// 		}
-// 		tree = tree->right;
-// 	}
-// 	wait(NULL);
-
-// 	close_free_pipes_pids(data);
-// }
 
 void	executor(t_data *data)
 {
@@ -130,6 +89,10 @@ void	executor(t_data *data)
 	while (tree != NULL)
 	{
 		last_id = tree->id;
+		if (is_new_token(tree->args[0], tree->args[1]) == GREAT)
+			tree = redirect_great(tree->left, data, GREAT);
+		if (is_new_token(tree->args[0], tree->args[1]) == GREATGREAT)
+			tree = redirect_great(tree->left, data, GREATGREAT);
 		if (is_new_token(tree->args[0], tree->args[1]) == PIPE)
 			redirect_pipe(tree->left, data);
 		tree = tree->right;
