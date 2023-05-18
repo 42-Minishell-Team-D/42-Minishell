@@ -1,13 +1,24 @@
 #include "../../libs/minishell.h"
 
-int	exec_cd(char *prompt)
+int	exec_cd(char *path)
 {
-	char	*temp;
+	int in_single;
+	int in_double;
 
-	temp = prompt + 3;
-	if (*temp != '\0')
-		chdir(temp);
-	else
-		chdir("/");
+	in_single = 0;
+	in_double = 0;
+	while (*path != '\0')
+	{
+		if (*path == '\'' && in_double == 0)
+			in_single = !in_single;
+		if (*path == '\"' && in_single == 0)
+			in_double = !in_double;
+		if ((*path == ' ' || *path == '\0') && in_single == 0 && in_double == 0)
+			break ;
+		path++;
+	}
+	
+	if (*path != '\0')
+		chdir(path);
 	return (0);
 }

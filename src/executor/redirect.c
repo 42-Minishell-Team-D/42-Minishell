@@ -21,11 +21,31 @@ void	valid_odd_token(char *p, t_data *data)
 	(void)data;
 }
 
-static void	pipe_child(int id, char **split, t_bt * tree, t_data *data)
+static int builtin_checker(char **split, t_data *data)
 {
-	char	*join;
+	if (ft_strncmp(split[0], "cd", 2) == 0)
+		data->rt = exec_cd(split[1]);
+	/*else if (ft_strncmp(split[0], "pwd", 3) == 0)
+		exec_pwd();
+	else if (ft_strncmp(split[0], "echo", 4) == 0)
+		exec_echo(split);
+	else if (ft_strncmp(split[0], "export", 6) == 0)
+		exec_export(split, data);
+	else if (ft_strncmp(split[0], "unset", 5) == 0)
+		exec_unset(split, data);
+	else if (ft_strncmp(split[0], "env", 3) == 0)
+		exec_env(data);
+	else if (ft_strncmp(split[0], "exit", 4) == 0)
+		exec_exit(split, data);
+	else*/					// Yes, copilot did this :D //
+	return (1);
+}
 
-	join = ft_strjoin("/bin/", split[0]);
+static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
+{
+	int id;
+
+	id = tree->id / 2;
 	if (id == 0)
 	{
 		// ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
@@ -41,28 +61,34 @@ static void	pipe_child(int id, char **split, t_bt * tree, t_data *data)
 		if (tree->parent->right != NULL)
 			dup2(data->pipes[id][1], 1);
 	}
+	builtin_checker(split, data);
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
-	while (split[id])
-		free(split[id++]);
-	free(split);
-	free(join);
-	write(1, "\0", 1);
+	
 }
 
 void	redirect_pipe(t_bt *tree, t_data *data)
 {
 	int		pid;
 	char	**split;
-
+	char	*join;
+	int		id;
+	
+	id = tree->id / 2;
 	split = ft_split_args(tree->args, &data->p);
-	int id = tree->id / 2;
+	join = ft_strjoin("/bin/", split[0]);
 	pid = fork();
 	if (pid == 0)
 	{
 		// close_unused_pipes(data, id);
-		pipe_child(id, split, tree, data);
+		pipe_child(join, split, tree, data);
+		id = 0;
+		while (split[id])
+			free(split[id++]);
+		free(split);
+		free(join);
+		write(1, "\0", 1);
 		kill(getpid(), SIGKILL);
 		exit(0);
 	}
