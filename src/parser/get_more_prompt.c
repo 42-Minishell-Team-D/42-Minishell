@@ -2,15 +2,12 @@
 
 static int	check_valid_syntax(char *prompt, t_parser *p)
 {
-	// check if there is any pipe or redirection in a row. If so, don't get more prompt
-	// edge case: "ok |<< ok |" this prompt works
-	// TO DO: should skip quoted strings. Maybe have to use lexical_prompt_filter to make it?
-	int i;
-	int last_token;
-	int token_type;
+	int	i;
+	int	last_token;
+	int	token_type;
+
 	p->in_single = 0;
 	p->in_double = 0;
-
 	i = 0;
 	last_token = 0;
 	while (prompt[i])
@@ -33,10 +30,9 @@ static int	check_valid_syntax(char *prompt, t_parser *p)
 	return (1);
 }
 
-static int check_unclosed_quote(char *s, t_parser *p)
+static int	check_unclosed_quote(char *s, t_parser *p)
 {
-	// check all the string for quotes and return 1 if there is a single or double quote not closed. p->in_single and p->in_double will be set to 1 if there is a quote not closed
-	int i;
+	int	i;
 
 	i = 0;
 	p->in_single = 0;
@@ -54,14 +50,13 @@ static int check_unclosed_quote(char *s, t_parser *p)
 	return (0);
 }
 
-static char *quote_readline(char *prompt, t_parser *p)
+static char	*quote_readline(char *prompt, t_parser *p)
 {
-	// quote " and ' will prompt for more until another ' or " is being input. Also adds newlines.
-	int i;
-	char c;
-	char *tmp;
+	int		i;
+	char	c;
+	char	*tmp;
 
-	while(check_unclosed_quote(prompt, p) == 1)
+	while (check_unclosed_quote(prompt, p) == 1)
 	{
 		i = ft_strlen(prompt) - 1;
 		if (p->in_single == 1)
@@ -79,12 +74,9 @@ static char *quote_readline(char *prompt, t_parser *p)
 	return (prompt);
 }
 
-static int check_valid_last_pipe(char *prompt)
+static int	check_valid_last_pipe(char *prompt)
 {
-	// if valid last pipe, return 1. 0 if not
-	// should return 0 if double pipe or first char is a pipe.
-	// loop into string backward until detecting |, then loop and skipp spaces forward until detecting |. If there is a | before the end of the string, return 1
-	int i;
+	int	i;
 
 	i = ft_strlen(prompt) - 1;
 	if (prompt[0] == '|')
@@ -98,11 +90,7 @@ static int check_valid_last_pipe(char *prompt)
 
 static int	check_valid_last_heredoc(char *prompt)
 {
-	// if valid last heredoc, return 1. 0 if not
-	// loop into string backward while detecting << or i != 0
-	// if there is a << before the end of the string, save the next char delimited by spaces or quote and return 1
-	// if no chars other than space or pipe or redirection after <<, return 0
-	int i;
+	int	i;
 
 	i = ft_strlen(prompt) - 1;
 	while (prompt[i] != '<' && i != 0)
@@ -121,12 +109,11 @@ static int	check_valid_last_heredoc(char *prompt)
 	return (0);
 }
 
-char * get_eof(char *prompt)
+char *get_eof(char *prompt)
 {
-	// still need to get what's in quotes. e.g. << 'ok    '
-	int i;
-	int j;
-	char *eof;
+	int		i;
+	int		j;
+	char	*eof;
 
 	i = ft_strlen(prompt) - 1;
 	j = 0;
@@ -135,21 +122,21 @@ char * get_eof(char *prompt)
 		i--;
 	if (i < 1)
 		return (NULL);
-	// need to do all the heredocs somehow, this only does the last one (I would say no need to bother)
 	if (prompt[i] == '<' && prompt[i - 1] == '<')
 	{
 		i++;
-		// while (prompt[i] == ' ' && i != 0)
 		while (prompt[i] == ' ' && i != 0)
 			i++;
 		if (prompt[i] == '"' || prompt[i] == '\'')
 			i++;
-		while (prompt[i] != ' ' && prompt[i] != '"' && prompt[i] != '\'' && prompt[i] != '\0')
+		while (prompt[i] != '\0')
 		{
 			eof[j] = prompt[i];
 			i++;
 			j++;
 		}
+		if (prompt[i - 1] == '"' || prompt[i - 1] == '\'')
+			j--;
 		eof[j] = '\0';
 		return (eof);
 	}
