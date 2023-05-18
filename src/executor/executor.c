@@ -81,11 +81,14 @@ void	executor(t_data *data)
 	tree = data->tree;
 	if (init_executor(data))
 		return ;
-	int anti_bomb = 0;
-	redirect_pipe(tree, data);
+	if (ft_strncmp(tree->args, "\0", 1) != 0)
+		redirect_pipe(tree, data);
+	else
+		write(data->pipes[0][1], "\0", 1);
 	rd = 0;
 	last_id = tree->id;
 	tree = tree->right;
+	int anti_bomb = 0;
 	while (tree != NULL)
 	{
 		last_id = tree->id;
