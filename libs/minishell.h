@@ -103,7 +103,7 @@ int		exec_cd(char *prompt);
 int		exec_echo(char *arg, int n, t_data *data);
 int		exec_env(t_data *data);
 void	exec_exit(char *p);
-int		exec_export(t_data *data, char *p);
+int		exec_export(char **split, t_data *data);
 int		exec_pwd(void);
 int		exec_unset(t_data *data, char *p);
 

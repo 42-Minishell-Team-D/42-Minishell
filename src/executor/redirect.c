@@ -23,22 +23,23 @@ void	valid_odd_token(char *p, t_data *data)
 
 static int builtin_checker(char **split, t_data *data)
 {
-	if (ft_strncmp(split[0], "cd", 2) == 0)
+	data->rt = 1;
+	if (ft_strncmp(split[0], "cd\0", 2) == 0 || ft_strncmp(split[0], "cd ", 3) == 0)
 		data->rt = exec_cd(split[1]);
-	/*else if (ft_strncmp(split[0], "pwd", 3) == 0)
-		exec_pwd();
-	else if (ft_strncmp(split[0], "echo", 4) == 0)
-		exec_echo(split);
-	else if (ft_strncmp(split[0], "export", 6) == 0)
-		exec_export(split, data);
-	else if (ft_strncmp(split[0], "unset", 5) == 0)
-		exec_unset(split, data);
-	else if (ft_strncmp(split[0], "env", 3) == 0)
-		exec_env(data);
-	else if (ft_strncmp(split[0], "exit", 4) == 0)
-		exec_exit(split, data);
-	else*/					// Yes, copilot did this :D //
-	return (1);
+	// else if (ft_strncmp(split[0], "pwd\0", 3) == 0 || ft_strncmp(split[0], "pwd ", 4) == 0)
+	// 	exec_pwd();
+	// else if (ft_strncmp(split[0], "echo\0", 4) == 0 || ft_strncmp(split[0], "echo ", 5) == 0)
+	// 	exec_echo(split);
+	else if (ft_strncmp(split[0], "export\0", 7) == 0 || ft_strncmp(split[0], "export ", 7) == 0)
+		data->rt = exec_export(split, data);
+	// else if (ft_strncmp(split[0], "unset\0", 5) == 0 || ft_strncmp(split[0], "unset ", 6) == 0)
+	// 	exec_unset(split, data);
+	// else if (ft_strncmp(split[0], "env\0", 3) == 0 || ft_strncmp(split[0], "env ", 4) == 0)
+	// 	exec_env(data);
+	// else if (ft_strncmp(split[0], "exit\0", 4) == 0 || ft_strncmp(split[0], "exit ", 5) == 0)
+	// 	exec_exit(split, data);
+	// else					// Yes, copilot did this :D //
+	return (data->rt);
 }
 
 static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
@@ -61,11 +62,11 @@ static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 		if (tree->parent->right != NULL)
 			dup2(data->pipes[id][1], 1);
 	}
-	builtin_checker(split, data);
+	if (builtin_checker(split, data) == 0)
+		return ;
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
-	
 }
 
 void	redirect_pipe(t_bt *tree, t_data *data)

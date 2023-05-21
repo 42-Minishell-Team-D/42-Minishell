@@ -66,23 +66,20 @@ static void print_export(t_data *data)
 	free(data->export);
 }
 
-int	exec_export(t_data *data, char *p)
+int	exec_export(char **split, t_data *data)
 {
-	char **arg;
 	int i;
 	
-	arg = ft_split(p + 7, ' ');
-	i = 0;
-	if (p[6] == '\0')	// "export    " should still work
+	i = 1;
+	if (split[1] == NULL)
 		print_export(data);
-	else if (p[6] != ' ')
-		printf("minishell: %s command not found :\n", p);
 	else
-		while (arg[i] != NULL)
+	{
+		while (split[i] != NULL)
 		{
-			data->env[array_size(data->env) + 1] = NULL;
-			data->env[array_size(data->env)] = arg[i];
+			// should add the variable(s) to the env (need to see how that work exactly because 'export ok' add ok to export but not env, but 'export ok=1' add ok to both)
 			i++;
 		}
+	}
     return (0);
 }
