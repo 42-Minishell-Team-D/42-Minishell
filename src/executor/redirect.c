@@ -27,17 +27,17 @@ static int builtin_checker(char **split, t_data *data)
 	if (ft_strncmp(split[0], "cd\0", 2) == 0 || ft_strncmp(split[0], "cd ", 3) == 0)
 		data->rt = exec_cd(split[1]);
 	// else if (ft_strncmp(split[0], "pwd\0", 3) == 0 || ft_strncmp(split[0], "pwd ", 4) == 0)
-	// 	exec_pwd();
+	// 	data->rt = exec_pwd();
 	// else if (ft_strncmp(split[0], "echo\0", 4) == 0 || ft_strncmp(split[0], "echo ", 5) == 0)
-	// 	exec_echo(split);
+	// 	data->rt = exec_echo(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 || ft_strncmp(split[0], "export ", 7) == 0)
 		data->rt = exec_export(split, data);
 	// else if (ft_strncmp(split[0], "unset\0", 5) == 0 || ft_strncmp(split[0], "unset ", 6) == 0)
-	// 	exec_unset(split, data);
-	// else if (ft_strncmp(split[0], "env\0", 3) == 0 || ft_strncmp(split[0], "env ", 4) == 0)
-	// 	exec_env(data);
+	// 	data->rt = exec_unset(split, data);
+	else if (ft_strncmp(split[0], "env\0", 3) == 0 || ft_strncmp(split[0], "env ", 4) == 0)
+		data->rt = exec_env(data);
 	// else if (ft_strncmp(split[0], "exit\0", 4) == 0 || ft_strncmp(split[0], "exit ", 5) == 0)
-	// 	exec_exit(split, data);
+	// 	data->rt = exec_exit(split, data);
 	// else					// Yes, copilot did this :D //
 	return (data->rt);
 }
