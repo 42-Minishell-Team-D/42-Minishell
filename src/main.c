@@ -1,6 +1,6 @@
 #include "../libs/minishell.h"
 
-void print_tokens(char **tokens)
+void	print_tokens(char **tokens)
 {
 	printf("Tokens:\n");
 	for (int i = 0; i < array_size(tokens); i++) {
@@ -11,7 +11,8 @@ void print_tokens(char **tokens)
 
 void print_tree(t_bt *tree)
 {
-	t_bt *left_tree = tree;
+	t_bt	*left_tree = tree;
+
 	printf("Tree:\n");
 	while (tree != NULL)
 	{
@@ -57,7 +58,6 @@ int	main(void)
 	t_data		data;
 
 	init_stuff(&data, &data.prompt);
-
 	while (data.prompt)
 	{
 		data.prompt = readline("minishell$ ");

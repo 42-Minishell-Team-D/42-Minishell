@@ -29,7 +29,6 @@ char	*lexical_prompt_filter(char *prompt)
 
 	in_single = 0;
 	in_double = 0;
-
 	while (*prompt == ' ')
 		delete_char(prompt);
 	while (*prompt != '\0')

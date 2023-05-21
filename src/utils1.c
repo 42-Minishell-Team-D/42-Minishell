@@ -24,7 +24,7 @@ int	nb_char_max(char **s)
 {
 	int		i;
 	size_t	ret;
-	
+
 	i = 0;
 	ret = 0;
 	while (i < array_size(s))
@@ -76,7 +76,6 @@ void	*ft_realloc(void *ptr, size_t size)
 	}
 	return (new_ptr);
 }
-
 
 static int determine_args(char *ptr, t_parser *p)
 {

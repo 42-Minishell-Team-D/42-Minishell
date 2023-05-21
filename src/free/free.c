@@ -2,7 +2,8 @@
 
 void	free_tree(t_bt *tree)
 {
-	if (tree != NULL) {
+	if (tree != NULL)
+	{
 		free_tree(tree->left);
 		free_tree(tree->right);
 		free(tree->data);
@@ -13,7 +14,7 @@ void	free_tree(t_bt *tree)
 
 void	free_tokens(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
@@ -38,7 +39,7 @@ void	free_after_execution(t_data *data)
 
 void	free_at_exit(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data->env[i])
