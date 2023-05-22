@@ -62,7 +62,7 @@ static void print_export(t_data *data)
 	sort_export_ASCII(data->export, array_size(data->export), 0, 0);
 	i = 0;
 	while (data->export[i] != NULL)	
-    	printf("%s\n", data->export[i++]);
+    	ft_printf_fd(2, "%s\n", data->export[i++]);
 	free(data->export);
 }
 
@@ -83,3 +83,14 @@ int	exec_export(char **split, t_data *data)
 	}
     return (0);
 }
+
+// export ok =1 --> "minishell: export: `=1': not a valid identifier"	--> initialise 'ok' without a value		--> ok
+// export ok= 1 --> "minishell: export: `1': not a valid identifier"	--> initialise 'ok' with a value NULL	--> ok=
+// export ok=1  														--> initialise 'ok' with a value		--> ok=1
+// export ok															--> initialise 'ok' without a value		--> ok
+
+// two cases:
+// intialise <var> without a value --> only add to export
+// intialise <var> with a value --> add to export and env
+
+// unset <variable name> etc... --> remove variable from env
