@@ -23,15 +23,14 @@ void	handler(int sig, siginfo_t *id, void *content)
 // Change what’s displayed on the screen
 // to reflect the current contents of rl_line_buffer		
 
-void	init_data(t_data *data, int i)
+void	init_env(t_data *data, int i)
 {
 	extern char	**environ;
 
-	data->rt = 0;
 	data->env = NULL;
 	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
 	if (!data->env)
-		free_if_err(data, 1);
+		free_if_err(data->env, 1);
 	while (i < array_size(environ) - 2)
 	{
 		data->env[i] = ft_strdup(environ[i]);
@@ -39,10 +38,73 @@ void	init_data(t_data *data, int i)
 	}
 	data->env[i] = NULL;
 }
-
 // while (i < array_size(environ) - 2)
 // -2 because the last two elements of the environ export
 // are reserved for the lines and columns
+
+static void quote(char *export, int i, int j)
+{
+	char temp[ft_strlen(export) + 2];
+
+	while (export[i] && export[i] != '=')
+		temp[j++] = export[i++];
+	if (export[i])
+	{
+		temp[j++] = export[i++];
+		temp[j++] = '"';
+		while (export[i])
+			temp[j++] = export[i++];
+		temp[j++] = '"';
+		temp[j++] = '\0';
+		// free(export);
+		export = ft_strdup(temp);
+	}
+}
+
+static void sort_export_ASCII(char **export, int size, int i, int j)
+{
+	char *temp;
+
+	while (i < size)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
+			{
+				temp = export[j];
+				export[j] = export[j+1];
+				export[j+1] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+
+	i = 0;
+	while (i < size)
+	{
+		export[i] = ft_strjoin("declare -x ", export[i]);
+		quote(export[i++], 0, 0);
+	}
+}
+
+void	init_export(t_data *data, int i)
+{
+	extern char	**environ;
+
+	data->export = NULL;
+	data->export = malloc(sizeof(char *) * (array_size(data->env) + 1));
+	if (!data->export)
+		free_if_err(data->export, 1);
+	while (i < array_size(data->env))
+	{
+		data->export[i] = ft_strdup(data->env[i]);
+		i++;
+	}
+	data->export[i] = NULL;
+	sort_export_ASCII(data->export, array_size(data->export), 0, 0);
+}
 
 void	init_sa(struct sigaction sa, struct sigaction sb)
 {
@@ -59,7 +121,9 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 
 void	init_stuff(t_data *data, char **prompt)
 {
-	init_data(data, 0);
+	data->rt = 0;
+	init_env(data, 0);
+	init_export(data, 0);
 	init_sa(data->sa, data->sb);
 	reset_p_vars(&data->p);
 	*prompt = (char *)1;

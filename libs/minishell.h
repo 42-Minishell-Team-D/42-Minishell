@@ -126,7 +126,7 @@ int		check_valid_last_pipe(char *prompt);
 void	free_after_execution(t_data *data);
 void	free_at_exit(t_data *data);
 void	free_tokens(char **tokens);
-void	free_if_err(t_data *data, int exit_code);
+void	free_if_err(char **var, int exit_code);
 
 /*		src/executor	*/
 void	executor(t_data *data);
@@ -139,7 +139,8 @@ t_bt	*redirect_great(t_bt *tree, t_data *data, int option);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
-void	init_data(t_data *data, int i);
+void	init_env(t_data *data, int i);
+void	init_export(t_data *data, int i);
 void	init_sa(struct sigaction sa, struct sigaction sb);
 void	init_stuff(t_data *data, char **prompt);
 

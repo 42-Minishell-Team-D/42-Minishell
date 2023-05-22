@@ -50,4 +50,13 @@ void	free_at_exit(t_data *data)
 		data->env[i++] = NULL;
 	}
 	free(data->env);
+	i = 0;
+	while (data->export[i])
+	{
+		ft_bzero(data->export[i], ft_strlen(data->export[i]));
+		if (data->export[i] != NULL)
+			free(data->export[i]);
+		data->export[i++] = NULL;
+	}
+	free(data->export);
 }
