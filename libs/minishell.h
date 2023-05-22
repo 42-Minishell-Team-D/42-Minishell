@@ -143,7 +143,7 @@ void	init_env(t_data *data, int i);
 void	init_export(t_data *data, int i);
 void	init_sa(struct sigaction sa, struct sigaction sb);
 void	init_stuff(t_data *data, char **prompt);
-
+void	quote(char *export, int i, int j);
 /*			src/utils1.c		*/
 int		array_size(char **s);
 int		search_var(char **s);

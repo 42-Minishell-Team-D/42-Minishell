@@ -62,7 +62,7 @@ static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 		if (tree->parent->right != NULL)
 			dup2(data->pipes[id][1], 1);
 	}
-	if (builtin_checker(split, data) == 0)
+	if (builtin_checker(split, data) == 0)	// for export / unset / env this should be executed on the main process
 		return ;
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);

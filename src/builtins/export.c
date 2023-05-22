@@ -25,7 +25,19 @@ static int check_variable_name(char *var)
 	return (1);
 }
 
-static char *get_after_equal_sign(char *var)
+static int is_equal_sign(char *var)
+{
+	int i;
+
+	i = 0;
+	while (var[i] != '\0' && var[i] != '=')
+		i++;
+	if (var[i] == '\0')
+		return (0);
+	return (1);
+}
+
+static char *get_before_equal_sign(char *var)
 {
 	int i;
 
@@ -34,59 +46,56 @@ static char *get_after_equal_sign(char *var)
 		i++;
 	if (var[i] == '\0')
 		return (NULL);
-	return (var + i + 1);
-}
-
-void free_array(char ***array) {
-    int i = 0;
-    while ((*array)[i] != NULL) {
-        if ((*array)[i] != NULL) {
-            ft_bzero((*array)[i], ft_strlen((*array)[i]));
-            free((*array)[i]);
-        }
-        (*array)[i++] = NULL;
-    }
-    free(*array);
-    *array = NULL;
+	return (ft_substr(var, 0, i));
 }
 
 static void update_env(char *var, t_data *data) {
-    int i = 0;
-    char **ret = NULL;
-    ret = malloc(sizeof(char *) * (array_size(data->env) + 2));
-    if (!ret) {
-        // Handle allocation failure
-        // free any previously allocated memory
-        // and return an appropriate error value or exit the program
-    }
-    while (data->env[i] != NULL) {
-        ret[i] = ft_strdup(data->env[i]);
-        i++;
-    }
-    ret[i] = ft_strdup(var);
-    ret[i + 1] = NULL;
-    free_array(&data->env);
-    data->env = ret;  // Assign ret to data->env
+	int i;
+
+	i = 0;
+	data->env = ft_realloc(data->env, sizeof(char *) * (array_size(data->env) + 2));
+	if (data->env == NULL)
+		return ;
+	while (data->env[i] != NULL)
+	{
+		if (ft_strncmp(get_before_equal_sign(data->env[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
+		{
+			free(data->env[i]);
+			data->env[i] = ft_strdup(var);
+			return ;
+		}
+		i++;
+	}
+	data->env[i] = ft_strdup(var);
+	data->env[i + 1] = NULL;
 }
 
 
-// static void update_export(char *var, t_data *data)
-// {
-// 	int i;
+static void update_export(char *var, t_data *data)
+{
+	int i;
 
-// 	i = 0;
-// 	while (data->export[i] != NULL)
-// 	{
-// 		if (ft_strncmp(data->export[i], var, ft_strlen(var)) == 0)
-// 		{
-// 			data->export[i] = var;
-// 			return ;
-// 		}
-// 		i++;
-// 	}
-// 	data->export[i] = var;
-// 	data->export[i + 1] = NULL;
-// }
+	i = 0;
+	data->export = ft_realloc(data->export, sizeof(char *) * (array_size(data->export) + 2));
+	if (data->export == NULL)
+		return ;
+	while (data->export[i] != NULL)
+	{
+		if (ft_strncmp(get_before_equal_sign(data->export[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
+		{
+			if (is_equal_sign(var) == 0)	// if var has no value. return to keep the actuel value
+				return ;
+			free(data->export[i]);
+			data->export[i] = ft_strdup(var);
+			return ;
+		}
+		i++;
+	}
+	data->export[i] = ft_strdup(var);
+	data->export[i] = ft_strjoin("declare -x ", data->export[i]);
+	quote(data->export[i], 0, 0);
+	data->export[i + 1] = NULL;
+}
 
 
 int	exec_export(char **split, t_data *data)
@@ -100,24 +109,20 @@ int	exec_export(char **split, t_data *data)
 	{
 		while (split[i] != NULL)
 		{
+			printf("%i\n", check_variable_name(split[i]));
 			if (check_variable_name(split[i]) == 0)
 				printf("minishell: export: `%s': not a valid identifier\n", split[i]);
 			else
-				// add variable(s) to the export and env
-				// if (variable already exists in env) --> update it
-				// else --> add it
-				if (get_after_equal_sign(split[i]) != NULL)
-				{
-					printf("%s\n", get_after_equal_sign(split[i]));
+			{
+				if (is_equal_sign(split[i]) == 1)
 					update_env(split[i], data);
-					// update_export(split[i], data);
-				}
-				// else
-					// update_export(split[i], data);
-			i++;
+				update_export(split[i], data);
+				i++;
+			}
 		}
 	}
-
+	// exec_env(data);
+	// print_export(data);
     return (0);
 }
 

@@ -42,7 +42,7 @@ void	init_env(t_data *data, int i)
 // -2 because the last two elements of the environ export
 // are reserved for the lines and columns
 
-static void quote(char *export, int i, int j)
+void quote(char *export, int i, int j)
 {
 	char temp[ft_strlen(export) + 2];
 
