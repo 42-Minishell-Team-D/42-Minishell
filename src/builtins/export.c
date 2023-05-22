@@ -37,35 +37,38 @@ static char *get_after_equal_sign(char *var)
 	return (var + i + 1);
 }
 
-static char **update_env(char *var, t_data *data)
-{
-	int		i;
-	char	**ret;
-
-	i = 0;
-	ret = NULL;
-	ret = malloc(sizeof(char *) * (array_size(data->env) + 1));
-	if (!ret)
-		free_if_err(ret, 1);
-	while (data->env[i] != NULL)
-	{
-		if (ft_strncmp(data->env[i], var, ft_strlen(var)) == 0)	// if variable already exists in env
-		{
-			data->env = realloc(data->env, sizeof(char *) * (array_size(data->env) + 1));
-			data->env[i] = ft_strdup(var);
-			return data->env;
-		}
-		i++;
-	}
-	printf("%i\n", array_size(data->env));
-	printf("i = %i\n", i);
-	data->env = ft_realloc(data->env, sizeof(char *) * (i + 2));
-	data->env[i] = ft_strdup(var);
-	printf("data->env[i] = %s\n", data->env[i]);
-	data->env[i + 1] = NULL;
-	exec_env(data);
-	return (data->env);
+void free_array(char ***array) {
+    int i = 0;
+    while ((*array)[i] != NULL) {
+        if ((*array)[i] != NULL) {
+            ft_bzero((*array)[i], ft_strlen((*array)[i]));
+            free((*array)[i]);
+        }
+        (*array)[i++] = NULL;
+    }
+    free(*array);
+    *array = NULL;
 }
+
+static void update_env(char *var, t_data *data) {
+    int i = 0;
+    char **ret = NULL;
+    ret = malloc(sizeof(char *) * (array_size(data->env) + 2));
+    if (!ret) {
+        // Handle allocation failure
+        // free any previously allocated memory
+        // and return an appropriate error value or exit the program
+    }
+    while (data->env[i] != NULL) {
+        ret[i] = ft_strdup(data->env[i]);
+        i++;
+    }
+    ret[i] = ft_strdup(var);
+    ret[i + 1] = NULL;
+    free_array(&data->env);
+    data->env = ret;  // Assign ret to data->env
+}
+
 
 // static void update_export(char *var, t_data *data)
 // {
@@ -106,7 +109,7 @@ int	exec_export(char **split, t_data *data)
 				if (get_after_equal_sign(split[i]) != NULL)
 				{
 					printf("%s\n", get_after_equal_sign(split[i]));
-					data->env = update_env(split[i], data);
+					update_env(split[i], data);
 					// update_export(split[i], data);
 				}
 				// else
@@ -114,6 +117,7 @@ int	exec_export(char **split, t_data *data)
 			i++;
 		}
 	}
+
     return (0);
 }
 
