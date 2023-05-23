@@ -153,6 +153,10 @@ int		is_new_readline(char *token);
 void	*ft_realloc(void *ptr, size_t size);
 char	**ft_split_args(char *token, t_parser *p);
 
+/*			src/builtins/utils_builtins.c			*/
+char	*get_before_equal_sign(char *var);
+char    *get_before_equal_sign_export(char *var);
+
 /*			src/main.c 			*/
 int		select_arg(char *p, t_data *data);
 void 	print_tokens(char **tokens);

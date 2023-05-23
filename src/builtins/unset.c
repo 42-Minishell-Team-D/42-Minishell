@@ -17,6 +17,9 @@ int	exec_unset(t_data *data, char *p)
 		data->env[search_var(data->env)] = arg[i];
 		i++;
 	}
-
     return (0);
 }
+
+// should accept any arguments
+// should remove the variable from the environment and the export list
+// should return 0

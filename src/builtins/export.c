@@ -37,18 +37,6 @@ static int is_equal_sign(char *var)
 	return (1);
 }
 
-static char *get_before_equal_sign(char *var)
-{
-	int i;
-
-	i = 0;
-	while (var[i] != '\0' && var[i] != '=')
-		i++;
-	if (var[i] == '\0')
-		return (NULL);
-	return (ft_substr(var, 0, i));
-}
-
 static void update_env(char *var, t_data *data) {
 	int i;
 
@@ -81,9 +69,9 @@ static void update_export(char *var, t_data *data)
 		return ;
 	while (data->export[i] != NULL)
 	{
-		if (ft_strncmp(get_before_equal_sign(data->export[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
+		if (ft_strncmp(get_before_equal_sign_export(data->export[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
 		{
-			if (is_equal_sign(var) == 0)	// if var has no value. return to keep the actuel value
+			if (is_equal_sign(var) == 0)	// if var has no value. return to keep the actual value so no update is done
 				return ;
 			free(data->export[i]);
 			data->export[i] = ft_strdup(var);
@@ -109,7 +97,6 @@ int	exec_export(char **split, t_data *data)
 	{
 		while (split[i] != NULL)
 		{
-			printf("%i\n", check_variable_name(split[i]));
 			if (check_variable_name(split[i]) == 0)
 				printf("minishell: export: `%s': not a valid identifier\n", split[i]);
 			else
@@ -122,7 +109,7 @@ int	exec_export(char **split, t_data *data)
 		}
 	}
 	// exec_env(data);
-	// print_export(data);
+	print_export(data);
     return (0);
 }
 
