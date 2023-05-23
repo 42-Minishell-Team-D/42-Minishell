@@ -121,3 +121,15 @@ char	**ft_split_args(char *token, t_parser *p)
 	ft_strlcpy(split[p->n++], &token[p->temp], p->i + 1 - p->temp);
 	return (split);
 }
+
+int	get_biggest_len(char *s1, char *s2)
+{
+	int	len1;
+	int	len2;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	if (len1 > len2)
+		return (len1);
+	return (len2);
+}

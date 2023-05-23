@@ -105,7 +105,7 @@ int		exec_env(t_data *data);
 void	exec_exit(char *p);
 int		exec_export(char **split, t_data *data);
 int		exec_pwd(void);
-int		exec_unset(t_data *data, char *p);
+int		exec_unset(char **split, t_data *data);
 
 /*		src/parser	*/
 void	reset_p_vars(t_parser *p);
@@ -152,6 +152,7 @@ int		is_new_token(char c, char c2);
 int		is_new_readline(char *token);
 void	*ft_realloc(void *ptr, size_t size);
 char	**ft_split_args(char *token, t_parser *p);
+int		get_biggest_len(char *s1, char *s2);
 
 /*			src/builtins/utils_builtins.c			*/
 char	*get_before_equal_sign(char *var);

@@ -104,12 +104,12 @@ int	exec_export(char **split, t_data *data)
 				if (is_equal_sign(split[i]) == 1)
 					update_env(split[i], data);
 				update_export(split[i], data);
-				i++;
 			}
+			i++;
 		}
 	}
 	// exec_env(data);
-	print_export(data);
+	// print_export(data);
     return (0);
 }
 

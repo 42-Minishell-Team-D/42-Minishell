@@ -32,8 +32,8 @@ static int builtin_checker(char **split, t_data *data)
 	// 	data->rt = exec_echo(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 || ft_strncmp(split[0], "export ", 7) == 0)
 		data->rt = exec_export(split, data);
-	// else if (ft_strncmp(split[0], "unset\0", 5) == 0 || ft_strncmp(split[0], "unset ", 6) == 0)
-	// 	data->rt = exec_unset(split, data);
+	else if (ft_strncmp(split[0], "unset\0", 5) == 0 || ft_strncmp(split[0], "unset ", 6) == 0)
+		data->rt = exec_unset(split, data);
 	else if (ft_strncmp(split[0], "env\0", 3) == 0 || ft_strncmp(split[0], "env ", 4) == 0)
 		data->rt = exec_env(data);
 	// else if (ft_strncmp(split[0], "exit\0", 4) == 0 || ft_strncmp(split[0], "exit ", 5) == 0)
