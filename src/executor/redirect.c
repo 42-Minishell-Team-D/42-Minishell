@@ -44,7 +44,7 @@ static int builtin_checker(char **split, t_data *data)
 
 static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 {
-	int id;
+	int	id;
 
 	id = tree->id / 2;
 	if (id == 0)
@@ -67,6 +67,7 @@ static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
+
 }
 
 void	redirect_pipe(t_bt *tree, t_data *data)
@@ -91,7 +92,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 		free(join);
 		write(1, "\0", 1);
 		kill(getpid(), SIGKILL);
-		exit(0);
+		exit(1);
 	}
 	id = 0;
 	while (split[id])
@@ -124,3 +125,4 @@ t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
 	close(fd);
 	return(tree->parent);
 }
+
