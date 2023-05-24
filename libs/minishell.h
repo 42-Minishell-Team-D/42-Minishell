@@ -100,7 +100,7 @@ typedef struct minishell
 
 /*			src/builtins/			*/
 int		exec_cd(char *prompt);
-int		exec_echo(char *arg, int n, t_data *data);
+int		exec_echo(char **arg, int n, t_data *data);
 int		exec_env(t_data *data);
 void	exec_exit(char **split);
 int		exec_export(char **split, t_data *data);
