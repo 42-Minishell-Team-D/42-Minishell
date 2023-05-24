@@ -74,8 +74,7 @@ static void update_export(char *var, t_data *data)
 			if (is_equal_sign(var) == 0)	// if var has no value. return to keep the actual value so no update is done
 				return ;
 			free(data->export[i]);
-			data->export[i] = ft_strdup(var);
-			return ;
+			break ;
 		}
 		i++;
 	}
@@ -109,7 +108,7 @@ int	exec_export(char **split, t_data *data)
 		}
 	}
 	// exec_env(data);
-	// print_export(data);
+	print_export(data);
     return (0);
 }
 
