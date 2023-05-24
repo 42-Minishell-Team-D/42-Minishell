@@ -36,8 +36,8 @@ static int builtin_checker(char **split, t_data *data)
 		data->rt = exec_unset(split, data);
 	else if (ft_strncmp(split[0], "env\0", 3) == 0 || ft_strncmp(split[0], "env ", 4) == 0)
 		data->rt = exec_env(data);
-	// else if (ft_strncmp(split[0], "exit\0", 4) == 0 || ft_strncmp(split[0], "exit ", 5) == 0)
-	// 	data->rt = exec_exit(split, data);
+	else if (ft_strncmp(split[0], "exit\0", 4) == 0 || ft_strncmp(split[0], "exit ", 5) == 0)
+		exec_exit(split);
 	// else					// Yes, copilot did this :D //
 	return (data->rt);
 }
