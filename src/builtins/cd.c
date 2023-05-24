@@ -5,6 +5,7 @@ int	exec_cd(char *path)
 	int in_single;
 	int in_double;
 
+	
 	in_single = 0;
 	in_double = 0;
 	while (*path != '\0')
@@ -22,3 +23,6 @@ int	exec_cd(char *path)
 		chdir(path);
 	return (0);
 }
+
+// minishell: cd: too many arguments
+// minishell: cd: <path>: No such file or directory

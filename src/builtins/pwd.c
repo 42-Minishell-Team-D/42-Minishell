@@ -5,7 +5,7 @@ int	exec_pwd(void)
 	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		printf("%s\n", cwd);
+		ft_printf_fd(1, "%s\n", cwd);
 	else
 		return (1);
 	return (0);
