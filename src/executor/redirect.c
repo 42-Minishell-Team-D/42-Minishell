@@ -70,6 +70,13 @@ static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 
 }
 
+static void init_child()
+{
+	// create a code that will reset the singals SIGINT and SIGKILL to default actions.
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
 void	redirect_pipe(t_bt *tree, t_data *data)
 {
 	int		pid;
@@ -83,6 +90,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		init_child();
 		// close_unused_pipes(data, id);
 		pipe_child(join, split, tree, data);
 		id = 0;

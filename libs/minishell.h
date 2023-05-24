@@ -86,6 +86,7 @@ typedef struct parser
 typedef struct minishell
 {
 	int					rt;
+	int					current_exec;
 	char				*prompt;
 	char				**tokens;
 	char				**env;
