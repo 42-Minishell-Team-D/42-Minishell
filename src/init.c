@@ -6,12 +6,13 @@ void	handler(int sig, siginfo_t *id, void *content)
 	(void)content;
 	if (sig == SIGINT)
 	{
-		// kill(getpid(), SIGINT);
-		printf("\n");
+		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	// if (sig == SIGQUIT) // CTRL+\ doesn't
+	// 	write(1, "new lineeeee\n", 14);
 	return ;
 }
 
