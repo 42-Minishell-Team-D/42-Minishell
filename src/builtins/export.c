@@ -6,7 +6,7 @@ static void print_export(t_data *data)
 
 	i = 0;
 	while (data->export[i] != NULL)	
-    	ft_printf_fd(2, "%s\n", data->export[i++]);
+    	ft_printf_fd(1, "%s\n", data->export[i++]);
 }
 
 static int check_variable_name(char *var)
