@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-int	exec_pwd(void)
+int	exec_pwd()
 {
 	char	cwd[PATH_MAX];
 

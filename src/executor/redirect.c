@@ -24,10 +24,10 @@ void	valid_odd_token(char *p, t_data *data)
 static int builtin_checker(char **split, t_data *data)
 {
 	data->rt = 1;
-	// if (ft_strncmp(split[0], "cd\0", 3) == 0)
-	// 	data->rt = exec_cd(split);
-	// if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
-	// 	data->rt = exec_pwds();
+	if (ft_strncmp(split[0], "cd\0", 3) == 0)
+		data->rt = exec_cd(split);
+	else if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
+		data->rt = exec_pwd();
 	// else if (ft_strncmp(split[0], "echo\0", 4) == 0 || ft_strncmp(split[0], "echo ", 5) == 0)
 	// 	data->rt = exec_echo(split);
 	if (ft_strncmp(split[0], "export\0", 7) == 0 || ft_strncmp(split[0], "export ", 7) == 0)
