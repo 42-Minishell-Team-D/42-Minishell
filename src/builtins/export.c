@@ -108,7 +108,7 @@ int	exec_export(char **split, t_data *data)
 		}
 	}
 	// exec_env(data);
-	// print_export(data);
+	print_export(data);
     return (0);
 }
 
