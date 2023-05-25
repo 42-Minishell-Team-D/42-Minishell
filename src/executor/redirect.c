@@ -72,7 +72,7 @@ static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 
 static void init_child()
 {
-	// create a code that will reset the singals SIGINT and SIGKILL to default actions.
+	// reset the singals SIGINT and SIGKILL to default actions.
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
@@ -85,7 +85,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	int		id;
 	
 	id = tree->id / 2;
-	split = ft_split_args(tree->args, &data->p);
+	split = clear_quotes(ft_split_args(tree->args, &data->p));
 	join = ft_strjoin("/bin/", split[0]);
 	pid = fork();
 	if (pid == 0)

@@ -50,6 +50,6 @@ void	parser(t_data *data)
 //	Parser Print	
 	// int	i = 0;
 	// while (data->tokens[i] != NULL)
-	//  	printf("'%s'\n", data->tokens[i++]);
+	//  	printf("token = %s\n", data->tokens[i++]);
 	// printf("---------------------------\n");
 	// exit(1);
