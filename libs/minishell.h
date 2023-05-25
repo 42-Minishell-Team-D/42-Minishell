@@ -77,7 +77,7 @@ int		exec_echo(char **split, t_data *data);
 int		exec_env(t_data *data);
 int		exec_exit(char **split, t_data *data, int i, int ret);
 int		exec_export(char **split, t_data *data);
-int		exec_pwd();
+int		exec_pwd(void);
 int		exec_unset(char **split, t_data *data);
 
 /*		src/parser	*/
@@ -131,11 +131,10 @@ int		get_biggest_len(char *s1, char *s2);
 
 /*			src/builtins/utils_builtins.c			*/
 char	*get_before_equal_sign(char *var);
-char    *get_before_equal_sign_export(char *var);
+char	*get_before_equal_sign_export(char *var);
 
 /*			src/main.c 			*/
 int		select_arg(char *p, t_data *data);
-void 	print_tokens(char **tokens);
-
+void	print_tokens(char **tokens);
 
 #endif

@@ -2,10 +2,10 @@
 
 int	exec_env(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data->env[i] != NULL)
-    	ft_printf_fd(1, "%s\n", data->env[i++]);
+		ft_printf_fd(1, "%s\n", data->env[i++]);
 	return (0);
 }

@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-int		get_number_of_processes(t_bt *tree)
+int	get_number_of_processes(t_bt *tree)
 {
 	int		count;
 	t_bt	*left_tree;
@@ -102,7 +102,7 @@ void	executor(t_data *data)
 			redirect_pipe(tree->left, data);
 		tree = tree->right;
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
-			exit(99999);
+			exit(255);
 	}
 	child_pid = wait(&status);
 	while (child_pid > 0)

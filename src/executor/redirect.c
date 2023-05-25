@@ -21,7 +21,7 @@ void	valid_odd_token(char *p, t_data *data)
 	(void)data;
 }
 
-static int builtin_checker(char **split, t_data *data)
+static int	builtin_checker(char **split, t_data *data)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
@@ -99,14 +99,13 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 		free(split);
 		free(join);
 		write(1, "\0", 1);
-		kill(getpid(), SIGKILL);
-		exit(1);
+		exit(69);
 	}
 	id = 0;
 	while (split[id])
 		free(split[id++]);
 	free(split);
-	// wait(NULL);	// edge case: cat /dev/random | head -n 10
+	// wait(NULL);	// edge case: cat /dev/random | head -n 10, wait shouldnt be needed
 }
 
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
@@ -131,6 +130,6 @@ t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
 		rd = read(fd, buf, 1024);
 	}
 	close(fd);
-	return(tree->parent);
+	return (tree->parent);
 }
 

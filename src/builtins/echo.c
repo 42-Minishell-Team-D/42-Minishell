@@ -39,8 +39,8 @@ int	exec_echo(char **split, t_data *data)
 	{
 		i = 0;
 		str = split[n];
-		if (str[i] == '$')
-			str = get_env(str + 1, data->env);
+		// if (str[i] == '$')
+		// 	str = get_env(str + 1, data->env);
 		while (str[i] != '\0')
 		{
 			ft_printf_fd(1, "%c", str[i]);

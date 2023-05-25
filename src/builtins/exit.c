@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-static	void free_and_exit(t_data *data, int ret)
+static void	free_and_exit(t_data *data, int ret)
 {
 	free_after_execution(data);
 	rl_clear_history();

@@ -91,7 +91,6 @@ static int determine_args(char *ptr, t_parser *p)
 		p->i++;
 	}
 	return (p->n + 1);
-
 }
 
 char	**ft_split_args(char *token, t_parser *p)

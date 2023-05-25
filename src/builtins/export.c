@@ -1,17 +1,17 @@
 #include "../../libs/minishell.h"
 
-static void print_export(t_data *data)
+static void	print_export(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (data->export[i] != NULL)	
-    	ft_printf_fd(1, "%s\n", data->export[i++]);
+	while (data->export[i] != NULL)
+		ft_printf_fd(1, "%s\n", data->export[i++]);
 }
 
-static int check_variable_name(char *var)
+static int	check_variable_name(char *var)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_isalpha(var[0]) == 0 && var[0] != '_')
@@ -25,7 +25,7 @@ static int check_variable_name(char *var)
 	return (1);
 }
 
-static int is_equal_sign(char *var)
+static int	is_equal_sign(char *var)
 {
 	int i;
 
@@ -37,8 +37,9 @@ static int is_equal_sign(char *var)
 	return (1);
 }
 
-static void update_env(char *var, t_data *data) {
-	int i;
+static void	update_env(char *var, t_data *data)
+{
+	int	i;
 
 	i = 0;
 	data->env = ft_realloc(data->env, sizeof(char *) * (array_size(data->env) + 2));
@@ -58,10 +59,9 @@ static void update_env(char *var, t_data *data) {
 	data->env[i + 1] = NULL;
 }
 
-
 static void update_export(char *var, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->export = ft_realloc(data->export, sizeof(char *) * (array_size(data->export) + 2));

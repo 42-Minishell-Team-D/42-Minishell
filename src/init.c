@@ -64,7 +64,7 @@ void quote(char *export, int i, int j)
 	}
 }
 
-static void sort_export_ASCII(char **export, int size, int i, int j)
+static void	sort_export_ASCII(char **export, int size, int i, int j)
 {
 	char *temp;
 

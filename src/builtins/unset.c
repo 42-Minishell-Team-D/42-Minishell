@@ -57,7 +57,7 @@ void	remove_var_from_export(char *var, char **export)
 
 int	exec_unset(char **split, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (split[i] != NULL)
