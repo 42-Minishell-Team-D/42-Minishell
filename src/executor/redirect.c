@@ -106,7 +106,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	while (split[id])
 		free(split[id++]);
 	free(split);
-	wait(NULL);	// edge case: cat /dev/random | head -n 10
+	// wait(NULL);	// edge case: cat /dev/random | head -n 10
 }
 
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
