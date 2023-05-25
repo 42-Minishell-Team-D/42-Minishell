@@ -76,6 +76,8 @@ void	executor(t_data *data)
 	t_bt	*tree;
 	int		rd;
 	int		last_id;
+	pid_t	child_pid;
+	int		status;
 	char	buf[1024];
 
 	tree = data->tree;
@@ -102,8 +104,10 @@ void	executor(t_data *data)
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(99999);
 	}
-	wait(NULL);
-	data->rt = WEXITSTATUS(data->rt);
+	child_pid = wait(&status);
+	while (child_pid > 0)
+		child_pid = wait(&status);
+	data->rt = WEXITSTATUS(status);
 	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
 	write(data->pipes[last_id / 2][1], "\0", 1);
 	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
