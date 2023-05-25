@@ -28,8 +28,8 @@ static int builtin_checker(char **split, t_data *data)
 		data->rt = exec_cd(split, 0, 0, 0);
 	else if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
 		data->rt = exec_pwd();
-	// else if (ft_strncmp(split[0], "echo\0", 5) == 0)
-	// 	data->rt = exec_echo(split);
+	else if (ft_strncmp(split[0], "echo\0", 5) == 0)
+		data->rt = exec_echo(split, data);
 	if (ft_strncmp(split[0], "export\0", 7) == 0)
 		data->rt = exec_export(split, data);
 	else if (ft_strncmp(split[0], "unset\0", 6) == 0)
