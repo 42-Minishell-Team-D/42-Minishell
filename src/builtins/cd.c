@@ -1,28 +1,7 @@
 #include "../../libs/minishell.h"
 
-int	exec_cd(char **split)
+int	exec_cd(char **split, int i, int in_single, int in_double)
 {
-	int i;
-	int in_single;
-	int in_double;
-
-	i = 0;
-	in_single = 0;
-	in_double = 0;
-	// while (*path != '\0')
-	// {
-	// 	if (*path == '\'' && in_double == 0)
-	// 		in_single = !in_single;
-	// 	if (*path == '\"' && in_single == 0)
-	// 		in_double = !in_double;
-	// 	if ((*path == ' ' || *path == '\0') && in_single == 0 && in_double == 0)
-	// 		break ;
-	// 	path++;
-	// }
-	
-	// if (*path != '\0')
-	// 	chdir(path);
-
 	if (split[1] == NULL)
 		return (0);
 	if (split[2] != NULL)
@@ -42,6 +21,3 @@ int	exec_cd(char **split)
 
 	return (0);
 }
-
-// minishell: cd: too many arguments
-// minishell: cd: <path>: No such file or directory

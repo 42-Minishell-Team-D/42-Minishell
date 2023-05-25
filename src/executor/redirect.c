@@ -25,7 +25,7 @@ static int builtin_checker(char **split, t_data *data)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
-		data->rt = exec_cd(split);
+		data->rt = exec_cd(split, 0, 0, 0);
 	else if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
 		data->rt = exec_pwd();
 	// else if (ft_strncmp(split[0], "echo\0", 4) == 0 || ft_strncmp(split[0], "echo ", 5) == 0)
