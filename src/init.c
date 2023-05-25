@@ -11,8 +11,10 @@ void	handler(int sig, siginfo_t *id, void *content)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	// if (sig == SIGQUIT) // CTRL+\ doesn't
-	// 	write(1, "new lineeeee\n", 14);
+	if (sig == SIGQUIT) // CTRL+\ doesn't execute this
+	{
+		
+	}
 	return ;
 }
 
@@ -113,12 +115,33 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = handler;
+
+
+	sigemptyset(&sb.sa_mask);
+	sb.sa_flags = SA_SIGINFO;
+	sb.sa_sigaction = handler;
+
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sb, NULL);
+
+	
+	/*
+		woking thing
+	sa.sa_sigaction = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = handler;
 	sigemptyset(&sb.sa_mask);
 	sb.sa_handler = SIG_IGN;
 	sb.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sb, NULL);
+	
+	*/
+	
 }
+
+
 
 void	init_stuff(t_data *data, char **prompt)
 {

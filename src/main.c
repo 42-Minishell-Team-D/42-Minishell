@@ -60,13 +60,12 @@ int	main(void)
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
-		write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
+		// write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
 		data.prompt = readline("minishell$ ");
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data, &data.p);
 			parser(&data);
-			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
 			if (check_syntax(data.tree) != 0)

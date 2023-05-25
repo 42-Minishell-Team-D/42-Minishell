@@ -137,6 +137,7 @@ void	close_unused_pipes(t_data *data, int i);
 int		get_number_of_processes(t_bt *tree);
 void	redirect_pipe(t_bt *tree, t_data *data);
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option);
+char	**clear_quotes(char **split);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
@@ -145,6 +146,7 @@ void	init_export(t_data *data, int i);
 void	init_sa(struct sigaction sa, struct sigaction sb);
 void	init_stuff(t_data *data, char **prompt);
 void	quote(char *export, int i, int j);
+
 /*			src/utils1.c		*/
 int		array_size(char **s);
 int		search_var(char **s);
