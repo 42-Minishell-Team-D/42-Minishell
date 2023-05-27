@@ -60,9 +60,11 @@ int	main(void)
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
+		
 		if (data.slash_r == 0)
 			write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
 		data.prompt = readline("minishell$ ");
+		data.slash_r = 0;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data, &data.p);
