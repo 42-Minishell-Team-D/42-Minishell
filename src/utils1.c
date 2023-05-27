@@ -132,3 +132,22 @@ int	get_biggest_len(char *s1, char *s2)
 		return (len1);
 	return (len2);
 }
+
+char	*ft_getenv(char *name, char **env)
+{
+	int		i;
+	char	*ret;
+
+	i = 0;
+	ret = NULL;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], name, ft_strlen(name)) == 0)
+		{
+			ret = ft_strdup(env[i] + ft_strlen(name) + 1);
+			break ;
+		}
+		i++;
+	}
+	return (ret);
+}

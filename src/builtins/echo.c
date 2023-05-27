@@ -14,7 +14,6 @@ int	exec_echo(char **split, t_data *data)
 	{
 		i = 0;
 		str = split[n];
-		// print_tokens(split);
 		if (str[i] == '$' && str[i + 1] != '\0')
 			ft_printf_fd(1, "\n");
 		while (str[i] != '\0')

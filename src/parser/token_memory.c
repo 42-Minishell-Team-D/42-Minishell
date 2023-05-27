@@ -24,9 +24,9 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 			return (NULL);
 		ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
 		p->temp = 0;
-		if (getenv(p->char_temp))
+		if (ft_getenv(p->char_temp, data->env))
 		{
-			p->token_alloc[p->i] += ft_strlen(getenv(p->char_temp));
+			p->token_alloc[p->i] += ft_strlen(ft_getenv(p->char_temp, data->env));
 			free(p->char_temp);
 			p->char_temp = NULL;
 		}
