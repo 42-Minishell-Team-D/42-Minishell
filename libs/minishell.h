@@ -96,11 +96,12 @@ typedef struct minishell
 	struct sigaction	sb;
 	struct parser		p;
 	struct binary_tree	*tree;
+	int					slash_r;
 }					t_data;
 
 /*			src/builtins/			*/
 int		exec_cd(char **split, int i, int in_single, int in_double);
-int		exec_echo(char **split, t_data *data);
+int		exec_echo(char **split);
 int		exec_env(t_data *data);
 int		exec_exit(char **split, t_data *data, int i, int ret);
 int		exec_export(char **split, t_data *data);

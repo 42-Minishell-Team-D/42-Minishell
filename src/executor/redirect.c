@@ -21,8 +21,10 @@ void	valid_odd_token(char *p, t_data *data)
 	(void)data;
 }
 
-static int	builtin_checker_parent(char **split)
+static int	builtin_checker_parent(char **split, t_data *data)
 {
+	if (ft_strncmp(split[0], "echo\0", 7) == 0 && ft_strncmp(split[1], "-n\0", 3) == 0 && split[1] != NULL)
+		data->slash_r = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
 		return (0);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] != NULL)
@@ -55,7 +57,7 @@ static int	builtin_executor_child(char **split, t_data *data)
 	if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
 		data->rt = exec_pwd();
 	else if (ft_strncmp(split[0], "echo\0", 5) == 0)
-		data->rt = exec_echo(split, data);
+		data->rt = exec_echo(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] == NULL)
 		data->rt = exec_export(split, data);
 	else if (ft_strncmp(split[0], "env\0", 4) == 0)
@@ -108,7 +110,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	id = tree->id / 2;
 	split = clear_quotes(ft_split_args(tree->args, &data->p));
 	join = ft_strjoin("/bin/", split[0]);
-	if (builtin_checker_parent(split) > 0)
+	if (builtin_checker_parent(split, data) > 0)
 	{
 		pid = fork();
 		if (pid == 0)

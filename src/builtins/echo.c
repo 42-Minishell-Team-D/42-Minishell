@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-int	exec_echo(char **split, t_data *data)
+int	exec_echo(char **split)
 {
 	int		i;
 	int		n;
@@ -8,6 +8,12 @@ int	exec_echo(char **split, t_data *data)
 
 	i = 0;
 	n = 1;
+	// print_tokens(split);
+	if (split[1] == NULL)
+	{
+		ft_printf_fd(1, "\n");
+		return (0);
+	}
 	while (ft_strncmp(split[n], "-n\0", 3) == 0)
 		n++;
 	while (split[n] != NULL)
@@ -28,6 +34,5 @@ int	exec_echo(char **split, t_data *data)
 	if (ft_strncmp(split[1], "-n\0", 3) != 0)
 		ft_printf_fd(1, "\n");
 
-	(void)data;
 	return (0);
 }
