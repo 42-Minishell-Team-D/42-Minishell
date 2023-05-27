@@ -30,16 +30,16 @@ void	close_unused_pipes(t_data *data, int i)
 	int	j;
 
 	j = 0;
-	while (j < get_number_of_processes(data->tree) + 1)
+	while (j < get_number_of_processes(data->tree) - 1)
 	{
 		if (j != i)
 		{
 			if (data->pipes[j][0] != 0)
-				if (close(data->pipes[j][0]) == -1)
-					printf("Close failed pipe[%d][0]\n", j);
+				if (close(data->pipes[j][0]) == 0)
+					printf("Close pipe %d\n", data->pipes[j][0]);
 			if (data->pipes[j][1] != 0)
-				if (close(data->pipes[j][1]) == -1)
-					printf("Close failed pipe[%d][1]\n", j);
+				if (close(data->pipes[j][1]) == 0)
+					printf("Close pipe %d\n", data->pipes[j][1]);
 		}
 		j++;
 	}
@@ -50,7 +50,7 @@ void	close_free_pipes_pids(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < get_number_of_processes(data->tree) + 1)
+	while (i < get_number_of_processes(data->tree) - 1)
 	{
 		if (data->pipes[i][0] != 0)
 			if (close(data->pipes[i][0]) == -1)
@@ -78,7 +78,6 @@ void	executor(t_data *data)
 	int		last_id;
 	pid_t	child_pid;
 	int		status;
-	char	buf[1024];
 
 	tree = data->tree;
 	if (init_executor(data))
@@ -109,16 +108,5 @@ void	executor(t_data *data)
 		child_pid = wait(&status);
 	data->rt = WEXITSTATUS(status);
 	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
-	write(data->pipes[last_id / 2][1], "\0", 1);
-	rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
-	// ft_printf_fd(1, "rd: %d\n", rd);	
-	while (rd > 0)
-	{
-		buf[rd] = '\0';
-		write(1, buf, rd);
-		if (rd < 1024)
-			break ;
-		rd = read(data->pipes[last_id / 2][0], buf, sizeof(buf));
-	}
 	close_free_pipes_pids(data);
 }

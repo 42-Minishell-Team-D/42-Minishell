@@ -13,6 +13,7 @@ FILESC = ./src/main.c ./src/init.c \
 		./src/parser/token_memory.c ./src/parser/get_more_prompt.c ./src/parser/get_more_prompt2.c \
 		./src/free/free.c ./src/free/free_if_err.c  \
 		./src/executor/executor.c ./src/executor/redirect.c\
+		./src/executor/fork.c \
 		./src/executor/tgps.c  ./src/executor/clear_quotes.c \
 		./src/utils1.c ./src/builtins/utils_builtins.c \
 
