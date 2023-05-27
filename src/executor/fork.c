@@ -6,7 +6,7 @@ static int	builtin_executor_child(char **split, t_data *data)
 	if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
 		data->rt = exec_pwd();
 	else if (ft_strncmp(split[0], "echo\0", 5) == 0)
-		data->rt = exec_echo(split, data);
+		data->rt = exec_echo(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] == NULL)
 		data->rt = exec_export(split, data);
 	else if (ft_strncmp(split[0], "env\0", 4) == 0)

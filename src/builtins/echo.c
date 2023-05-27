@@ -11,7 +11,7 @@ int	exec_echo(char **split)
 	// print_tokens(split);
 	if (split[1] == NULL)
 	{
-		ft_printf_fd(1, "\n");
+		write(1, "\n", 1);
 		return (0);
 	}
 	while (ft_strncmp(split[n], "-n\0", 3) == 0)
@@ -21,18 +21,22 @@ int	exec_echo(char **split)
 		i = 0;
 		str = split[n];
 		if (str[i] == '$' && str[i + 1] != '\0')
-			ft_printf_fd(1, "\n");
+			write(1, "\n", 1);
 		while (str[i] != '\0')
 		{
-			ft_printf_fd(1, "%c", str[i]);
+			// ft_printf_fd(1, "%c", str[i]);
+			write(1, &str[i], 1);
 			i++;
 		}
 		if (split[n + 1] != NULL)
-			ft_printf_fd(1, " ", str[i]);
+		{
+			// ft_printf_fd(1, " ", str[i]);
+			write(1, " ", 1);
+		}
 		n++;
 	}
 	if (ft_strncmp(split[1], "-n\0", 3) != 0)
-		ft_printf_fd(1, "\n");
+		write(1, "\n", 1);
 
 	return (0);
 }
