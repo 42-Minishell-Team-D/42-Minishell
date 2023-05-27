@@ -59,6 +59,8 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	id = tree->id / 2;
 	split = clear_quotes(ft_split_args(tree->args, &data->p));
 	join = ft_strjoin("/bin/", split[0]);
+	if (ft_strncmp(split[0], "echo\0", 7) == 0 && ft_strncmp(split[1], "-n\0", 3) == 0 && split[1] != NULL)
+		data->slash_r = 1;
 	if (builtin_checker_parent(split) > 0)
 	{
 		pid = fork();
