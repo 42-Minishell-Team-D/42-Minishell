@@ -21,23 +21,45 @@ void	valid_odd_token(char *p, t_data *data)
 	(void)data;
 }
 
-static int	builtin_checker(char **split, t_data *data)
+static int	builtin_checker_parent(char **split)
+{
+	if (ft_strncmp(split[0], "cd\0", 3) == 0)
+		return (0);
+	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] != NULL)
+		return (0);
+	else if (ft_strncmp(split[0], "unset\0", 6) == 0)
+		return (0);
+	else if (ft_strncmp(split[0], "exit\0", 5) == 0)
+		return (0);
+	return (1);
+}
+
+static int	builtin_executor_parent(char **split, t_data *data)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
 		data->rt = exec_cd(split, 0, 0, 0);
-	else if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
-		data->rt = exec_pwd();
-	else if (ft_strncmp(split[0], "echo\0", 5) == 0)
-		data->rt = exec_echo(split, data);
-	if (ft_strncmp(split[0], "export\0", 7) == 0)
+	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] != NULL)
 		data->rt = exec_export(split, data);
 	else if (ft_strncmp(split[0], "unset\0", 6) == 0)
 		data->rt = exec_unset(split, data);
-	else if (ft_strncmp(split[0], "env\0", 4) == 0)
-		data->rt = exec_env(data);
 	else if (ft_strncmp(split[0], "exit\0", 5) == 0)
 		data->rt = exec_exit(split, data, 0, 0);
+	// else					// Yes, copilot did this but so so :D //
+	return (data->rt);
+}
+
+static int	builtin_executor_child(char **split, t_data *data)
+{
+	data->rt = 1;
+	if (ft_strncmp(split[0], "pwd\0", 4) == 0)	// bon
+		data->rt = exec_pwd();
+	else if (ft_strncmp(split[0], "echo\0", 5) == 0)
+		data->rt = exec_echo(split, data);
+	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] == NULL)
+		data->rt = exec_export(split, data);
+	else if (ft_strncmp(split[0], "env\0", 4) == 0)
+		data->rt = exec_env(data);
 	// else					// Yes, copilot did this but so so :D //
 	return (data->rt);
 }
@@ -62,12 +84,11 @@ static void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 		if (tree->parent->right != NULL)
 			dup2(data->pipes[id][1], 1);
 	}
-	if (builtin_checker(split, data) == 0)	// for export / unset / env this should be executed on the main process
+	if (builtin_executor_child(split, data) == 0)	// for export / unset / env this should be executed on the main process
 		return ;
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
-
 }
 
 static void init_child()
@@ -87,20 +108,27 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	id = tree->id / 2;
 	split = clear_quotes(ft_split_args(tree->args, &data->p));
 	join = ft_strjoin("/bin/", split[0]);
-	pid = fork();
-	if (pid == 0)
+	if (builtin_checker_parent(split) > 0)
 	{
-		init_child();
-		// close_unused_pipes(data, id);
-		pipe_child(join, split, tree, data);
-		id = 0;
-		while (split[id])
-			free(split[id++]);
-		free(split);
-		free(join);
-		write(1, "\0", 1);
-		exit(69);
+		pid = fork();
+		if (pid == 0)
+		{
+			init_child();
+			// close_unused_pipes(data, id);
+			pipe_child(join, split, tree, data);
+			id = 0;
+			while (split[id])
+				free(split[id++]);
+			free(split);
+			free(join);
+			write(1, "\0", 1);
+			exit(0);
+		}
+		wait(NULL);
 	}
+	else
+		builtin_executor_parent(split, data);
+	// ft_printf_fd(1, "parent getpid = %d", getpid());
 	id = 0;
 	while (split[id])
 		free(split[id++]);
