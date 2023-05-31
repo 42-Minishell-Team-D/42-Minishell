@@ -90,7 +90,6 @@ typedef struct minishell
 	char				**tokens;
 	char				**env;
 	char				**export;
-	int					*pids;
 	int					**pipes;
 	struct sigaction	sa;
 	struct sigaction	sb;

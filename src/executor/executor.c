@@ -45,26 +45,6 @@ void	close_unused_pipes(int id, t_data *data)
 	}
 }
 
-// void	close_unused_pipes(t_data *data, int i)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	while (j < get_number_of_processes(data->tree) - 1)
-// 	{
-// 		if (j != i)
-// 		{
-// 			if (data->pipes[j][0] != 0)
-// 				if (close(data->pipes[j][0]) == 0)
-// 					printf("Close pipe %d\n", data->pipes[j][0]);
-// 			if (data->pipes[j][1] != 0)
-// 				if (close(data->pipes[j][1]) == 0)
-// 					printf("Close pipe %d\n", data->pipes[j][1]);
-// 		}
-// 		j++;
-// 	}
-// }
-
 void	close_free_pipes(t_data *data)
 {
 	int	i;
