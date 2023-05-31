@@ -26,15 +26,16 @@ int	get_number_of_processes(t_bt *tree)
 }
 
 
-void	close_unused_pipes(int id, t_data *data)
+void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 {
 	int	n;
 
 	n = 0;
-	if (id == 0)
+	return ;
+	if (id == 0 && tree->right != NULL)
 	{
-		close(data->pipes[n][0]);
 		printf("Close pipe %d\n", data->pipes[n][0]);
+		close(data->pipes[n][0]);
 		while (n <= get_number_of_processes(data->tree) - 1)
 		{
 				if (close(data->pipes[n][1]))

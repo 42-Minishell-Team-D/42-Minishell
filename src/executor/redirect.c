@@ -66,7 +66,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 		pid = fork();
 		if (pid == 0)
 		{
-			init_child(id, data);
+			init_child(id, tree, data);
 			pipe_child(join, split, tree, data);
 			id = 0;
 			while (split[id])
