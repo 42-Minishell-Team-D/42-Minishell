@@ -54,12 +54,14 @@ static char	*heredoc_readline(char *prompt)
 
 	eof = ft_strjoin("\n", get_eof(prompt, ft_strlen(prompt) - 1, 0));
 	tmp = ft_strjoin("\n", readline("minihdoc> "));
+	prompt = ft_strjoin(prompt, tmp);
 	while (ft_strncmp(eof, tmp, ft_strlen(eof)) != 0)
 	{
 		tmp = ft_strjoin("\n", readline("minihdoc> "));
 		prompt = ft_strjoin(prompt, tmp);
 	}
 	free(eof);
+	free(tmp);
 	return (prompt);
 }
 

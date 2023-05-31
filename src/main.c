@@ -68,7 +68,9 @@ int	main(void)
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data, &data.p);
+			// printf("Prompt: %s\n", data.prompt);
 			parser(&data);
+			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
 			if (check_syntax(data.tree) != 0)
