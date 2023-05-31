@@ -25,24 +25,49 @@ int	get_number_of_processes(t_bt *tree)
 	return (count);
 }
 
+		// if (tree->right != NULL)
+		// {
+		// 	ft_printf_fd(1, "Close pipe %d\n", data->pipes[n][0]);
+		// 	close(data->pipes[n][0]);
+		// }
+		// while (tree->right != NULL && n <= get_number_of_processes(data->tree) - 1)
+		// {
+		// 	if (close(data->pipes[n][1]) == 0)
+		// 		ft_printf_fd(1, "1Close pipe %d\n", data->pipes[n][1]);
+		// 	else
+		// 		ft_printf_fd(1, "2Close failed pipe %d\n", data->pipes[n][1]);
+				
+		// 	if (close(data->pipes[n + 1][0]) == 0)
+		// 		ft_printf_fd(1, "3Close pipe %d\n", data->pipes[n][0]);
+		// 	else
+		// 		ft_printf_fd(1, "4Close failed pipe %d\n", data->pipes[n][0]);
+		// 	n++;
+		// }
 
 void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 {
 	int	n;
 
 	n = 0;
-	return ;
-	if (id == 0 && tree->right != NULL)
+	if (id == 0)
 	{
-		printf("Close pipe %d\n", data->pipes[n][0]);
-		close(data->pipes[n][0]);
-		while (n <= get_number_of_processes(data->tree) - 1)
+		if (tree->right != NULL)
+			close (data->pipes[id][0]);
+		while (++id < get_number_of_processes(data->tree) - 1)
 		{
-				if (close(data->pipes[n][1]))
-					printf("Close pipe %d\n", data->pipes[n][1]);
-				if (close(data->pipes[n + 1][1]))
-					printf("Close pipe %d\n", data->pipes[n + 1][1]);
+			close(data->pipes[id][0]);
+			close(data->pipes[id][1]);
 		}
+	}
+	else
+	{
+		/*while (n < id)
+		{
+			printf("Close pipe %d\n", data->pipes[n][1]);
+			close(data->pipes[n++][1]);
+			printf("Close pipe %d\n", data->pipes[n - 1][0]);
+			close(data->pipes[n][0]);
+		}*/
 	}
 }
 
