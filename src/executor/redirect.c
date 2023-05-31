@@ -73,7 +73,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 				free(split[id++]);
 			free(split);
 			free(join);
-			write(1, "\0", 1);
+			// write(1, "\0", 1);
 			exit(0);
 		}
 		wait(NULL);
