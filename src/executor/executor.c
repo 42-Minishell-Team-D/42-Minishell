@@ -61,7 +61,13 @@ void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 	}
 	else
 	{
-		// printf("id %d = tree.id %d\n", id, tree->id / 2);
+		/*while (n < id)
+		{
+			printf("Close pipe %d\n", data->pipes[n][1]);
+			close(data->pipes[n++][1]);
+			printf("Close pipe %d\n", data->pipes[n - 1][0]);
+			close(data->pipes[n][0]);
+		}*/
 	}
 }
 
