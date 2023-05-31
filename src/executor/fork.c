@@ -18,7 +18,7 @@ static int	builtin_executor_child(char **split, t_data *data)
 void init_child(int id, t_data *data)
 {
 	(void)id; (void)data;
-	// close_unused_pipes(data, id);
+	// close_unused_pipes(id, data);
 	
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);

@@ -132,8 +132,8 @@ void	free_if_err(char **var, int exit_code);
 /*		src/executor	*/
 void	executor(t_data *data);
 int		init_executor(t_data *data);
-void	close_free_pipes_pids(t_data *data);
-void	close_unused_pipes(t_data *data, int i);
+void	close_free_pipes(t_data *data);
+void	close_unused_pipes(int i, t_data *data);
 int		get_number_of_processes(t_bt *tree);
 void	redirect_pipe(t_bt *tree, t_data *data);
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option);

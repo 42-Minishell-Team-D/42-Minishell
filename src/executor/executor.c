@@ -25,27 +25,47 @@ int	get_number_of_processes(t_bt *tree)
 	return (count);
 }
 
-void	close_unused_pipes(t_data *data, int i)
-{
-	int	j;
 
-	j = 0;
-	while (j < get_number_of_processes(data->tree) - 1)
+void	close_unused_pipes(int id, t_data *data)
+{
+	int	n;
+
+	n = 0;
+	if (id == 0)
 	{
-		if (j != i)
+		close(data->pipes[n][0]);
+		printf("Close pipe %d\n", data->pipes[n][0]);
+		while (n <= get_number_of_processes(data->tree) - 1)
 		{
-			if (data->pipes[j][0] != 0)
-				if (close(data->pipes[j][0]) == 0)
-					printf("Close pipe %d\n", data->pipes[j][0]);
-			if (data->pipes[j][1] != 0)
-				if (close(data->pipes[j][1]) == 0)
-					printf("Close pipe %d\n", data->pipes[j][1]);
+				if (close(data->pipes[n][1]))
+					printf("Close pipe %d\n", data->pipes[n][1]);
+				if (close(data->pipes[n + 1][1]))
+					printf("Close pipe %d\n", data->pipes[n + 1][1]);
 		}
-		j++;
 	}
 }
 
-void	close_free_pipes_pids(t_data *data)
+// void	close_unused_pipes(t_data *data, int i)
+// {
+// 	int	j;
+
+// 	j = 0;
+// 	while (j < get_number_of_processes(data->tree) - 1)
+// 	{
+// 		if (j != i)
+// 		{
+// 			if (data->pipes[j][0] != 0)
+// 				if (close(data->pipes[j][0]) == 0)
+// 					printf("Close pipe %d\n", data->pipes[j][0]);
+// 			if (data->pipes[j][1] != 0)
+// 				if (close(data->pipes[j][1]) == 0)
+// 					printf("Close pipe %d\n", data->pipes[j][1]);
+// 		}
+// 		j++;
+// 	}
+// }
+
+void	close_free_pipes(t_data *data)
 {
 	int	i;
 
@@ -65,10 +85,7 @@ void	close_free_pipes_pids(t_data *data)
 	}
 	if (data->pipes != NULL)
 		free(data->pipes);
-	if (data->pids != NULL)
-		free(data->pids);
 	data->pipes = NULL;
-	data->pids = NULL;
 }
 
 void	executor(t_data *data)
@@ -108,5 +125,5 @@ void	executor(t_data *data)
 		child_pid = wait(&status);
 	data->rt = WEXITSTATUS(status);
 	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
-	close_free_pipes_pids(data);
+	close_free_pipes(data);
 }
