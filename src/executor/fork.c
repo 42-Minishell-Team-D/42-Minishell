@@ -54,5 +54,6 @@ void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 		return ;
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
+	write(1, "\0", 1);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
 }

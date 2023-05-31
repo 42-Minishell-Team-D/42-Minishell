@@ -24,8 +24,8 @@ int	check_invalidity(t_bt *tree)
 {
 	if (tree->id % 2 != 0)
 	{
-		if (ft_strncmp(tree->args, ">>", 1) == 0 \
-		|| ft_strncmp(tree->args, "<<", 1) == 0)
+		if (ft_strncmp(tree->args, ">>", 2) == 0 \
+		|| ft_strncmp(tree->args, "<<", 2) == 0)
 		{
 			printf("minishell: syntax error ( °︠ ‿ ︡°) \
 			try again, you can do it!\n");
