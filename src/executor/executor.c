@@ -45,7 +45,7 @@ void	close_unused_pipes(t_data *data, int i)
 	}
 }
 
-void	close_free_pipes_pids(t_data *data)
+void	close_free_pipes(t_data *data)
 {
 	int	i;
 
@@ -65,10 +65,7 @@ void	close_free_pipes_pids(t_data *data)
 	}
 	if (data->pipes != NULL)
 		free(data->pipes);
-	if (data->pids != NULL)
-		free(data->pids);
 	data->pipes = NULL;
-	data->pids = NULL;
 }
 
 void	executor(t_data *data)
@@ -108,5 +105,5 @@ void	executor(t_data *data)
 		child_pid = wait(&status);
 	data->rt = WEXITSTATUS(status);
 	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
-	close_free_pipes_pids(data);
+	close_free_pipes(data);
 }

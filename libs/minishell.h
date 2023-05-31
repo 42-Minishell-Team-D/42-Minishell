@@ -90,7 +90,6 @@ typedef struct minishell
 	char				**tokens;
 	char				**env;
 	char				**export;
-	int					*pids;
 	int					**pipes;
 	struct sigaction	sa;
 	struct sigaction	sb;
@@ -132,7 +131,7 @@ void	free_if_err(char **var, int exit_code);
 /*		src/executor	*/
 void	executor(t_data *data);
 int		init_executor(t_data *data);
-void	close_free_pipes_pids(t_data *data);
+void	close_free_pipes(t_data *data);
 void	close_unused_pipes(t_data *data, int i);
 int		get_number_of_processes(t_bt *tree);
 void	redirect_pipe(t_bt *tree, t_data *data);
