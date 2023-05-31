@@ -132,12 +132,12 @@ void	free_if_err(char **var, int exit_code);
 void	executor(t_data *data);
 int		init_executor(t_data *data);
 void	close_free_pipes(t_data *data);
-void	close_unused_pipes(int i, t_data *data);
+void	close_unused_pipes(int i, t_bt *tree, t_data *data);
 int		get_number_of_processes(t_bt *tree);
 void	redirect_pipe(t_bt *tree, t_data *data);
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option);
 char	**clear_quotes(char **split);
-void	init_child(int id, t_data *data);
+void	init_child(int id, t_bt *tree, t_data *data);
 void	pipe_child(char *join, char **split, t_bt * tree, t_data *data);
 
 /*			src/init.c			*/

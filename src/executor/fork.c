@@ -15,10 +15,10 @@ static int	builtin_executor_child(char **split, t_data *data)
 	return (data->rt);
 }
 
-void init_child(int id, t_data *data)
+void init_child(int id, t_bt *tree, t_data *data)
 {
-	(void)id; (void)data;
-	// close_unused_pipes(id, data);
+	// (void)id; (void)data;
+	close_unused_pipes(id, tree, data);
 	
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
