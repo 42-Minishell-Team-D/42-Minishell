@@ -87,8 +87,8 @@ void	close_free_pipes(t_data *data)
 void	executor(t_data *data)
 {
 	t_bt	*tree;
-	int		rd;
-	int		last_id;
+	// int		rd;
+	// int		last_id;
 	pid_t	child_pid;
 	int		status;
 
@@ -99,13 +99,13 @@ void	executor(t_data *data)
 		redirect_pipe(tree, data);
 	else
 		write(data->pipes[0][1], "\0", 1);
-	rd = 0;
-	last_id = tree->id;
+	// rd = 0;
+	// last_id = tree->id;
 	tree = tree->right;
 	int anti_bomb = 0;
 	while (tree != NULL)
 	{
-		last_id = tree->id;
+		// last_id = tree->id;
 		if (is_new_token(tree->args[0], tree->args[1]) == GREAT)
 			tree = redirect_great(tree->left, data, GREAT);
 		if (is_new_token(tree->args[0], tree->args[1]) == GREATGREAT)
