@@ -118,8 +118,6 @@ t_bt	*create_tree(char **parser, t_bt *tree);
 int		check_syntax(t_bt *tree);
 void	get_more_prompt(t_data *data, t_parser *p);
 int		check_valid_syntax(char *prompt, t_parser *p, int i, int last_token);
-int		check_unclosed_quote(char *s, t_parser *p);
-char	*quote_readline(char *prompt, t_parser *p);
 int		check_valid_last_pipe(char *prompt);
 
 /*		src/free	*/

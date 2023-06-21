@@ -21,10 +21,11 @@ static int	check_valid_last_heredoc(char *prompt)
 	return (0);
 }
 
-static char	*get_eof(char *prompt, int i, int j)
+static char	*get_eof(char *prompt, int i, int j, t_parser *p)
 {
 	char	*eof;
 
+	reset_p_vars(p);
 	eof = malloc(sizeof(char) * ft_strlen(prompt));
 	while (prompt[i] != '<' && i != 0)
 		i--;
@@ -35,26 +36,74 @@ static char	*get_eof(char *prompt, int i, int j)
 		i++;
 		while (prompt[i] == ' ' && i != 0)
 			i++;
-		if (prompt[i] == '"' || prompt[i] == '\'')
+		if (prompt[i] == '"')
+		{
+			p->in_double = 1;
 			i++;
-		while (prompt[i] != '\0')
-			eof[j++] = prompt[i++];
-		if (prompt[i - 1] == '"' || prompt[i - 1] == '\'')
-			j--;
+		}
+		else if (prompt[i] == '\'')
+		{
+			p->in_single = 1;
+			i++;
+		}
+		if (p->in_double == 0 && p->in_single == 0)
+		{
+			while (prompt[i] != '\0' && prompt[i] != ' ' && prompt[i] != '\n')
+				eof[j++] = prompt[i++];
+		}
+		else if (p->in_double == 1)
+		{
+			while (prompt[i] != '"' && prompt[i] != '\0')
+				eof[j++] = prompt[i++];
+		}
+		else if (p->in_single == 1)
+		{
+			while (prompt[i] != '\'' && prompt[i] != '\0')
+				eof[j++] = prompt[i++];
+		}
 		eof[j] = '\0';
+		reset_p_vars(p);
 		return (eof);
 	}
 	return (NULL);
 }
 
-static char	*heredoc_readline(char *prompt)
+static int check_if_end_is_eof(char *prompt, char *eof)
+{
+	int	i;
+	int	j;
+
+	i = ft_strlen(prompt) - 1;
+	j = ft_strlen(eof) - 1;
+	if (ft_strchr(prompt, '\n') == NULL)
+		return (0);
+	while (prompt[i] != '\0' && j != 0)
+	{
+		if (prompt[i] == eof[j])
+		{
+			i--;
+			j--;
+		}
+		else
+			return (0);	// return 0 if not end of file
+	}
+	if (prompt[i] != '\n')
+		return (0);
+	return (1);	// return 1 if end of file
+}
+
+static char	*heredoc_readline(char *prompt, t_parser *p)
 {
 	char	*eof;
 	char	*tmp;
 
-	eof = ft_strjoin("\n", get_eof(prompt, ft_strlen(prompt) - 1, 0));
-	tmp = ft_strjoin("\n", readline("minihdoc> "));
-	prompt = ft_strjoin(prompt, tmp);
+	eof = ft_strjoin("\n", get_eof(prompt, ft_strlen(prompt) - 1, 0, p));
+	if (check_if_end_is_eof(prompt, eof) == 1)
+	{
+		free(eof);
+		// should create a file called eof that has the content of the heredoc
+		return (prompt);
+	}
 	while (ft_strncmp(eof, tmp, ft_strlen(eof)) != 0)
 	{
 		tmp = ft_strjoin("\n", readline("minihdoc> "));
@@ -75,18 +124,15 @@ void	get_more_prompt(t_data *data, t_parser *p)
 		add_history(data->prompt);
 		return ;
 	}
-	if (check_unclosed_quote(data->prompt, p) == 1)
-		data->prompt = quote_readline(data->prompt, p);
 	if (check_valid_last_pipe(data->prompt) == 1)
 		data->prompt = ft_strjoin(data->prompt, readline("minipipe> "));
 	if (check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0)
 	{
-		data->prompt = heredoc_readline(data->prompt);
+		data->prompt = heredoc_readline(data->prompt, p);
 		hdoc_bool = 1;
 	}
 	add_history(data->prompt);
-	if (check_unclosed_quote(data->prompt, p) == 1 || \
-	check_valid_last_pipe(data->prompt) == 1 || \
+	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0))
 		get_more_prompt(data, p);
 }
