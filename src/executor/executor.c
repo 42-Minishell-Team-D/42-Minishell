@@ -87,40 +87,37 @@ void	close_free_pipes(t_data *data)
 void	executor(t_data *data)
 {
 	t_bt	*tree;
-	// int		rd;
-	// int		last_id;
-	pid_t	child_pid;
+	pid_t	fork_id = 0;
 	int		status;
 
 	tree = data->tree;
 	if (init_executor(data))
 		return ;
 	if (ft_strncmp(tree->args, "\0", 1) != 0)
-		redirect_pipe(tree, data);
+		redirect_pipe(&fork_id, tree, data);
 	else
 		write(data->pipes[0][1], "\0", 1);
 	// rd = 0;
-	// last_id = tree->id;
 	tree = tree->right;
 	int anti_bomb = 0;
 	while (tree != NULL)
 	{
-		// last_id = tree->id;
 		if (is_new_token(tree->args[0], tree->args[1]) == GREAT)
 			tree = redirect_great(tree->left, data, GREAT);
 		if (is_new_token(tree->args[0], tree->args[1]) == GREATGREAT)
 			tree = redirect_great(tree->left, data, GREATGREAT);
 		if (is_new_token(tree->args[0], tree->args[1]) == PIPE)
-			redirect_pipe(tree->left, data);
+			redirect_pipe(&fork_id, tree->left, data);
 		tree = tree->right;
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(255);
 	}
-	child_pid = wait(&status);
-	while (child_pid > 0)
-		child_pid = wait(&status);
+	ft_printf_fd(1, "fork_id = %d\n", fork_id);
+	waitpid(fork_id, &status, 0);
+	// while (child_pid > 0)
+	// 	child_pid = waitpid(fork_id, &status, 0);
 	data->rt = WEXITSTATUS(status);
-	// printf("rt: %d\n", data->rt);
+	ft_printf_fd(1, "rt: %d\n", data->rt);
 	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
 	close_free_pipes(data);
 }

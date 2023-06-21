@@ -49,9 +49,8 @@ static int	builtin_executor_parent(char **split, t_data *data)
 	return (data->rt);
 }
 
-void	redirect_pipe(t_bt *tree, t_data *data)
+void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 {
-	int		pid;
 	char	**split;
 	char	*join;
 	int		id;
@@ -63,8 +62,8 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 		data->slash_r = 1;
 	if (builtin_checker_parent(split) > 0)
 	{
-		pid = fork();
-		if (pid == 0)
+		(*fork_id) = fork();
+		if ((*fork_id) == 0)
 		{
 			init_child(id, tree, data);
 			pipe_child(join, split, tree, data);
@@ -73,9 +72,9 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 				free(split[id++]);
 			free(split);
 			free(join);
-			exit(0);
+			exit(123);
 		}
-		wait(NULL);
+		// wait(NULL);
 	}
 	else
 		builtin_executor_parent(split, data);
