@@ -20,8 +20,3 @@ int	exec_cd(char **split, int i, int in_single, int in_double)
 	}
 	return (0);
 }
-
-
-// Missing:
-// cd - (go to previous directory)
-// cd ~ (go to home directory) ex: cd ~/Desktop (doesn't work currently)
