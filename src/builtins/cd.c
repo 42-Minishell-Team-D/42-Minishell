@@ -3,7 +3,7 @@
 int	exec_cd(char **split, int i, int in_single, int in_double)
 {
 	if (split[1] == NULL)
-		return (0);
+		return (chdir("/nfs/homes/ddantas-"));
 	if (split[2] != NULL)
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
 	else if (chdir(split[1]) == -1)
@@ -20,3 +20,8 @@ int	exec_cd(char **split, int i, int in_single, int in_double)
 	}
 	return (0);
 }
+
+
+// Missing:
+// cd - (go to previous directory)
+// cd ~ (go to home directory) ex: cd ~/Desktop (doesn't work currently)

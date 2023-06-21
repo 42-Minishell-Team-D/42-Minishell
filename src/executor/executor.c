@@ -120,6 +120,7 @@ void	executor(t_data *data)
 	while (child_pid > 0)
 		child_pid = wait(&status);
 	data->rt = WEXITSTATUS(status);
+	// printf("rt: %d\n", data->rt);
 	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
 	close_free_pipes(data);
 }
