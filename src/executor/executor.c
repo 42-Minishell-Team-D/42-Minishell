@@ -112,12 +112,9 @@ void	executor(t_data *data)
 		if (anti_bomb++ > 3) // Anti fork bomb mechanism
 			exit(255);
 	}
-	ft_printf_fd(1, "fork_id = %d\n", fork_id);
 	waitpid(fork_id, &status, 0);
 	// while (child_pid > 0)
 	// 	child_pid = waitpid(fork_id, &status, 0);
 	data->rt = WEXITSTATUS(status);
-	ft_printf_fd(1, "rt: %d\n", data->rt);
-	// ft_printf_fd(1, "parent reading from %d\n", data->pipes[last_id / 2][0]);
 	close_free_pipes(data);
 }
