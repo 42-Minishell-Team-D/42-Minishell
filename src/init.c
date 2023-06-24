@@ -136,7 +136,6 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sb.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sb, NULL);
-	
 	*/
 	
 }

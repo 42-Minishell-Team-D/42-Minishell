@@ -51,7 +51,7 @@ static char	*handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 	{
 		if (p->in_double && *ptr == '"')
 			break ;
-		if (is_new_token(*ptr, *(ptr + 1)) > 0)
+		if (is_new_token(*ptr, *(ptr + 1)) > 1)
 			break ;
 		ptr++;
 		p->temp++;
@@ -111,10 +111,15 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 			p->in_single = !p->in_single;
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar(ptr, p, data);
-		if (!p->in_double && !p->in_single && is_new_token(*ptr, *(ptr + 1)) > 0)
+		if (!p->in_double && !p->in_single && is_new_token(*ptr, *(ptr + 1)) > 1)
 			ptr = handle_special_char(ptr, p, data);
 		else if (*ptr != '\0')
 		{
+			if (is_new_token(*ptr, *(ptr + 1)) > 0)
+			{
+				p->token[p->n++] = *ptr;
+				ptr++;
+			}
 			p->token[p->n++] = *ptr;
 			ptr++;
 		}

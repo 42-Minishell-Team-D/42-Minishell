@@ -42,11 +42,11 @@ int	is_new_token(char c, char c2)
 		return (LESSLESS);
 	else if (c2 && c == '>' && c2 == '>')
 		return (GREATGREAT);
-	else if (c == '<')
+	else if (c == '<' && c2 != '<')
 		return (LESS);
-	else if (c == '>')
+	else if (c == '>' && c2 != '>')
 		return (GREAT);
-	else if (c == '|')
+	else if (c == '|' && c2 != '|')
 		return (PIPE);
 	return (0);
 }
