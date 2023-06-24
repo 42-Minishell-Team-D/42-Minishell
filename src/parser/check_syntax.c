@@ -35,18 +35,12 @@ static int	check_invalidity(t_bt *tree)
 	return (1);
 }
 
-int	check_syntax(t_data *data)
+int	check_syntax(t_bt *tree)
 {
-	int i;
+	t_bt	*left_tree;
 	char *last_arg;
 
-	i = 0;
-	while (data->tokens[i] != NULL)
-	{
-		if (check_arg(data->tokens[i]) == 0)
-			return (0);
-		i++;
-	}
+	while (tree != NULL)
 	{
 		last_arg = tree->args;
 		if (check_invalidity(tree) == 0)

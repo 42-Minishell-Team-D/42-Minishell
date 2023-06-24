@@ -94,12 +94,13 @@ void redirect_input_check(t_data *data)
 	{
 		if (ft_strncmp(data->tokens[i], "<\0", 2) == 0) 
 		{
+			// ft_printf_fd(1, "data->tokens[i + 1] = %s\n", data->tokens[i + 1]);
 			data->fd_in = open(data->tokens[i + 1], O_RDONLY);
+			// ft_printf_fd(1, "fd_in = %d\n", data->fd_in);
 			if (data->fd_in == -1 || is_new_token(data->tokens[i + 1][0], '\0') == 0)
 				printf("minishell: %s: No such file or directory\n", data->tokens[i + 1]);
 			delete_specific_token(data, i + 1);
 			delete_specific_token(data, i);
-			// exit(1);
 		}
 		i++;
 	}

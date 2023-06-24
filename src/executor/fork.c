@@ -32,17 +32,17 @@ void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 		if (data->fd_in > 0)
 		{
 			dup2(data->fd_in, 0);
-			ft_printf_fd(1, "id: 0 child reading from: %d\n", data->fd_in);
+			// ft_printf_fd(1, "id: 0 child reading from: %d\n", data->fd_in);
 		}
-		else
-			ft_printf_fd(1, "id: 0 child reading from: %d\n", 0);
+		// else
+			// ft_printf_fd(1, "id: 0 child reading from: %d\n", 0);
 		if (tree->right != NULL)
 		{
-			ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
+			// ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
 			dup2(data->pipes[id][1], 1);
 		}
-		else
-			ft_printf_fd(1, "id: 0 child writing to: %d\n", 1);
+		// else
+			// ft_printf_fd(1, "id: 0 child writing to: %d\n", 1);
 	}
 	else
 	{
@@ -58,6 +58,7 @@ void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 	}
 	if (builtin_executor_child(split, data) == 0)	// for export / unset / env this should be executed on the main process
 		return ;
+	
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
 	write(1, "\0", 1);
