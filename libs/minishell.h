@@ -87,6 +87,7 @@ typedef struct minishell
 {
 	int					rt;
 	char				*prompt;
+	int					fd_in;
 	char				**tokens;
 	char				**env;
 	char				**export;
@@ -118,6 +119,7 @@ t_bt	*create_tree(char **parser, t_bt *tree);
 int		check_syntax(t_bt *tree);
 void	get_more_prompt(t_data *data, t_parser *p);
 int		check_valid_syntax(char *prompt, t_parser *p, int i, int last_token);
+void	redirect_input_check(t_data *data);
 int		check_valid_last_pipe(char *prompt);
 
 /*		src/free	*/

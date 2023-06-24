@@ -29,14 +29,20 @@ void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 	id = tree->id / 2;
 	if (id == 0)
 	{
-		// ft_printf_fd(1, "id: 0 child reading from: %d\n", 0);
+		if (data->fd_in > 0)
+		{
+			dup2(data->fd_in, 0);
+			ft_printf_fd(1, "id: 0 child reading from: %d\n", data->fd_in);
+		}
+		else
+			ft_printf_fd(1, "id: 0 child reading from: %d\n", 0);
 		if (tree->right != NULL)
 		{
-			// ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
+			ft_printf_fd(1, "id: 0 child writing to: %d\n", data->pipes[id][1]);
 			dup2(data->pipes[id][1], 1);
 		}
-		// else
-			// ft_printf_fd(1, "id: 0 child writing to: %d\n", 1);
+		else
+			ft_printf_fd(1, "id: 0 child writing to: %d\n", 1);
 	}
 	else
 	{

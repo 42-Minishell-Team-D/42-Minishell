@@ -99,5 +99,6 @@ t_bt	*create_tree(char **tokens, t_bt *tree)
 	if (i < size)
 		tree = ft_btnew(tokens[i], size - i, NULL, tree);
 	tree = assign_parents(tree, NULL);
+	tokens = reverse_array(tokens, size);
 	return (tree);
 }

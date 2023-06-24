@@ -74,3 +74,33 @@ void	lexical_filter(t_data *data, t_parser *p)
 		}
 	}
 }
+
+static void delete_specific_token(t_data *data, int index)
+{
+// delete string from array of strings
+	char **ptr = data->tokens;
+	free(data->tokens[index]);
+	while (ptr[index] != NULL)
+	{
+		ptr[index] = ptr[index + 1];
+		index++;
+	}
+}
+
+void redirect_input_check(t_data *data)
+{
+	int i = 0;
+	while (data->tokens[i] != NULL)
+	{
+		if (ft_strncmp(data->tokens[i], "<\0", 2) == 0) 
+		{
+			data->fd_in = open(data->tokens[i + 1], O_RDONLY);
+			if (data->fd_in == -1 || is_new_token(data->tokens[i + 1][0], '\0') == 0)
+				printf("minishell: %s: No such file or directory\n", data->tokens[i + 1]);
+			delete_specific_token(data, i + 1);
+			delete_specific_token(data, i);
+			// exit(1);
+		}
+		i++;
+	}
+}

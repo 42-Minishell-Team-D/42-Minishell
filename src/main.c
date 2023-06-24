@@ -65,16 +65,26 @@ int	main(void)
 			write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
 		data.prompt = readline("minishell$ ");
 		data.slash_r = 0;
+		if (data.fd_in != 0)
+			close(data.fd_in);
+		data.fd_in = 0;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			get_more_prompt(&data, &data.p);
 			// printf("Prompt: %s\n", data.prompt);
 			parser(&data);
 			print_tokens(data.tokens);
+			redirect_input_check(&data);
+			print_tokens(data.tokens);
+			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
 			if (check_syntax(data.tree) != 0)
+			{
+
+
 				executor(&data);
+			}
 			free_after_execution(&data);
 		}
 	}
