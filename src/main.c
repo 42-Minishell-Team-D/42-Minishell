@@ -81,8 +81,6 @@ int	main(void)
 			// print_tree(data.tree);
 			if (check_syntax(&data) != 0)
 			{
-
-
 				executor(&data);
 			}
 			free_after_execution(&data);
