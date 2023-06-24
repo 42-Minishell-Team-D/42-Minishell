@@ -65,7 +65,7 @@ int	main(void)
 			write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
 		data.prompt = readline("minishell$ ");
 		data.slash_r = 0;
-		if (data.fd_in != 0)
+		if (data.fd_in > 0)
 			close(data.fd_in);
 		data.fd_in = 0;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
