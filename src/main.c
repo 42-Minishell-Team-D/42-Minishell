@@ -79,7 +79,7 @@ int	main(void)
 			// print_tokens(data.tokens);
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
-			if (check_syntax(data.tree) != 0)
+			if (check_syntax(&data) != 0)
 			{
 
 
