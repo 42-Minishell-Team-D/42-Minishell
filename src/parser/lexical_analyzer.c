@@ -111,7 +111,7 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 			p->in_single = !p->in_single;
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar(ptr, p, data);
-		if (!p->in_double && !p->in_single && is_new_token(*ptr, *ptr + 1) > 0)
+		if (!p->in_double && !p->in_single && is_new_token(*ptr, *(ptr + 1)) > 0)
 			ptr = handle_special_char(ptr, p, data);
 		else if (*ptr != '\0')
 		{
