@@ -70,26 +70,33 @@ int	main(void)
 		data.fd_in = 0;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
+			// add check_syntax(char *prompt) into get_more_prompt to check syntax in a loop from the prompt
+			// do not add the heredoc to the prompt
+			// get the heredoc content in a string
+			// implement heredoc that opens a pipe/file (fd_in like in redirect_input_check)
+			// if fd.in > 0 : close(fd.in) and fd.in = 0
+			// pipe(p[2]) p[0] = fd.in | write the heredoc to p[1]
 			get_more_prompt(&data, &data.p);
 			// printf("Prompt: %s\n", data.prompt);
 
+			// if (check_syntax(data.tree) == 0)
+			// {
+			// 	free_after_execution(&data);
+			// 	continue ;
+			// }
 
 			parser(&data);
 
+			// print_tokens(data.tokens);
+
+			redirect_input_check(&data);
+
+			// print_tokens(data.tokens);
 
 			data.tree = create_tree(data.tokens, data.tree);
-			if (check_syntax(data.tree) == 0)
-			{
-				free_after_execution(&data);
-				continue ;
-			}
-			
-			// print_tokens(data.tokens);
-			redirect_input_check(&data);
-			// print_tokens(data.tokens);
 			print_tree(data.tree);
-			free_tree(data.tree);
-			data.tree = create_tree(data.tokens, data.tree);
+
+			
 
 			if (check_syntax(data.tree) != 0)
 			{

@@ -68,9 +68,15 @@ static void	token_memory_alloc(t_data *data, t_parser *p)
 	while (*ptr != '\0')
 	{
 		if (*ptr == '"' && !p->in_single)
+		{
+			p->token_alloc[p->i]++;
 			p->in_double = !p->in_double;
+		}
 		if (*ptr == '\'' && !p->in_double)
+		{
+			p->token_alloc[p->i]++;
 			p->in_single = !p->in_single;
+		}
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar(ptr, p, data);
 		if (!p->in_double && !p->in_single && is_new_token(*ptr, *(ptr + 1)) > 1)
@@ -97,7 +103,7 @@ void	malloc_token(t_data *data, t_parser *p)
 	{
 		data->tokens[p->i] = NULL;
 		data->tokens[p->i] = \
-		(char *)ft_calloc(p->token_alloc[p->i], sizeof(char));
+		(char *)ft_calloc(p->token_alloc[p->i] + 1, sizeof(char));
 		if (data->tokens[p->i] == NULL)
 			exit(write(1, "Error: malloc failed\n", 21));
 		if (p->bigger_token < p->token_alloc[p->i])
