@@ -97,7 +97,7 @@ void	malloc_token(t_data *data, t_parser *p)
 	{
 		data->tokens[p->i] = NULL;
 		data->tokens[p->i] = \
-		(char *)ft_calloc(p->token_alloc[p->i] + 1, sizeof(char));
+		(char *)ft_calloc(p->token_alloc[p->i], sizeof(char));
 		if (data->tokens[p->i] == NULL)
 			exit(write(1, "Error: malloc failed\n", 21));
 		if (p->bigger_token < p->token_alloc[p->i])

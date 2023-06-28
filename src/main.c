@@ -87,13 +87,13 @@ int	main(void)
 			// print_tokens(data.tokens);
 			redirect_input_check(&data);
 			// print_tokens(data.tokens);
+			print_tree(data.tree);
 			free_tree(data.tree);
 			data.tree = create_tree(data.tokens, data.tree);
 
 			if (check_syntax(data.tree) != 0)
 			{
 				executor(&data);
-
 			}
 			free_after_execution(&data);
 
