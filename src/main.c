@@ -72,7 +72,11 @@ int	main(void)
 		{
 			get_more_prompt(&data, &data.p);
 			// printf("Prompt: %s\n", data.prompt);
+
+
 			parser(&data);
+
+
 			data.tree = create_tree(data.tokens, data.tree);
 			if (check_syntax(data.tree) == 0)
 			{
@@ -83,15 +87,16 @@ int	main(void)
 			// print_tokens(data.tokens);
 			redirect_input_check(&data);
 			// print_tokens(data.tokens);
-
 			free_tree(data.tree);
 			data.tree = create_tree(data.tokens, data.tree);
 
 			if (check_syntax(data.tree) != 0)
 			{
 				executor(&data);
+
 			}
 			free_after_execution(&data);
+
 		}
 	}
 	rl_clear_history();

@@ -97,6 +97,7 @@ void	executor(t_data *data)
 		redirect_pipe(&fork_id, tree, data);
 	else
 		write(data->pipes[0][1], "\0", 1);
+
 	tree = tree->right;
 	int anti_bomb = 0;
 	while (tree != NULL)
