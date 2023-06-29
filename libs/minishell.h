@@ -160,6 +160,8 @@ void	*ft_realloc(void *ptr, size_t size);
 char	**ft_split_args(char *token, t_parser *p);
 int		get_biggest_len(char *s1, char *s2);
 char	*ft_getenv(char *name, char **env);
+char 	*delete_char(char *str, int index);
+char	*ft_strcdup(const char *s1, int i, char c);
 
 /*			src/builtins/utils_builtins.c			*/
 char	*get_before_equal_sign(char *var);

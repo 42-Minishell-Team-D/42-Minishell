@@ -151,3 +151,45 @@ char	*ft_getenv(char *name, char **env)
 	}
 	return (ret);
 }
+
+char *delete_char(char *str, int index)
+{
+	char *new_str;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	new_str = malloc(sizeof(char) * ft_strlen(str));
+	while (str[i])
+	{
+		if (i != index)
+		{
+			new_str[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new_str[j] = '\0';
+	return (new_str);
+}
+
+// should return a string that is the copy of the string given as argumen starting at index i, until it finds the character c
+char	*ft_strcdup(const char *s1, int i, char c)
+{
+	char	*str;
+	int		j;
+
+	j = 0;
+	str = malloc(sizeof(char) * (ft_strlen(s1) - i + 1));
+	if (!str)
+		return (NULL);
+	while (s1[i] && s1[i] != c)
+	{
+		str[j] = s1[i];
+		i++;
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
+}
