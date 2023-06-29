@@ -174,7 +174,7 @@ char *delete_char(char *str, int index)
 	return (new_str);
 }
 
-// should return a string that is the copy of the string given as argumen starting at index i, tuntil it finds the character c
+// should return a string that is the copy of the string given as argumen starting at index i, until it finds the character c
 char	*ft_strcdup(const char *s1, int i, char c)
 {
 	char	*str;

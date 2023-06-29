@@ -129,7 +129,7 @@ static char *get_update_prompt(t_data *data, t_parser *p)
 		if (ft_strncmp(eof, get_str, get_biggest_len(eof, get_str)) != 0)
 			ret = ft_strjoin(ret, ft_strjoin("\n", get_str));
 	}
-	// data->prompt = ft_substr(data->prompt, i, ft_strlen(data->prompt));
+	data->prompt = ft_strcdup(data->prompt, 0, '\n');
 	return (ret);
 }
 
