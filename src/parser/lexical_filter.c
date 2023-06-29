@@ -87,7 +87,7 @@ static void delete_specific_token(t_data *data, int index)
 	}
 }
 
-void redirect_input_check(t_data *data)
+int redirect_input_check(t_data *data)
 {
 	int i = 0;
 	while (data->tokens[i] != NULL)
@@ -97,11 +97,12 @@ void redirect_input_check(t_data *data)
 			// ft_printf_fd(1, "data->tokens[i + 1] = %s\n", data->tokens[i + 1]);
 			data->fd_in = open(data->tokens[i + 1], O_RDONLY);
 			// ft_printf_fd(1, "fd_in = %d\n", data->fd_in);
-			if (data->fd_in == -1 || is_new_token(data->tokens[i + 1][0], '\0') == 0)
-				printf("minishell: %s: No such file or directory\n", data->tokens[i + 1]);
+			if (data->fd_in == -1)
+				return (printf("minishell: %s: No such file or directory\n", data->tokens[i + 1]));
 			delete_specific_token(data, i + 1);
 			delete_specific_token(data, i);
 		}
 		i++;
 	}
+	return (0);
 }

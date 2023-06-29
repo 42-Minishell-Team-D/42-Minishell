@@ -119,7 +119,7 @@ int	get_more_prompt(t_data *data, t_parser *p)
 	int	hdoc_bool;
 
 	hdoc_bool = 0;
-	if (check_valid_syntax(data->prompt, p, 0, 0) == 0)
+	if (check_valid_syntax(data->prompt, p) == 1)
 	{
 		printf("minishell: syntax error ( °︠ ‿ ︡°) \
 		try again, you can do it!\n");

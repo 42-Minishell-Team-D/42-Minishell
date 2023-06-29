@@ -37,6 +37,5 @@ int	exec_echo(char **split)
 	}
 	if (ft_strncmp(split[1], "-n\0", 3) != 0)
 		write(1, "\n", 1);
-
 	return (0);
 }

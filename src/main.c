@@ -93,7 +93,11 @@ int	main(void)
 
 			// print_tokens(data.tokens);
 
-			redirect_input_check(&data);
+			if (redirect_input_check(&data) > 0)
+			{
+				free_after_execution(&data);
+				continue ;
+			}
 
 			// print_tokens(data.tokens);
 
