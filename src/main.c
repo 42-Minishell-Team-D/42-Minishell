@@ -94,7 +94,7 @@ int	main(void)
 			// print_tokens(data.tokens);
 
 			data.tree = create_tree(data.tokens, data.tree);
-			print_tree(data.tree);
+			// print_tree(data.tree);
 
 			
 

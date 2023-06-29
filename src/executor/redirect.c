@@ -53,16 +53,13 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 			free(join);
 			exit(123);
 		}
-		// wait(NULL);
 	}
 	else
 		builtin_executor_parent(split, data);
-	// ft_printf_fd(1, "parent getpid = %d", getpid());
 	id = 0;
 	while (split[id])
 		free(split[id++]);
 	free(split);
-	// wait(NULL);	// edge case: cat /dev/random | head -n 10, wait shouldnt be needed
 }
 
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
