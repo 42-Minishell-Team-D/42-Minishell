@@ -91,7 +91,7 @@ int	main(void)
 
 			parser(&data);
 
-			print_tokens(data.tokens);
+			// print_tokens(data.tokens);
 
 			redirect_input_check(&data);
 
