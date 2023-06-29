@@ -76,7 +76,11 @@ int	main(void)
 			// implement heredoc that opens a pipe/file (fd_in like in redirect_input_check)
 			// if fd.in > 0 : close(fd.in) and fd.in = 0
 			// pipe(p[2]) p[0] = fd.in | write the heredoc to p[1]
-			get_more_prompt(&data, &data.p);
+			if (get_more_prompt(&data, &data.p) == 1)
+			{
+				free_after_execution(&data);
+				continue ;
+			}
 			// printf("Prompt: %s\n", data.prompt);
 
 			// if (check_syntax(data.tree) == 0)
