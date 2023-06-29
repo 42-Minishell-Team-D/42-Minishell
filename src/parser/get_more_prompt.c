@@ -178,8 +178,7 @@ int	get_more_prompt(t_data *data, t_parser *p)
 		hdoc_bool = 1;
 		add_history(data->prompt);
 		heredoc_prompt = get_update_prompt(data, p);
-		printf("heredoc_prompt: %s\n", heredoc_prompt);
-
+		// printf("heredoc_prompt: %s\n", heredoc_prompt);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0))
