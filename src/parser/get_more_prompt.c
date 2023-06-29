@@ -92,6 +92,47 @@ static int check_if_end_is_eof(char *prompt, char *eof)
 	return (1);	// return 1 if end of file
 }
 
+static char *get_update_prompt(t_data *data, t_parser *p)
+{
+	int i;
+	char *eof;
+	char *get_str;
+	char *ret;
+
+	i = 0;
+	p->in_single = 0;
+	p->in_double = 0;
+	eof = get_eof(data->prompt, ft_strlen(data->prompt) - 1, 0, p);
+	while (is_new_token(data->prompt[i], data->prompt[i + 1]) != 1 && data->prompt[i] != '\0')
+		i++;
+	if (data->prompt[i] == '\0')
+		return (NULL);
+	while (data->prompt[i] == ' ' && data->prompt[i] != '\0')
+		data->prompt = delete_char(data->prompt, i);
+	data->prompt = delete_char(data->prompt, i);
+	data->prompt = delete_char(data->prompt, i);
+	while (data->prompt[i] == ' ' && data->prompt[i] != '\0')
+		data->prompt = delete_char(data->prompt, i);
+	while (is_new_token(data->prompt[i], data->prompt[i + 1]) == 0 && data->prompt[i] != '\n' && data->prompt[i] != '\0')
+		data->prompt = delete_char(data->prompt, i);
+	while (data->prompt[i] != '\n')
+		i++;
+	i++;
+	get_str = ft_strcdup(data->prompt, i, '\n');
+	ret = ft_strdup(get_str);
+	while (ft_strncmp(eof, get_str, get_biggest_len(eof, get_str)) != 0 && eof != NULL)
+	{
+		while (data->prompt[i] != '\n')
+			i++;
+		i++;
+		get_str = ft_strcdup(data->prompt, i, '\n');
+		if (ft_strncmp(eof, get_str, get_biggest_len(eof, get_str)) != 0)
+			ret = ft_strjoin(ret, ft_strjoin("\n", get_str));
+	}
+	// data->prompt = ft_substr(data->prompt, i, ft_strlen(data->prompt));
+	return (ret);
+}
+
 static char	*heredoc_readline(char *prompt, t_parser *p)
 {
 	char	*eof;
@@ -116,7 +157,8 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 
 int	get_more_prompt(t_data *data, t_parser *p)
 {
-	int	hdoc_bool;
+	int		hdoc_bool;
+	char	*heredoc_prompt;
 
 	hdoc_bool = 0;
 	if (check_valid_syntax(data->prompt, p, 0, 0) == 0)
@@ -126,13 +168,19 @@ int	get_more_prompt(t_data *data, t_parser *p)
 		return (1);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1)
+	{
 		data->prompt = ft_strjoin(data->prompt, readline("minipipe> "));
+		add_history(data->prompt);
+	}
 	if (check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0)
 	{
 		data->prompt = heredoc_readline(data->prompt, p);
 		hdoc_bool = 1;
+		add_history(data->prompt);
+		heredoc_prompt = get_update_prompt(data, p);
+		printf("heredoc_prompt: %s\n", heredoc_prompt);
+
 	}
-	add_history(data->prompt);
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0))
 		get_more_prompt(data, p);
