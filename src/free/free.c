@@ -30,7 +30,8 @@ void	free_tokens(char **tokens)
 
 void	free_after_execution(t_data *data)
 {
-	free_tree(data->tree);
+	if (data->tree != NULL)
+		free_tree(data->tree);
 	if (data->tokens != NULL)
 		free_tokens(data->tokens);
 	if (data->prompt != NULL)

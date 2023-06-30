@@ -35,6 +35,14 @@ int check_valid_syntax(char *prompt, t_parser *p)
 	{
 		if (speed_prompt(prompt, &n, p) == 1)
 			return (1);
+		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
+		{
+			n += 2;
+			while (prompt[n] == ' ' && prompt[n])
+				n++;
+			if (is_new_token(prompt[n], prompt[n + 1]) > 0)
+				return (1);
+		}
 		n++;
 	}
 	

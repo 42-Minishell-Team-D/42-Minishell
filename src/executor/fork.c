@@ -17,10 +17,11 @@ static int	builtin_executor_child(char **split, t_data *data)
 
 void init_child(int id, t_bt *tree, t_data *data)
 {
-	close_unused_pipes(id, tree, data);
+	// close_unused_pipes(id, tree, data);
 
 	// ft_printf_fd(1, "closed data->pipes[%d][1] = %d\n", id, data->pipes[id][1]);
-	// close(data->pipes[id][1]);
+	if (id != 0)
+		close(4);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 
@@ -70,3 +71,18 @@ void	pipe_child(char *join, char **split, t_bt * tree, t_data *data)
 	write(1, "\0", 1);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
 }
+	/*int pid = fork();
+	if (pid == 0)
+	{
+		execve(join, split, data->env);
+		execve(split[0], split, data->env);
+		ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", split[0]);
+		exit(1);
+	}
+	write(1, "\0", 1);
+	if (id != 0)
+	{
+		if (close(data->pipes[id - 1][1]) >= 0)
+			ft_printf_fd(2, "closed data->pipes[%d][1] = %d\n", id - 1, data->pipes[id - 1][1]);
+
+	}*/

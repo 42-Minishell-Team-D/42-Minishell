@@ -64,13 +64,13 @@ int	main(void)
 		if (data.slash_r == 0)
 			write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
 		data.prompt = readline("minishell$ ");
-		add_history(data.prompt);
 		data.slash_r = 0;
 		if (data.fd_in > 0)
 			close(data.fd_in);
 		data.fd_in = 0;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
+			add_history(data.prompt);
 			// add check_syntax(char *prompt) into get_more_prompt to check syntax in a loop from the prompt
 			// do not add the heredoc to the prompt
 			// get the heredoc content in a string
@@ -79,7 +79,8 @@ int	main(void)
 			// pipe(p[2]) p[0] = fd.in | write the heredoc to p[1]
 			if (get_more_prompt(&data, &data.p) == 1)
 			{
-				free_after_execution(&data);
+				// free_after_execution(&data);
+				free(data.prompt);
 				continue ;
 			}
 			// printf("Prompt: %s\n", data.prompt);
