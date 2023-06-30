@@ -13,7 +13,7 @@ static void	delete_token(char **token)
 	}
 }
 
-static void	delete_char(char *str)
+static void	delete_char_filter(char *str)
 {
 	while (*str != '\0')
 	{
@@ -30,7 +30,7 @@ char	*lexical_prompt_filter(char *prompt)
 	in_single = 0;
 	in_double = 0;
 	while (*prompt == ' ')
-		delete_char(prompt);
+		delete_char_filter(prompt);
 	while (*prompt != '\0')
 	{
 		if (*prompt == '"' && !in_single)
@@ -39,7 +39,7 @@ char	*lexical_prompt_filter(char *prompt)
 			in_single = !in_single;
 		if (*prompt == ' ' && (*(prompt + 1) == ' ' || *(prompt + 1) == '\0')
 			&& !in_double && !in_single)
-			delete_char(prompt);
+			delete_char_filter(prompt);
 		else
 			prompt++;
 	}
@@ -54,7 +54,7 @@ void	lexical_filter(t_data *data, t_parser *p)
 	{
 		ptr = data->tokens[p->i++];
 		while (*ptr == ' ')
-			delete_char(ptr);
+			delete_char_filter(ptr);
 		if (ft_strlen(ptr) == 0)
 		{
 			delete_token(data->tokens + --p->i);
@@ -68,7 +68,7 @@ void	lexical_filter(t_data *data, t_parser *p)
 				p->in_single = !p->in_single;
 			if (*ptr == ' ' && (*(ptr + 1) == ' ' || *(ptr + 1) == '\0')
 				&& !p->in_double && !p->in_single)
-				delete_char(ptr);
+				delete_char_filter(ptr);
 			else
 				ptr++;
 		}
