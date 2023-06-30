@@ -139,13 +139,14 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	char	*tmp;
 
 	eof = ft_strjoin("\n", get_eof(prompt, ft_strlen(prompt) - 1, 0, p));
+	tmp = "\0";
 	if (check_if_end_is_eof(prompt, eof) == 1)
 	{
 		free(eof);
 		// should create a file called eof that has the content of the heredoc
 		return (prompt);
 	}
-	while (ft_strncmp(eof, tmp, ft_strlen(eof)) != 0)
+	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 	{
 		tmp = ft_strjoin("\n", readline("minihdoc> "));
 		prompt = ft_strjoin(prompt, tmp);
