@@ -169,15 +169,11 @@ int	get_more_prompt(t_data *data, t_parser *p)
 		return (1);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1)
-	{
 		data->prompt = ft_strjoin(data->prompt, readline("minipipe> "));
-		add_history(data->prompt);
-	}
 	if (check_valid_last_heredoc(data->prompt) == 1 && hdoc_bool == 0)
 	{
 		data->prompt = heredoc_readline(data->prompt, p);
 		hdoc_bool = 1;
-		add_history(data->prompt);
 		heredoc_prompt = get_update_prompt(data, p);
 		// printf("heredoc_prompt: %s\n", heredoc_prompt);
 		(void)heredoc_prompt;
