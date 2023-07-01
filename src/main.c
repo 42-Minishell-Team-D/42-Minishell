@@ -80,7 +80,8 @@ int	main(void)
 			if (get_more_prompt(&data, &data.p) == 1)
 			{
 				// free_after_execution(&data);
-				free(data.prompt);
+				if (data.prompt != NULL)
+					free(data.prompt);
 				continue ;
 			}
 			// printf("Prompt: %s\n", data.prompt);
@@ -106,12 +107,7 @@ int	main(void)
 			data.tree = create_tree(data.tokens, data.tree);
 			// print_tree(data.tree);
 
-			
-
-			if (check_syntax(data.tree) != 0)
-			{
-				executor(&data);
-			}
+			executor(&data);
 			free_after_execution(&data);
 
 		}
