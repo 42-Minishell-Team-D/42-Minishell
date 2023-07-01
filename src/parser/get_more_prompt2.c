@@ -21,12 +21,42 @@ static int	speed_prompt(char *prompt, int *n)
 
 static int new_token_checker(char *prompt, int *n)
 {
+	int		i;
+	int		temp;
+	char	*str;
+	char	c;
+
+	i = 0;
+	c = '\0';
+	str = NULL;
 	if (is_new_token(prompt[*n], prompt[*n + 1]) <= 2)
 		(*n) += 2;
 	else
 		(*n)++;
 	while (prompt[*n] == ' ' && prompt[*n])
 		(*n)++;
+	if (prompt[*n] == '\'' || prompt[*n] == '"')
+		c = prompt[*n];
+	if (c > 0)
+	{
+		temp = (*n)++;
+		while (prompt[*n] != c && prompt[*n])
+			(*n)++;
+		if (prompt[*n] == '\0')
+			return (1);
+		i = (*n);
+		(*n) = temp + 1;
+		str = ft_calloc(i - (*n) + 2, sizeof(char));
+		ft_strlcpy(str, &prompt[*n], i - (*n) + 1);
+		(*n) = i + 1;
+		if ((str[1] == '\0' && str[0] != '|') || is_new_token(str[0], str[1]) > 0)
+		{
+			free(str);
+			return (1);
+		}
+		free(str);
+		return (0);
+	}
 	if ((prompt[*n] == '\0' && prompt[*n - 1] != '|') || is_new_token(prompt[*n], prompt[*n + 1]) > 0)
 		return (1);
 	return (0);
@@ -53,32 +83,6 @@ int check_valid_syntax(char *prompt)
 	}
 	return (0);
 }
-
-// int	check_valid_syntax(char *prompt, t_parser *p, int i, int last_token)
-// {
-	// int	token_type;
-
-	// p->in_single = 0;
-	// p->in_double = 0;
-	// while (prompt[i])
-	// {
-	// 	while (prompt[i] == ' ' && prompt[i])
-	// 		i++;
-	// 	token_type = is_new_token(prompt[i], prompt[i + 1]);
-	// 	if (token_type > 0 && last_token == 0)
-	// 		last_token = is_new_token(prompt[i], prompt[i + 1]);
-	// 	else if (token_type < 5 && token_type != 0 && last_token == 5)
-	// 		last_token = is_new_token(prompt[i], prompt[i + 1]);
-	// 	else if (token_type > 0 && last_token > 0)
-	// 		return (0);
-	// 	else
-	// 		last_token = 0;
-	// 	if (token_type == 1 || token_type == 2)
-	// 		i++;
-	// 	i++;
-	// }
-	// return (1);
-// }
 
 int	check_valid_last_pipe(char *prompt)
 {
