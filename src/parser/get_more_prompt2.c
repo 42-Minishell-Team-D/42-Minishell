@@ -43,7 +43,7 @@ int check_valid_syntax(char *prompt, t_parser *p)
 				n++;
 			while (prompt[n] == ' ' && prompt[n])
 				n++;
-			if ((prompt[n] == '\0' && prompt[n] != '|') || is_new_token(prompt[n], prompt[n + 1]) > 0) // https://prod.liveshare.vsengsaas.visualstudio.com/join?922950823738B8E5AB0DDAEA15F904FEBC53
+			if (prompt[n] == '\0' || is_new_token(prompt[n], prompt[n + 1]) < 5)
 				return (1);
 		}
 		n++;
