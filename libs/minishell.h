@@ -129,7 +129,6 @@ void	free_tokens(char **tokens);
 void	free_if_err(char **var, int exit_code);
 void	free_tree(t_bt *tree);
 
-
 /*		src/executor	*/
 void	executor(t_data *data);
 int		init_executor(t_data *data);
@@ -140,7 +139,7 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data);
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option);
 char	**clear_quotes(char **split);
 void	init_child(int id, t_bt *tree, t_data *data);
-void	pipe_child(char *join, char **split, t_bt * tree, t_data *data);
+void	pipe_child(char *join, char **split, t_bt *tree, t_data *data);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
@@ -160,7 +159,7 @@ void	*ft_realloc(void *ptr, size_t size);
 char	**ft_split_args(char *token, t_parser *p);
 int		get_biggest_len(char *s1, char *s2);
 char	*ft_getenv(char *name, char **env);
-char 	*delete_char(char *str, int index);
+char	*delete_char(char *str, int index);
 char	*ft_strcdup(const char *s1, int i, char c);
 
 /*			src/builtins/utils_builtins.c			*/
