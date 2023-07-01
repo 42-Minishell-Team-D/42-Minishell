@@ -31,6 +31,11 @@ int check_valid_syntax(char *prompt, t_parser *p)
 
 	reset_p_vars(p);
 	n = 0;
+	
+	if (speed_prompt(prompt, &n, p) == 1)
+			return (1);
+	if (prompt[n] == '|')
+		return (1);
 	while (prompt[n])
 	{
 		if (speed_prompt(prompt, &n, p) == 1)
@@ -43,7 +48,7 @@ int check_valid_syntax(char *prompt, t_parser *p)
 				n++;
 			while (prompt[n] == ' ' && prompt[n])
 				n++;
-			if (prompt[n] == '\0' || is_new_token(prompt[n], prompt[n + 1]) < 5)
+			if ((prompt[n] == '\0' && prompt[n - 1] != '|') || is_new_token(prompt[n], prompt[n + 1]) > 0)
 				return (1);
 		}
 		n++;
