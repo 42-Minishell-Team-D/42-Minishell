@@ -37,7 +37,10 @@ int check_valid_syntax(char *prompt, t_parser *p)
 			return (1);
 		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
 		{
-			n += 2;
+			if (is_new_token(prompt[n], prompt[n + 1]) <= 2)
+				n += 2;
+			else
+				n++;
 			while (prompt[n] == ' ' && prompt[n])
 				n++;
 			if (is_new_token(prompt[n], prompt[n + 1]) > 0)
