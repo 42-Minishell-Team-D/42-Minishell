@@ -146,7 +146,8 @@ void	init_stuff(t_data *data, char **prompt)
 {
 	data->rt = 0;
 	data->slash_r = 0;
-	data->fd_in = 0;
+	data->fd_in[0] = -1;
+	data->fd_in[1] = -1;
 	init_env(data, 0);
 	init_export(data, 0);
 	init_sa(data->sa, data->sb);

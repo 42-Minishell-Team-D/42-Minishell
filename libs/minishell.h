@@ -87,7 +87,7 @@ typedef struct minishell
 {
 	int					rt;
 	char				*prompt;
-	int					fd_in;
+	int					fd_in[2];
 	char				**tokens;
 	char				**env;
 	char				**export;

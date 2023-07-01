@@ -36,8 +36,14 @@ void	free_after_execution(t_data *data)
 		free_tokens(data->tokens);
 	if (data->prompt != NULL)
 		free(data->prompt);
-	if (data->fd_in != 0)
-		close(data->fd_in);
+	if (data->fd_in[0] != 0)
+	{
+		close(data->fd_in[0]);
+		close(data->fd_in[1]);
+		data->fd_in[0] = -1;
+		data->fd_in[1] = -1;
+		data->rt = 0;
+	}
 }
 
 void	free_at_exit(t_data *data)
