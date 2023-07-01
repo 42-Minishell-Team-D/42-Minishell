@@ -180,7 +180,7 @@ int	get_more_prompt(t_data *data, t_parser *p)
 {
 	char	*tmp;
 
-	if (check_valid_syntax(data->prompt, p) == 1)
+	if (check_valid_syntax(data->prompt) == 1)
 	{
 		printf("minishell: syntax error ( °︠ ‿ ︡°)\n");
 		return (1);

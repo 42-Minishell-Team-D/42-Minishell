@@ -15,7 +15,7 @@ FILESC = ./src/main.c ./src/init.c \
 		./src/executor/executor.c ./src/executor/redirect.c\
 		./src/executor/fork.c \
 		./src/executor/tgps.c  ./src/executor/clear_quotes.c \
-		./src/utils1.c ./src/builtins/utils_builtins.c \
+		./src/utils1.c ./src/utils2.c ./src/utils3.c ./src/builtins/utils_builtins.c \
 
 OBJS = $(FILESC:.c=.o)
 

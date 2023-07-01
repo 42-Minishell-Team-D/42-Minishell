@@ -1,60 +1,56 @@
 #include "../../libs/minishell.h"
 
-static int	speed_prompt(char *prompt, int *n, t_parser *p)
+static int	speed_prompt(char *prompt, int *n)
 {
-	if (prompt[*n] == '"' && !p->in_single)
+	if (prompt[*n] == '"')
 	{
 		while (prompt[*n] != '"')
 			(*n)++;
 		if (prompt[*n] == '\0')
-		{
-			reset_p_vars(p);
 			return (1);
-		}
 	}
-	if (prompt[*n] == '\'' && !p->in_double)
+	if (prompt[*n] == '\'')
 	{
 		while (prompt[*n] == '\'')
 			(*n)++;
 		if (prompt[*n] == '\0')
-		{
-			reset_p_vars(p);
 			return (1);
-		}
 	}
 	return (0);
 }
 
-int check_valid_syntax(char *prompt, t_parser *p)
+static int new_token_checker(char *prompt, int *n)
+{
+	if (is_new_token(prompt[*n], prompt[*n + 1]) <= 2)
+		(*n) += 2;
+	else
+		(*n)++;
+	while (prompt[*n] == ' ' && prompt[*n])
+		(*n)++;
+	if ((prompt[*n] == '\0' && prompt[*n - 1] != '|') || is_new_token(prompt[*n], prompt[*n + 1]) > 0)
+		return (1);
+	return (0);
+}
+
+int check_valid_syntax(char *prompt)
 {
 	int n;
 
-	reset_p_vars(p);
 	n = 0;
 	
-	if (speed_prompt(prompt, &n, p) == 1)
+	if (speed_prompt(prompt, &n) == 1)
 			return (1);
 	if (prompt[n] == '|')
 		return (1);
 	while (prompt[n])
 	{
-		if (speed_prompt(prompt, &n, p) == 1)
+		if (speed_prompt(prompt, &n) == 1)
 			return (1);
-		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
-		{
-			if (is_new_token(prompt[n], prompt[n + 1]) <= 2)
-				n += 2;
-			else
-				n++;
-			while (prompt[n] == ' ' && prompt[n])
-				n++;
-			if ((prompt[n] == '\0' && prompt[n - 1] != '|') || is_new_token(prompt[n], prompt[n + 1]) > 0)
-				return (1);
-		}
+		if (is_new_token(prompt[n], prompt[n + 1]) > 0
+			&& new_token_checker(prompt, &n) == 1)
+			return (1);
 		n++;
 	}
-	
-	reset_p_vars(p);
 	return (0);
 }
 
