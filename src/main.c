@@ -77,15 +77,18 @@ int	main(void)
 			// if fd.in > 0 : close(fd.in) and fd.in = 0
 			// pipe(p[2]) p[0] = fd.in | write the heredoc to p[1]
 			data.p.char_temp = ft_calloc(1, 1);
-			if (get_more_prompt(&data, &data.p) == 1)
+			if (get_more_prompt(&data, &data.p, 0) == 1)
 			{
 				// free_after_execution(&data);
 				if (data.prompt != NULL)
 					free(data.prompt);
+				free(data.p.char_temp);
+				close(data.fd_in[1]);
 				continue ;
 			}
+			write(data.fd_in[1], data.p.char_temp, ft_strlen(data.p.char_temp));
 			free(data.p.char_temp);
-
+			close(data.fd_in[1]);
 			// printf("Prompt: %s\n", data.prompt);
 
 			// if (check_syntax(data.tree) == 0)

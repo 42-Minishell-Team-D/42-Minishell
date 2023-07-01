@@ -98,7 +98,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	heredoc_prompt = "\0";
 	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 	{
-		tmp = readline("minihduck🐣> ");
+		tmp = readline("minihduc🐣> ");
 		if (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 		{
 			tmp = ft_strjoin(tmp, "\n");
@@ -110,7 +110,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	return (heredoc_prompt);
 }
 
-int	get_more_prompt(t_data *data, t_parser *p)
+int	get_more_prompt(t_data *data, t_parser *p, int baal)
 {
 	char	*tmp;
 
@@ -123,18 +123,19 @@ int	get_more_prompt(t_data *data, t_parser *p)
 		data->prompt = ft_strjoin(data->prompt, readline("minipipe> "));
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
+		
 		tmp = heredoc_readline(data->prompt, p);
 		p->char_temp = ft_strjoin(p->char_temp, tmp);
 		update_prompt(data, p);
-
+		if (baal == 0)
+			pipe(data->fd_in);
 		// ATTENTION: heredoc_prompt can be NULL!
-		pipe(data->fd_in);
-		write(data->fd_in[1], p->char_temp, ft_strlen(p->char_temp));
+		
 		// close(data->fd_in[1]);
 		// (void)heredoc_prompt;
 	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_heredoc(data->prompt) == 1))
-		get_more_prompt(data, p);
+		get_more_prompt(data, p, 1);
 	return (0);
 }
