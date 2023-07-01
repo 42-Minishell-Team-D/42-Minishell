@@ -44,6 +44,8 @@ static int new_token_checker(char *prompt, int *n)
 			(*n)++;
 		if (prompt[*n] == '\0')
 			return (1);
+		if (prompt[*n - 1] == c)
+			return (0);
 		i = (*n);
 		(*n) = temp + 1;
 		str = ft_calloc(i - (*n) + 2, sizeof(char));
