@@ -93,14 +93,17 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	char	*tmp;
 	char	*heredoc_prompt;
 
-	eof = ft_strjoin("\n", get_eof(prompt, 0, p));
+	eof = get_eof(prompt, 0, p);
 	tmp = "\0";
 	heredoc_prompt = "\0";
 	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 	{
-		tmp = ft_strjoin("\n", readline("minihdoc🐣> "));
+		tmp = readline("minihduck🐣> ");
 		if (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
+		{
+			tmp = ft_strjoin(tmp, "\n");
 			heredoc_prompt = ft_strjoin(heredoc_prompt, tmp);
+		}
 	}
 	free(eof);
 	free(tmp);
