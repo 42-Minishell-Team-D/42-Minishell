@@ -70,9 +70,6 @@ int	main(void)
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			add_history(data.prompt);
-			// add check_syntax(char *prompt) into get_more_prompt to check syntax in a loop from the prompt
-			// do not add the heredoc to the prompt
-			// get the heredoc content in a string
 			// implement heredoc that opens a pipe/file (fd_in like in redirect_input_check)
 			// if fd.in > 0 : close(fd.in) and fd.in = 0
 			// pipe(p[2]) p[0] = fd.in | write the heredoc to p[1]
