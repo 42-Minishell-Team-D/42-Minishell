@@ -92,6 +92,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	char	*eof;
 	char	*tmp;
 	char	*heredoc_prompt;
+	char	*join;
 
 	eof = get_eof(prompt, 0, p);
 	tmp = "\0";
@@ -102,7 +103,11 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 		if (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 		{
 			tmp = ft_strjoin(tmp, "\n");
-			heredoc_prompt = ft_strjoin(heredoc_prompt, tmp);
+			join = ft_strjoin(heredoc_prompt, tmp);
+			if (heredoc_prompt[0] != '\0')
+				free(heredoc_prompt);
+			heredoc_prompt = ft_strdup(join);
+			free(join);
 		}
 	}
 	free(eof);
