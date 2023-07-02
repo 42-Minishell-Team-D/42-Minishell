@@ -24,7 +24,8 @@ void	remove_var_from_env(char *var, char **env)
 	while (env[i] != NULL)
 	{
 		env_before = get_before_equal_sign(env[i]);
-		if (ft_strncmp(env_before, var_before, get_biggest_len(env_before, var_before)) == 0)
+		if (ft_strncmp(env_before, var_before,
+				get_biggest_len(env_before, var_before)) == 0)
 		{
 			free(env[i]);
 			place_all_strings(env + i);
@@ -45,7 +46,8 @@ void	remove_var_from_export(char *var, char **export)
 	while (export[i] != NULL)
 	{
 		export_before = get_before_equal_sign_export(export[i]);
-		if (ft_strncmp(export_before, var_before, get_biggest_len(export_before, var_before)) == 0)
+		if (ft_strncmp(export_before, var_before,
+				get_biggest_len(export_before, var_before)) == 0)
 		{
 			free(export[i]);
 			place_all_strings(export + i);
@@ -66,7 +68,6 @@ int	exec_unset(char **split, t_data *data)
 		remove_var_from_export(split[i], data->export);
 		i++;
 	}
-	// exec_env(data);
 	return (0);
 }
 

@@ -72,7 +72,7 @@ static void update_export(char *var, t_data *data)
 	{
 		if (ft_strncmp(get_before_equal_sign_export(data->export[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
 		{
-			if (is_equal_sign(var) == 0)	// if var has no value. return to keep the actual value so no update is done
+			if (is_equal_sign(var) == 0)
 				return ;
 			free(data->export[i]);
 			break ;
@@ -110,8 +110,6 @@ int	exec_export(char **split, t_data *data)
 			i++;
 		}
 	}
-	// exec_env(data);
-	// print_export(data);
     return (0);
 }
 
