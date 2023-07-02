@@ -86,7 +86,8 @@ int	main(void)
 				close(data.fd_in[1]);
 				continue ;
 			}
-			write(data.fd_in[1], data.p.char_temp, ft_strlen(data.p.char_temp));
+			if (data.fd_in[1] > 0)
+				write(data.fd_in[1], data.p.char_temp, ft_strlen(data.p.char_temp));
 			free(data.p.char_temp);
 			if (data.fd_in[1] > 0)
 				close(data.fd_in[1]);
