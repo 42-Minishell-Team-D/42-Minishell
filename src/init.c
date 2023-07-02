@@ -11,10 +11,6 @@ void	handler(int sig, siginfo_t *id, void *content)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT) // CTRL+\ doesn't execute this
-	{
-		
-	}
 	return ;
 }
 
@@ -45,9 +41,9 @@ void	init_env(t_data *data, int i)
 // -2 because the last two elements of the environ export
 // are reserved for the lines and columns
 
-void quote(char *export, int i, int j)
+void	quote(char *export, int i, int j)
 {
-	char temp[ft_strlen(export) + 2];
+	char	temp[ft_strlen(export) + 2];
 
 	while (export[i] && export[i] != '=')
 		temp[j++] = export[i++];
@@ -59,14 +55,13 @@ void quote(char *export, int i, int j)
 			temp[j++] = export[i++];
 		temp[j++] = '"';
 		temp[j++] = '\0';
-		// free(export);
 		export = ft_strdup(temp);
 	}
 }
 
-static void	sort_export_ASCII(char **export, int size, int i, int j)
+static void	sort_export_ascii(char **export, int size, int i, int j)
 {
-	char *temp;
+	char	*temp;
 
 	while (i < size)
 	{
@@ -76,14 +71,13 @@ static void	sort_export_ASCII(char **export, int size, int i, int j)
 			if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
 			{
 				temp = export[j];
-				export[j] = export[j+1];
-				export[j+1] = temp;
+				export[j] = export[j + 1];
+				export[j + 1] = temp;
 			}
 			j++;
 		}
 		i++;
 	}
-
 	i = 0;
 	while (i < size)
 	{
@@ -106,27 +100,11 @@ void	init_export(t_data *data, int i)
 		i++;
 	}
 	data->export[i] = NULL;
-	sort_export_ASCII(data->export, array_size(data->export), 0, 0);
+	sort_export_ascii(data->export, array_size(data->export), 0, 0);
 }
 
 void	init_sa(struct sigaction sa, struct sigaction sb)
 {
-	sa.sa_sigaction = handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = handler;
-
-
-	sigemptyset(&sb.sa_mask);
-	sb.sa_flags = SA_SIGINFO;
-	sb.sa_sigaction = handler;
-
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sb, NULL);
-
-	
-	/*
-		woking thing
 	sa.sa_sigaction = handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
@@ -136,11 +114,7 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 	sb.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sb, NULL);
-	*/
-	
 }
-
-
 
 void	init_stuff(t_data *data, char **prompt)
 {
