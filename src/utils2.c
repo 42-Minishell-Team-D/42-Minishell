@@ -46,26 +46,13 @@ char	*ft_getenv(char *name, char **env)
 	return (ret);
 }
 
-char	*delete_char(char *str, int index)
+void	delete_char_filter(char *str)
 {
-	char	*new_str;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	new_str = malloc(sizeof(char) * ft_strlen(str));
-	while (str[i])
+	while (*str != '\0')
 	{
-		if (i != index)
-		{
-			new_str[j] = str[i];
-			j++;
-		}
-		i++;
+		str++;
+		*(str - 1) = *str;
 	}
-	new_str[j] = '\0';
-	return (new_str);
 }
 
 // should return a string that is the copy of the string given as argument 

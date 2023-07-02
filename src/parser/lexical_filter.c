@@ -13,15 +13,6 @@ static void	delete_token(char **token)
 	}
 }
 
-static void	delete_char_filter(char *str)
-{
-	while (*str != '\0')
-	{
-		str++;
-		*(str - 1) = *str;
-	}
-}
-
 char	*lexical_prompt_filter(char *prompt)
 {
 	int	in_single;

@@ -77,13 +77,13 @@ static void	update_prompt(t_data *data, t_parser *p)
 	if (data->prompt[i] == '\0')
 		return ;
 	while (data->prompt[i] == ' ' && data->prompt[i] != '\0')
-		data->prompt = delete_char(data->prompt, i);
-	data->prompt = delete_char(data->prompt, i);
-	data->prompt = delete_char(data->prompt, i);
+		delete_char_filter(&data->prompt[i]);
+	delete_char_filter(&data->prompt[i]);
+	delete_char_filter(&data->prompt[i]);
 	while (data->prompt[i] == ' ' && data->prompt[i] != '\0')
-		data->prompt = delete_char(data->prompt, i);
+		delete_char_filter(&data->prompt[i]);
 	while (is_new_token(data->prompt[i], data->prompt[i + 1]) == 0 && data->prompt[i] != '\n' && data->prompt[i] != '\0')
-		data->prompt = delete_char(data->prompt, i);
+		delete_char_filter(&data->prompt[i]);
 	data->prompt = ft_strcdup(data->prompt, 0, '\n');
 }
 
@@ -130,7 +130,7 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 		if (baal == 0)
 			pipe(data->fd_in);
 	}
-	if (check_valid_last_pipe(data->prompt) == 1)
+	else if (check_valid_last_pipe(data->prompt) == 1)
 	{
 		tmp = readline("minipipe> ");
 		if (tmp == NULL)
