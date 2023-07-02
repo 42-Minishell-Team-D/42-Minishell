@@ -99,8 +99,6 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 	{
 		tmp = readline("minihduc🐣> ");
-		if (tmp == NULL)
-			return (NULL);
 		if (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 		{
 			tmp = ft_strjoin(tmp, "\n");
@@ -124,17 +122,13 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
 		tmp = heredoc_readline(data->prompt, p);
-		if (tmp == NULL)
-			return (ft_printf_fd(1, "\n"));
+		if (ft_strncmp("\0", tmp, 3) == 0)
+			return (1);
 		p->char_temp = ft_strjoin(p->char_temp, tmp);
 		free(tmp);
 		update_prompt(data, p);
 		if (baal == 0)
 			pipe(data->fd_in);
-		// ATTENTION: heredoc_prompt can be NULL!
-		
-		// close(data->fd_in[1]);
-		// (void)heredoc_prompt;
 	}
 	if (check_valid_last_pipe(data->prompt) == 1)
 	{
