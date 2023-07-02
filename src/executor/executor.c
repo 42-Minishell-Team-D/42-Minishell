@@ -94,9 +94,9 @@ void	close_free_pipes(t_data *data)
 	i = 0;
 	while (i < get_number_of_processes(data->tree) - 1)
 	{
-		if (data->pipes[i][0] != 0)
+		if (data->pipes[i][0] != 0 && data->pipes[i][0] != -1)
 			close(data->pipes[i][0]);
-		if (data->pipes[i][1] != 0)
+		if (data->pipes[i][1] != 0 && data->pipes[i][1] != -1)
 			close(data->pipes[i][1]);
 		if (data->pipes[i] != NULL)
 			free(data->pipes[i]);
@@ -121,10 +121,8 @@ void	executor(t_data *data)
 		redirect_pipe(&fork_id, tree, data);
 	else
 		write(data->pipes[0][1], "\0", 1);
-	close(data->fd_in[0]);
-	// close(data->fd_in[1]);
-	// if (tree->right != NULL)
-		// close(data->pipes[0][1]);
+	if (data->fd_in[0] > 0)
+		close(data->fd_in[0]);
 	tree = tree->right;
 	while (tree != NULL)
 	{

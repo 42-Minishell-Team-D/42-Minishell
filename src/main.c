@@ -88,7 +88,8 @@ int	main(void)
 			}
 			write(data.fd_in[1], data.p.char_temp, ft_strlen(data.p.char_temp));
 			free(data.p.char_temp);
-			close(data.fd_in[1]);
+			if (data.fd_in[1] > 0)
+				close(data.fd_in[1]);
 			// printf("Prompt: %s\n", data.prompt);
 
 			// if (check_syntax(data.tree) == 0)
