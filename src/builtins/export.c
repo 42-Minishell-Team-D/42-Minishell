@@ -62,6 +62,7 @@ static void	update_env(char *var, t_data *data)
 static void update_export(char *var, t_data *data)
 {
 	int		i;
+	char 	*tmp;
 	char	*join;
 
 	i = 0;
@@ -70,13 +71,23 @@ static void update_export(char *var, t_data *data)
 		return ;
 	while (data->export[i] != NULL)
 	{
-		if (ft_strncmp(get_before_equal_sign_export(data->export[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
+		tmp = get_before_equal_sign_export(data->export[i]);
+		join = get_before_equal_sign(var);
+		if (ft_strncmp(tmp, join, ft_strlen(var)) == 0)
 		{
 			if (is_equal_sign(var) == 0)
+			{
+				free(tmp);
+				free(join);
 				return ;
+			}
 			free(data->export[i]);
+			free(tmp);
+			free(join);
 			break ;
 		}
+		free(tmp);
+		free(join);
 		i++;
 	}
 	data->export[i] = ft_strdup(var);
