@@ -65,8 +65,9 @@ static char	*get_eof(char *prompt, int j, t_parser *p)
 
 static void	update_prompt(t_data *data, t_parser *p)
 {
-	int i;
-	char *eof;
+	int		i;
+	char	*eof;
+	char	*join;
 
 	i = 0;
 	p->in_single = 0;
@@ -84,7 +85,10 @@ static void	update_prompt(t_data *data, t_parser *p)
 		delete_char_filter(&data->prompt[i]);
 	while (is_new_token(data->prompt[i], data->prompt[i + 1]) == 0 && data->prompt[i] != '\n' && data->prompt[i] != '\0')
 		delete_char_filter(&data->prompt[i]);
-	data->prompt = ft_strcdup(data->prompt, 0, '\n');
+	join = ft_strcdup(data->prompt, 0, '\n');
+	free(data->prompt);
+	data->prompt = ft_strdup(join);
+	free(join);
 }
 
 static char	*heredoc_readline(char *prompt, t_parser *p)
@@ -144,7 +148,10 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 		tmp = readline("minipipe> ");
 		if (tmp == NULL)
 			return (ft_printf_fd(1, "\n"));
-		data->prompt = ft_strjoin(data->prompt, tmp);
+		join = ft_strjoin(data->prompt, tmp);
+		free(data->prompt);
+		data->prompt = ft_strdup(join);
+		free(join);
 		free(tmp);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
