@@ -113,6 +113,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 int	get_more_prompt(t_data *data, t_parser *p, int baal)
 {
 	char	*tmp;
+	char	*join;
 
 	if (check_valid_syntax(data->prompt) == 1)
 	{
@@ -124,7 +125,10 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 		tmp = heredoc_readline(data->prompt, p);
 		if (ft_strncmp("\0", tmp, 3) == 0)
 			return (1);
-		p->char_temp = ft_strjoin(p->char_temp, tmp);
+		join = ft_strjoin(p->char_temp, tmp);
+		free(p->char_temp);
+		p->char_temp = ft_strjoin(join, "\n");
+		free(join);
 		free(tmp);
 		update_prompt(data, p);
 		if (baal == 0)
