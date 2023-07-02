@@ -51,6 +51,7 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 				free(split[id++]);
 			free(split);
 			free(join);
+			free_after_execution(data);
 			exit(123);
 		}
 	}
