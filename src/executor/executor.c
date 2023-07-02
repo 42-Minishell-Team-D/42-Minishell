@@ -21,7 +21,7 @@ int	get_number_of_processes(t_bt *tree)
 		left_tree = tree->left;
 		tree = tree->right;
 	}
-	// printf("Number of processes: %d\n", count);
+	// ft_printf_fd(1, "Number of processes: %d\n", count);
 	return (count);
 }
 
@@ -98,7 +98,7 @@ void	close_free_pipes(t_data *data)
 			close(data->pipes[i][0]);
 		if (data->pipes[i][1] != 0)
 			close(data->pipes[i][1]);
-		if (data->pipes != NULL)
+		if (data->pipes[i] != NULL)
 			free(data->pipes[i]);
 		data->pipes[i] = NULL;
 		i++;
