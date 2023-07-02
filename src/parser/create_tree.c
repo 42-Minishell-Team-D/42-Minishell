@@ -19,34 +19,6 @@ char	**reverse_array(char **tokens, int size)
 	return (tokens);
 }
 
-void	*init_parent_struct(char *token)
-{
-	t_pipe	*pipe;
-	t_great	*great;
-	// t_greatgreat	*greatgreat;
-	// t_less		  *less;
-	// t_lessless	  *lessless;
-	if (ft_strncmp(token, "|", 1))
-	{
-		pipe = malloc(sizeof(t_pipe));
-		if (!pipe)
-			return (NULL);
-		// if (pipe(pipe->fd) == -1)  // create a pipe and store the file descriptors in data->pipe.fd[0] and data->pipe.fd[1]
-		//	 return NULL;
-		return (pipe);
-	}
-	else if (ft_strncmp(token, ">", 1))
-	{
-		great = malloc(sizeof(great));
-		if (!great)
-			return (NULL);
-		// if (pipe(great->fd) == -1)
-		//	 return NULL;
-		return (great);
-	}
-	return (NULL);
-}
-
 t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 {
 	t_bt	*node;
@@ -56,7 +28,7 @@ t_bt	*ft_btnew(char *token, int id, t_bt *left, t_bt *right)
 		return (NULL);
 	node->args = token;
 	node->id = id;
-	node->data = init_parent_struct(token);
+	node->data = NULL;
 	node->left = left;
 	node->right = right;
 	return (node);
