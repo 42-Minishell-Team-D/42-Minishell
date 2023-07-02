@@ -121,14 +121,6 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 		printf("minishell: syntax error ( °︠ ‿ ︡°)\n");
 		return (1);
 	}
-	if (check_valid_last_pipe(data->prompt) == 1)
-	{
-		tmp = readline("minipipe> ");
-		if (tmp == NULL)
-			return (ft_printf_fd(1, "\n"));
-		data->prompt = ft_strjoin(data->prompt, tmp);
-		free(tmp);
-	}
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
 		tmp = heredoc_readline(data->prompt, p);
@@ -143,6 +135,14 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 		
 		// close(data->fd_in[1]);
 		// (void)heredoc_prompt;
+	}
+	if (check_valid_last_pipe(data->prompt) == 1)
+	{
+		tmp = readline("minipipe> ");
+		if (tmp == NULL)
+			return (ft_printf_fd(1, "\n"));
+		data->prompt = ft_strjoin(data->prompt, tmp);
+		free(tmp);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_heredoc(data->prompt) == 1))

@@ -95,11 +95,9 @@ void	close_free_pipes(t_data *data)
 	while (i < get_number_of_processes(data->tree) - 1)
 	{
 		if (data->pipes[i][0] != 0)
-			if (close(data->pipes[i][0]) == -1)
-				printf("Close failed pipe[%d][0]\n", i);
+			close(data->pipes[i][0]);
 		if (data->pipes[i][1] != 0)
-			if (close(data->pipes[i][1]) == -1)
-				printf("Close failed pipe[%d][1]\n", i);
+			close(data->pipes[i][1]);
 		if (data->pipes != NULL)
 			free(data->pipes[i]);
 		data->pipes[i] = NULL;
@@ -124,6 +122,8 @@ void	executor(t_data *data)
 	else
 		write(data->pipes[0][1], "\0", 1);
 	close(data->fd_in[0]);
+	if (tree->right != NULL)
+		close(data->pipes[0][1]);
 	tree = tree->right;
 	int anti_bomb = 0;
 	while (tree != NULL)

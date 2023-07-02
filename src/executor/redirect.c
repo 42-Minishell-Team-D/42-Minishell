@@ -60,6 +60,8 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 	while (split[id])
 		free(split[id++]);
 	free(split);
+	// if (id != 0)
+		// close(data->pipes[id - 1][1]);
 }
 
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
