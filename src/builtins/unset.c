@@ -50,11 +50,15 @@ void	remove_var_from_export(char *var, char **export)
 				get_biggest_len(export_before, var_before)) == 0)
 		{
 			free(export[i]);
+			free(var_before);
+			free(export_before);
 			place_all_strings(export + i);
 			return ;
 		}
 		i++;
 	}
+	free(var_before);
+	free(export_before);
 }
 
 int	exec_unset(char **split, t_data *data)

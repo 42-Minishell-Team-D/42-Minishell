@@ -81,9 +81,9 @@ static void update_export(char *var, t_data *data)
 				free(join);
 				return ;
 			}
-			free(data->export[i]);
 			free(tmp);
 			free(join);
+			free(data->export[i]);
 			break ;
 		}
 		free(tmp);
