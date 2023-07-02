@@ -106,7 +106,9 @@ int	main(void)
 				free_after_execution(&data);
 				continue ;
 			}
-
+			
+			//  cat < ok HANGING
+			
 			// print_tokens(data.tokens);
 
 			data.tree = create_tree(data.tokens, data.tree);

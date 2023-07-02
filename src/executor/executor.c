@@ -126,7 +126,6 @@ void	executor(t_data *data)
 	// if (tree->right != NULL)
 		// close(data->pipes[0][1]);
 	tree = tree->right;
-	int anti_bomb = 0;
 	while (tree != NULL)
 	{
 		if (is_new_token(tree->args[0], tree->args[1]) == GREAT)
@@ -136,8 +135,6 @@ void	executor(t_data *data)
 		if (is_new_token(tree->args[0], tree->args[1]) == PIPE)
 			redirect_pipe(&fork_id, tree->left, data);
 		tree = tree->right;
-		if (anti_bomb++ > 1) // Anti fork bomb mechanism
-			exit(255);
 	}
 	waitpid(fork_id, &status, 0);
 	// while (child_pid > 0)
