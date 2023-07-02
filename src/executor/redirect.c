@@ -56,6 +56,7 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 	}
 	else
 		builtin_executor_parent(split, data);
+	free(join);
 	if (id == 0 && tree->right != NULL)
 		close(data->pipes[id][1]);
 	else if (id > 0 && tree->parent->right != NULL)
