@@ -60,19 +60,18 @@ static char	*get_eof(char *prompt, int j, t_parser *p)
 		}			
 		i++;
 	}
+	free(eof);
 	return (NULL);
 }
 
 static void	update_prompt(t_data *data, t_parser *p)
 {
 	int		i;
-	char	*eof;
 	char	*join;
 
 	i = 0;
 	p->in_single = 0;
 	p->in_double = 0;
-	eof = get_eof(data->prompt, 0, p);
 	while (is_new_token(data->prompt[i], data->prompt[i + 1]) != 1 && data->prompt[i] != '\0')
 		i++;
 	if (data->prompt[i] == '\0')
@@ -106,7 +105,10 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 		tmp = readline("minihduc🐣> ");
 		if (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 		{
-			tmp = ft_strjoin(tmp, "\n");
+			join = ft_strjoin(tmp, "\n");
+			free(tmp);
+			tmp = ft_strdup(join);
+			free(join);
 			join = ft_strjoin(heredoc_prompt, tmp);
 			if (heredoc_prompt[0] != '\0')
 				free(heredoc_prompt);
