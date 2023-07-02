@@ -32,7 +32,7 @@ void	init_env(t_data *data, int i)
 		free_if_err(data->env, 1);
 	while (i < array_size(environ) - 2)
 	{
-		data->env[i] = ft_strdup(environ[i]);
+		data->env[i] = ft_strjoin(environ[i], "\0");
 		i++;
 	}
 	data->env[i] = NULL;
