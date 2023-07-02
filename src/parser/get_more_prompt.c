@@ -107,7 +107,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 		{
 			join = ft_strjoin(tmp, "\n");
 			free(tmp);
-			tmp = ft_strdup(join);
+			tmp = ft_strjoin(join, "\0");
 			free(join);
 			join = ft_strjoin(heredoc_prompt, tmp);
 			if (heredoc_prompt[0] != '\0')
