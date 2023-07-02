@@ -70,12 +70,6 @@ int	main(void)
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			add_history(data.prompt);
-			// add check_syntax(char *prompt) into get_more_prompt to check syntax in a loop from the prompt
-			// do not add the heredoc to the prompt
-			// get the heredoc content in a string
-			// implement heredoc that opens a pipe/file (fd_read like in redirect_input_check)
-			// if fd.in > 0 : close(fd.in) and fd.in = 0
-			// pipe(p[2]) p[0] = fd.in | write the heredoc to p[1]
 			data.p.char_temp = ft_calloc(1, 1);
 			if (get_more_prompt(&data, &data.p, 0) == 1)
 			{
@@ -92,12 +86,6 @@ int	main(void)
 			if (data.fd_in[1] > 0)
 				close(data.fd_in[1]);
 			// printf("Prompt: %s\n", data.prompt);
-
-			// if (check_syntax(data.tree) == 0)
-			// {
-			// 	free_after_execution(&data);
-			// 	continue ;
-			// }
 
 			parser(&data);
 
