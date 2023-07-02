@@ -41,7 +41,7 @@ void	init_env(t_data *data, int i)
 // -2 because the last two elements of the environ export
 // are reserved for the lines and columns
 
-void	quote(char *export, int i, int j)
+char	*quote(char *export, int i, int j)
 {
 	char	temp[ft_strlen(export) + 2];
 
@@ -57,11 +57,13 @@ void	quote(char *export, int i, int j)
 		temp[j++] = '\0';
 		export = ft_strdup(temp);
 	}
+	return (export);
 }
 
 static void	sort_export_ascii(char **export, int size, int i, int j)
 {
 	char	*temp;
+	char	*join;
 
 	while (i < size)
 	{
@@ -81,8 +83,10 @@ static void	sort_export_ascii(char **export, int size, int i, int j)
 	i = 0;
 	while (i < size)
 	{
-		export[i] = ft_strjoin("declare -x ", export[i]);
-		quote(export[i++], 0, 0);
+		join = ft_strjoin("declare -x ", export[i]);
+		free (export[i]);
+		export[i++] = quote(join, 0, 0);
+		free(join);
 	}
 }
 
