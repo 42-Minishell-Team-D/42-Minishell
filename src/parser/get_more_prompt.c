@@ -127,7 +127,7 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 			return (1);
 		join = ft_strjoin(p->char_temp, tmp);
 		free(p->char_temp);
-		p->char_temp = ft_strjoin(join, "\n");
+		p->char_temp = ft_strjoin(join, "\0");
 		free(join);
 		free(tmp);
 		update_prompt(data, p);
