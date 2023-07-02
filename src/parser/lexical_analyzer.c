@@ -47,6 +47,8 @@ static char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 
 static char	*handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 {
+	char	*getenv;
+
 	while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 	{
 		if (p->in_double && *ptr == '"')
@@ -61,14 +63,17 @@ static char	*handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 		return (NULL);
 	ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
 	p->temp = 0;
-	if (ft_getenv(p->char_temp, data->env))
+	getenv = ft_getenv(p->char_temp, data->env);
+	if (getenv)
 	{
 		ft_strlcpy(&p->token[ft_strlen(p->token)],
-			ft_getenv(p->char_temp, data->env), ft_strlen(ft_getenv(p->char_temp, data->env)) + 1);
-		p->n += ft_strlen(ft_getenv(p->char_temp, data->env));
+			getenv, ft_strlen(getenv) + 1);
+		p->n += ft_strlen(getenv);
 		free(p->char_temp);
 		p->char_temp = NULL;
 	}
+	if (getenv != NULL)
+		free(getenv);
 	return (ptr);
 }
 
