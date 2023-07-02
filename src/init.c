@@ -96,7 +96,7 @@ void	init_export(t_data *data, int i)
 		free_if_err(data->export, 1);
 	while (i < array_size(data->env))
 	{
-		data->export[i] = ft_strdup(data->env[i]);
+		data->export[i] = ft_strjoin(data->env[i], "\0");
 		i++;
 	}
 	data->export[i] = NULL;
