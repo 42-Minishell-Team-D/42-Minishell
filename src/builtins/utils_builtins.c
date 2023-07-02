@@ -14,11 +14,10 @@ char	*get_before_equal_sign_export(char *var)
 {
 	char	*join;
 	
-	join = get_before_equal_sign(var);
+	var = get_before_equal_sign(var);
 	// remove "declare -x " from the variable
-	if (ft_strncmp(join, "declare -x ", 11) == 0)
+	if (ft_strncmp(var, "declare -x ", 11) == 0)
 	{
-		free(join);
 		join = ft_substr(var, 11, ft_strlen(var));
 		free(var);
 		var = join;
