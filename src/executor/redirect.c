@@ -20,7 +20,7 @@ static int	builtin_executor_parent(char **split, t_data *data, char *join, t_bt 
 		data->rt = exec_cd(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] != NULL)
 		data->rt = exec_export(split, data, tree);
-	else if (ft_strncmp(split[0], "unset\0", 6) == 0)
+	else if (ft_strncmp(split[0], "unset\0", 6) == 0 && tree->id / 2 == 0 && tree->right == NULL)
 		data->rt = exec_unset(split, data);
 	else if (ft_strncmp(split[0], "exit\0", 5) == 0 && tree->id / 2 == 0 && tree->right == NULL)
 		data->rt = exec_exit(split, data, 0, join);
