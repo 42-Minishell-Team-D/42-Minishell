@@ -41,8 +41,13 @@ static char	*get_eof(char *prompt, int j, t_parser *p)
 			}
 			if (p->in_double == 0 && p->in_single == 0)
 			{
-				while (is_new_token(prompt[i], prompt[i + 1]) == 0 && prompt[i] != '\0' && prompt[i] != '\n' && prompt[i] != ' ')
-					eof[j++] = prompt[i++];
+				while (prompt[i] != '\0' && prompt[i] != '\n' && prompt[i] != ' ')
+				{
+					if (is_new_token(prompt[i], prompt[i + 1]) == 0)
+						eof[j] = prompt[i];
+					i++;
+					j++;
+				}
 			}
 			else if (p->in_double == 1)
 			{
