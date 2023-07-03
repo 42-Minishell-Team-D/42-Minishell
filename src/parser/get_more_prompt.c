@@ -110,6 +110,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 			tmp = ft_strjoin(join, "\0");
 			free(join);
 			join = ft_strjoin(heredoc_prompt, tmp);
+			free(tmp);
 			if (heredoc_prompt[0] != '\0')
 				free(heredoc_prompt);
 			heredoc_prompt = ft_strdup(join);
