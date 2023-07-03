@@ -13,7 +13,7 @@ static int	builtin_checker_parent(char **split)
 	return (1);
 }
 
-static int	builtin_executor_parent(char **split, t_data *data, char *join)
+static int	builtin_executor_parent(char **split, t_data *data, char *join, t_bt *tree)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
@@ -22,7 +22,7 @@ static int	builtin_executor_parent(char **split, t_data *data, char *join)
 		data->rt = exec_export(split, data);
 	else if (ft_strncmp(split[0], "unset\0", 6) == 0)
 		data->rt = exec_unset(split, data);
-	else if (ft_strncmp(split[0], "exit\0", 5) == 0)
+	else if (ft_strncmp(split[0], "exit\0", 5) == 0 && tree->id / 2 == 0 && tree->right == NULL)
 		data->rt = exec_exit(split, data, 0, join);
 	// else					// Yes, copilot did this but so so :D //
 	return (data->rt);
@@ -57,7 +57,7 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 		}
 	}
 	else
-		builtin_executor_parent(split, data, join);
+		builtin_executor_parent(split, data, join, tree);
 	free(join);
 	if (id == 0 && tree->right != NULL && data->pipes[id][1] > 0)
 		close(data->pipes[id][1]);
