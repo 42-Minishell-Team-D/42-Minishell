@@ -65,7 +65,6 @@ void	remove_var_from_export(char *var, char **export)
 	}
 	if (var_before != NULL)
 		free(var_before);
-	// free(export_before);
 }
 
 int	exec_unset(char **split, t_data *data)

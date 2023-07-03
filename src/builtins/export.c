@@ -5,7 +5,8 @@ static void	print_export(t_data *data)
 	int	i;
 
 	i = 0;
-	while (array_size(data->export) > i && data->export[i] != NULL && data->export[i][0] != '\0')
+	while (array_size(data->export) > i && data->export[i] \
+	!= NULL && data->export[i][0] != '\0')
 		ft_printf_fd(1, "%s\n", data->export[i++]);
 }
 
@@ -97,7 +98,8 @@ static void update_export(char *var, t_data *data)
 	}
 	if (b == 0)
 	{
-		data->export = ft_realloc(data->export, sizeof(char *) * (array_size(data->export) + 2));
+		data->export = ft_realloc(data->export, sizeof(char *) \
+		* (array_size(data->export) + 2));
 		if (data->export == NULL)
 			return ;
 		data->export[array_size(data->export) + 1] = NULL;
