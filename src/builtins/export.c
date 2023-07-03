@@ -69,18 +69,13 @@ static void update_export(char *var, t_data *data)
 	data->export = ft_realloc(data->export, sizeof(char *) * (array_size(data->export) + 2));
 	if (data->export == NULL)
 		return ;
+	data->export[array_size(data->export) + 1] = NULL;
 	while (data->export[i] != NULL)
 	{
 		tmp = get_before_equal_sign_export(data->export[i]);
 		join = get_before_equal_sign(var);
-		if (ft_strncmp(tmp, join, ft_strlen(var)) == 0)
+		if (ft_strncmp(tmp, join, get_biggest_len(tmp, join)) == 0)
 		{
-			if (is_equal_sign(var) == 0)
-			{
-				free(tmp);
-				free(join);
-				return ;
-			}
 			free(tmp);
 			free(join);
 			free(data->export[i]);
@@ -93,11 +88,15 @@ static void update_export(char *var, t_data *data)
 	data->export[i] = ft_strdup(var);
 	join = ft_strjoin("declare -x ", data->export[i]);
 	free(data->export[i]);
-	data->export[i] = quote(join, 0, 0);
-	data->export[i + 1] = NULL;
+	data->export[i] = ft_strjoin(join, "\0");
+	free(join);
+	// data->export[i + 1] = NULL;
+	if (is_equal_sign(var) == 0)
+		return ;
+	join = quote(data->export[i], 0, 0);
+	data->export[i] = ft_strjoin(join, "\0");
 	free(join);
 }
-
 
 int	exec_export(char **split, t_data *data)
 {
