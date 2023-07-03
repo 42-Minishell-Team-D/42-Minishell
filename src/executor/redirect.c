@@ -86,8 +86,7 @@ t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
 		return (tree->parent);
 	}
 	rd = read(data->pipes[tree->id / 2 - 1][0], buf, 4096);
-	int i = 0;
-	while (rd > 0 && i++ < 5)
+	while (rd > 0)
 	{
 		write(fd, buf, rd);
 		rd = read(fd, buf, 4096);
