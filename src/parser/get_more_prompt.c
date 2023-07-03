@@ -2,7 +2,7 @@
 
 static int	check_valid_heredoc(char *prompt)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (prompt[i])
@@ -41,7 +41,8 @@ static char	*get_eof(char *prompt, int j, t_parser *p)
 			}
 			if (p->in_double == 0 && p->in_single == 0)
 			{
-				while (prompt[i] != '\0' && prompt[i] != '\n' && prompt[i] != ' ')
+				while (prompt[i] != '\0' && prompt[i] \
+				!= '\n' && prompt[i] != ' ')
 				{
 					if (is_new_token(prompt[i], prompt[i + 1]) == 0)
 						eof[j] = prompt[i];
@@ -62,7 +63,7 @@ static char	*get_eof(char *prompt, int j, t_parser *p)
 			eof[j] = '\0';
 			reset_p_vars(p);
 			return (eof);
-		}			
+		}
 		i++;
 	}
 	free(eof);
@@ -77,7 +78,8 @@ static void	update_prompt(t_data *data, t_parser *p)
 	i = 0;
 	p->in_single = 0;
 	p->in_double = 0;
-	while (is_new_token(data->prompt[i], data->prompt[i + 1]) != 1 && data->prompt[i] != '\0')
+	while (is_new_token(data->prompt[i], data->prompt[i + 1]) \
+	!= 1 && data->prompt[i] != '\0')
 		i++;
 	if (data->prompt[i] == '\0')
 		return ;
@@ -87,7 +89,8 @@ static void	update_prompt(t_data *data, t_parser *p)
 	delete_char_filter(&data->prompt[i]);
 	while (data->prompt[i] == ' ' && data->prompt[i] != '\0')
 		delete_char_filter(&data->prompt[i]);
-	while (is_new_token(data->prompt[i], data->prompt[i + 1]) == 0 && data->prompt[i] != '\n' && data->prompt[i] != '\0')
+	while (is_new_token(data->prompt[i], data->prompt[i + 1]) == 0 \
+	&& data->prompt[i] != '\n' && data->prompt[i] != '\0')
 		delete_char_filter(&data->prompt[i]);
 	join = ft_strcdup(data->prompt, 0, '\n');
 	free(data->prompt);

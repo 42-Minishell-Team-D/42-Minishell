@@ -19,7 +19,7 @@ static int	speed_prompt(char *prompt, int *n)
 	return (0);
 }
 
-static int quote_handler(char *prompt, char c, int *n)
+static int	quote_handler(char *prompt, char c, int *n)
 {
 	int		temp;
 	int		i;
@@ -48,7 +48,7 @@ static int quote_handler(char *prompt, char c, int *n)
 	return (0);
 }
 
-static int new_token_checker(char *prompt, int *n)
+static int	new_token_checker(char *prompt, int *n)
 {
 	int		i;
 	char	c;
@@ -78,14 +78,13 @@ static int new_token_checker(char *prompt, int *n)
 	return (0);
 }
 
-int 	check_valid_syntax(char *prompt)
+int	check_valid_syntax(char *prompt)
 {
-	int n;
+	int	n;
 
 	n = 0;
-	
 	if (speed_prompt(prompt, &n) == 1)
-			return (1);
+		return (1);
 	if (prompt[n] == '|')
 		return (1);
 	while (prompt[n])

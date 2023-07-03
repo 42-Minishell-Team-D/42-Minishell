@@ -27,11 +27,14 @@ int	exec_exit(char **split, t_data *data, int i, char *join)
 		if (split[1][i] == '-' && split[1][i + 1] != '\0')
 			i++;
 		while (split[1][i] != '\0')
+		{
 			if (ft_isdigit(split[1][i++]) == 0)
 			{
-				ft_printf_fd(2, "minishell: exit: %s: numeric argument required\n", split[1]);
+				ft_printf_fd(2, "minishell: exit: %s: \
+				numeric argument required\n", split[1]);
 				free_and_exit(data, 2, join, split);
 			}
+		}
 		ret = ft_atoi(split[1]);
 	}
 	if (split[2] != NULL)
@@ -40,9 +43,9 @@ int	exec_exit(char **split, t_data *data, int i, char *join)
 		return (0);
 	}
 	if (ret > 255)
-		ret = ret % 256;	// modulo calcul
+		ret = ret % 256;
 	if (ret < 0)
-		ret = 256 - ((ret * -1) % 256);	// modulo calcul
+		ret = 256 - ((ret * -1) % 256);
 	free_and_exit(data, ret, join, split);
 	return (0);
 }

@@ -13,7 +13,7 @@ char	*get_before_equal_sign(char *var)
 char	*get_before_equal_sign_export(char *var)
 {
 	char	*join;
-	
+
 	join = get_before_equal_sign(var);
 	free(var);
 	var = ft_strjoin(join, "\0");
