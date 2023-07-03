@@ -112,6 +112,8 @@ t_bt	*redirect_great(t_bt *tree, t_data *data, int option);
 char	**clear_quotes(char **split);
 void	init_child(int id, t_bt *tree, t_data *data);
 void	pipe_child(char *join, char **split, t_bt *tree, t_data *data);
+char	*get_eof(char *prompt, int j, t_parser *p);
+void	update_prompt(t_data *data, t_parser *p);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
