@@ -17,15 +17,12 @@ static int	check_valid_heredoc(char *prompt)
 	return (0);
 }
 
-static char	*heredoc_readline(char *prompt, t_parser *p)
+static char	*heredoc_readline(char *prompt, t_parser *p, char *tmp, char *join)
 {
 	char	*eof;
-	char	*tmp;
 	char	*heredoc_prompt;
-	char	*join;
 
 	eof = get_eof(prompt, p);
-	tmp = "\0";
 	heredoc_prompt = "\0";
 	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
 	{
@@ -62,7 +59,7 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 	}
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
-		tmp = heredoc_readline(data->prompt, p);
+		tmp = heredoc_readline(data->prompt, p, "\0", NULL);
 		if (ft_strncmp("\0", tmp, 3) == 0)
 			return (1);
 		join = ft_strjoin(p->char_temp, tmp);
