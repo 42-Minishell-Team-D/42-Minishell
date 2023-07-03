@@ -5,7 +5,7 @@ static void	print_export(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->export[i] != NULL)
+	while (data->export[i] != NULL && data->export[i][0] != '\0')
 		ft_printf_fd(1, "%s\n", data->export[i++]);
 }
 
