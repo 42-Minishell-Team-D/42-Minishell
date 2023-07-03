@@ -21,14 +21,12 @@ int	get_number_of_processes(t_bt *tree)
 		left_tree = tree->left;
 		tree = tree->right;
 	}
-	// ft_printf_fd(1, "Number of processes: %d\n", count);
 	return (count);
 }
 
 void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 {
 	int		n;
-	// t_bt	*left_tree;
 	int		reading;
 	int		writing;
 
@@ -47,27 +45,15 @@ void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 	{
 		reading = data->pipes[id - 1][0];
 		if (tree->parent->right != NULL)
-		{
 			writing = data->pipes[id][1];
-			// ft_printf_fd(1, "id %d read_check %d | write_check %d\n", id, data->pipes[id - 1][0], data->pipes[id][1]);
-		}
 		else
-		{
-			// ft_printf_fd(1, "id %d read_check %d\n", id, data->pipes[id - 1][0]);
 			writing = -1;
-		}
 		while (n < id)
 		{
 			if (reading != data->pipes[n][0])
-			{
-				// ft_printf_fd(1, "id: %d 1Close pipe %d\n", id, data->pipes[n][0]);
 				close(data->pipes[n][0]);
-			}
 			if (writing != data->pipes[n][1])
-			{
-				// ft_printf_fd(1, "id: %d 2Close pipe %d\n", id, data->pipes[n][1]);
 				close(data->pipes[n][1]);
-			}
 			n++;
 		}
 	}
@@ -97,10 +83,11 @@ void	close_free_pipes(t_data *data)
 void	executor(t_data *data)
 {
 	t_bt	*tree;
-	pid_t	fork_id = 0;
+	pid_t	fork_id;
 	int		status;
 
 	tree = data->tree;
+	fork_id = 0;
 	if (init_executor(data))
 		return ;
 	if (ft_strncmp(tree->args, "\0", 1) != 0)
@@ -121,8 +108,6 @@ void	executor(t_data *data)
 		tree = tree->right;
 	}
 	waitpid(fork_id, &status, 0);
-	// while (child_pid > 0)
-	// 	child_pid = waitpid(fork_id, &status, 0);
 	data->rt = WEXITSTATUS(status);
 	close_free_pipes(data);
 }
