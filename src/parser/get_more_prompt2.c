@@ -2,7 +2,6 @@
 
 int	speed_prompt(char *prompt, int *n)
 {
-	// ft_printf_fd(1, "prompt[%d] = %c\n", *n, prompt[*n]);
 	if (prompt[*n] == '"')
 	{
 		(*n)++;
