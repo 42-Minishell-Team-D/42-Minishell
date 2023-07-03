@@ -69,7 +69,11 @@ static int new_token_checker(char *prompt, int *n)
 			return (1);
 		return (0);
 	}
-	if ((prompt[*n] == '\0' && prompt[*n - 1] != '|') || is_new_token(prompt[*n], prompt[*n + 1]) > 0)
+	if ((prompt[*n] == '\0' && prompt[*n - 1] != '|'))
+		return (1);
+	if (ft_strncmp(&prompt[*n], "\0", 2) == 0)
+		return (0);
+	if (is_new_token(prompt[*n], prompt[*n + 1]) > 0)
 		return (1);
 	return (0);
 }
@@ -88,10 +92,14 @@ int 	check_valid_syntax(char *prompt)
 	{
 		if (speed_prompt(prompt, &n) == 1)
 			return (1);
-		if (is_new_token(prompt[n], prompt[n + 1]) > 0
-			&& new_token_checker(prompt, &n) == 1)
-			return (1);
+		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
+		{
+			if (new_token_checker(prompt, &n) == 1)
+				return (1);
+		}
 		n++;
+		if (n > (int)ft_strlen(prompt))
+			break ;
 	}
 	return (0);
 }
