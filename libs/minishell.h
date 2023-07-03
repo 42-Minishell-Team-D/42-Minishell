@@ -62,6 +62,9 @@ typedef struct minishell
 	int					fd_in[2];
 	char				**tokens;
 	char				**env;
+	char				*join;
+	char				*tmp;
+	char				**split;
 	char				**export;
 	int					**pipes;
 	struct sigaction	sa;

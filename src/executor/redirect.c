@@ -30,46 +30,47 @@ char *join, t_bt *tree)
 	return (data->rt);
 }
 
+static void	redirect_pipe_fork(pid_t *fork_id, t_bt *tree, t_data *data)
+{
+	(*fork_id) = fork();
+	if ((*fork_id) == 0)
+	{
+		init_child(tree->id / 2, tree, data);
+		pipe_child(data->join, data->split, tree, data);
+		tree->id = 0;
+		while (data->split[tree->id])
+			free(data->split[tree->id++]);
+		free(data->split);
+		free(data->join);
+		free_after_execution(data);
+		free_at_exit(data);
+		exit(0);
+	}
+}
+
 void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 {
-	char	**split;
-	char	*join;
 	int		id;
 
 	id = tree->id / 2;
-	split = clear_quotes(ft_split_args(tree->args, &data->p));
-	join = ft_strjoin("/bin/", split[0]);
-	if (ft_strncmp(split[0], "echo\0", 7) == 0 && \
-	ft_strncmp(split[1], "-n\0", 3) == 0 && split[1] != NULL)
+	data->split = clear_quotes(ft_split_args(tree->args, &data->p));
+	data->join = ft_strjoin("/bin/", data->split[0]);
+	if (ft_strncmp(data->split[0], "echo\0", 7) == 0 && \
+	ft_strncmp(data->split[1], "-n\0", 3) == 0 && data->split[1] != NULL)
 		data->slash_r = 1;
-	if (builtin_checker_parent(split) > 0)
-	{
-		(*fork_id) = fork();
-		if ((*fork_id) == 0)
-		{
-			init_child(id, tree, data);
-			pipe_child(join, split, tree, data);
-			id = 0;
-			while (split[id])
-				free(split[id++]);
-			free(split);
-			free(join);
-			free_after_execution(data);
-			free_at_exit(data);
-			exit(0);
-		}
-	}
+	if (builtin_checker_parent(data->split) > 0)
+		redirect_pipe_fork(fork_id, tree, data);
 	else
-		builtin_executor_parent(split, data, join, tree);
-	free(join);
+		builtin_executor_parent(data->split, data, data->join, tree);
+	free(data->join);
 	if (id == 0 && tree->right != NULL && data->pipes[id][1] > 0)
 		close(data->pipes[id][1]);
 	else if (id > 0 && tree->parent->right != NULL && data->pipes[id][1] > 0)
 		close(data->pipes[id][1]);
 	id = 0;
-	while (split[id])
-		free(split[id++]);
-	free(split);
+	while (data->split[id])
+		free(data->split[id++]);
+	free(data->split);
 }
 
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option, int rd)
