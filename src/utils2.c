@@ -55,8 +55,6 @@ void	delete_char_filter(char *str)
 	}
 }
 
-// should return a string that is the copy of the string given as argument 
-// starting at index i, until it finds the character c
 char	*ft_strcdup(const char *s1, int i, char c)
 {
 	char	*str;

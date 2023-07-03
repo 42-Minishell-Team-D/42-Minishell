@@ -66,10 +66,11 @@ void	lexical_filter(t_data *data, t_parser *p)
 	}
 }
 
-static void delete_specific_token(t_data *data, int index)
+static void	delete_specific_token(t_data *data, int index)
 {
-// delete string from array of strings
-	char **ptr = data->tokens;
+	char	**ptr;
+
+	ptr = data->tokens;
 	free(data->tokens[index]);
 	while (ptr[index] != NULL)
 	{
@@ -78,9 +79,11 @@ static void delete_specific_token(t_data *data, int index)
 	}
 }
 
-int redirect_input_check(t_data *data)
+int	redirect_input_check(t_data *data)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (data->tokens[i] != NULL)
 	{
 		if (ft_strncmp(data->tokens[i], "<\0", 2) == 0) 
@@ -88,7 +91,8 @@ int redirect_input_check(t_data *data)
 			data->fd_in[0] = open(data->tokens[i + 1], O_RDONLY);
 			if (data->fd_in[0] == -1)
 			{
-				printf("minishell: %s: No such file or directory\n", data->tokens[i + 1]);
+				printf("minishell: %s: No such file or directory\n", \
+				data->tokens[i + 1]);
 				data->fd_in[0] = open("/dev/null", O_RDONLY);
 			}
 			delete_specific_token(data, i + 1);

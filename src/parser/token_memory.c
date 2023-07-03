@@ -79,7 +79,8 @@ static void	token_memory_alloc(t_data *data, t_parser *p)
 		}
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar(ptr, p, data);
-		if (!p->in_double && !p->in_single && is_new_token(*ptr, *(ptr + 1)) > 1)
+		if (!p->in_double && !p->in_single && \
+		is_new_token(*ptr, *(ptr + 1)) > 1)
 			ptr = handle_special_char(ptr, p);
 		else if (*ptr != '\0')
 		{

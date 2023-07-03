@@ -38,7 +38,7 @@ static int	check_invalidity(t_bt *tree)
 int	check_syntax(t_bt *tree)
 {
 	t_bt	*left_tree;
-	char *last_arg;
+	char	*last_arg;
 
 	while (tree != NULL)
 	{

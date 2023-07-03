@@ -3,7 +3,8 @@
 void	print_tokens(char **tokens)
 {
 	printf("Tokens:\n");
-	for (int i = 0; i < array_size(tokens); i++) {
+	for (int i = 0; i < array_size(tokens); i++)
+	{
 		printf("  %i: %s\n", i, tokens[i]);
 	}
 	printf("\n");
@@ -11,8 +12,9 @@ void	print_tokens(char **tokens)
 
 void print_tree(t_bt *tree)
 {
-	t_bt	*left_tree = tree;
+	t_bt	*left_tree;
 
+	left_tree = tree;
 	printf("Tree:\n");
 	while (tree != NULL)
 	{
@@ -61,7 +63,7 @@ int	main(void)
 	while (data.prompt)
 	{
 		if (data.slash_r == 0)
-			write(1, "\r", 1); // edge case, ctrl+C fixes double minishell$
+			write(1, "\r", 1);
 		data.prompt = readline("minishell$ ");
 		if (data.prompt != NULL)
 			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
