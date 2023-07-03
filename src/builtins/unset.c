@@ -74,7 +74,3 @@ int	exec_unset(char **split, t_data *data)
 	}
 	return (0);
 }
-
-// should accept any arguments
-// should remove the variable from the environment and the export list
-// should return 0

@@ -71,14 +71,15 @@ static void	update_env(char *var, t_data *data)
 	free(join);
 }
 
-static void update_export(char *var, t_data *data)
+static void	update_export(char *var, t_data *data)
 {
 	int		i;
 	char	*tmp;
 	char	*join;
 
 	i = 0;
-	data->export = ft_realloc(data->export, sizeof(char *) * (array_size(data->export) + 2));
+	data->export = ft_realloc(data->export, sizeof(char *) \
+	* (array_size(data->export) + 2));
 	if (data->export == NULL)
 		return ;
 	data->export[array_size(data->export) + 1] = NULL;
@@ -133,5 +134,5 @@ int	exec_export(char **split, t_data *data)
 			i++;
 		}
 	}
-    return (0);
+	return (0);
 }
