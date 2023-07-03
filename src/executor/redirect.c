@@ -70,28 +70,28 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 
 }
 
-t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
-{
-	int		fd;
-	char	buf[4096];
-	int		rd;
-
-	if (option == GREAT)
-		fd = open(tree->args, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else
-		fd = open(tree->args, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)
+	t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
 	{
-		ft_printf_fd(2, "minishell: %s: failed to open/create file :/\n", tree->args);
+		int		fd;
+		char	buf[1024];
+		int		rd;
+
+		if (option == GREAT)
+			fd = open(tree->args, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else
+			fd = open(tree->args, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fd == -1)
+		{
+			ft_printf_fd(2, "minishell: %s: failed to open/create file :/\n", tree->args);
+			return (tree->parent);
+		}
+		rd = read(data->pipes[tree->id / 2 - 1][0], buf, 1024);
+		while (rd > 0)
+		{
+			write(fd, buf, rd);
+			rd = read(data->pipes[tree->id / 2 - 1][0], buf, 1024);
+		}
+		close(fd);
 		return (tree->parent);
 	}
-	rd = read(data->pipes[tree->id / 2 - 1][0], buf, 4096);
-	while (rd > 0)
-	{
-		write(fd, buf, rd);
-		rd = read(fd, buf, 4096);
-	}
-	close(fd);
-	return (tree->parent);
-}
 
