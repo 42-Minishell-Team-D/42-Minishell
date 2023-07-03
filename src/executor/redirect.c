@@ -13,7 +13,8 @@ static int	builtin_checker_parent(char **split)
 	return (1);
 }
 
-static int	builtin_executor_parent(char **split, t_data *data, char *join, t_bt *tree)
+static int	builtin_executor_parent(char **split, t_data *data,
+char *join, t_bt *tree)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
