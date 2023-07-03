@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 23:17:59 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:27:26 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ char	*handle_special_char_anal(char *ptr, t_parser *p, t_data *data)
 	return (handle_special_char_2_anal(ptr, special, p, data));
 }
 
-static void	handle_dollar_anal_2_helper(char *ptr, t_parser *p)
+static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
 {
+	char	*getenv;
+
 	while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 	{
 		if (p->in_double && *ptr == '"')
@@ -68,13 +70,6 @@ static void	handle_dollar_anal_2_helper(char *ptr, t_parser *p)
 		ptr++;
 		p->temp++;
 	}
-}
-
-static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
-{
-	char	*getenv;
-
-	handle_dollar_anal_2_helper(ptr, p);
 	p->char_temp = ft_calloc(p->temp + 1, sizeof(char));
 	if (p->char_temp == NULL)
 		return (NULL);
