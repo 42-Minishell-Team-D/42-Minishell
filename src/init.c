@@ -43,7 +43,7 @@ void	init_env(t_data *data, int i)
 
 char	*quote(char *export, int i, int j)
 {
-	char	temp[ft_strlen(export) + 2];
+	char	temp[ft_strlen(export) + 3];
 
 	while (export[i] && export[i] != '=')
 		temp[j++] = export[i++];

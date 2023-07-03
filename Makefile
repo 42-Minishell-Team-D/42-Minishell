@@ -1,6 +1,6 @@
 NAME = minishell # The allmighty!
 
-CFLAGS = -g -pthread -Wall -Wextra -Werror #-fsanitize=address 
+CFLAGS = -g -pthread -Wall -Wextra -Werror -fsanitize=address
 LIBS = -lreadline
 RM = rm
 LIBFT = ./libs/libft/libft.a
