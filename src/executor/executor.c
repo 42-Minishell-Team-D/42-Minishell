@@ -73,20 +73,6 @@ void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 	}
 }
 
-			// ft_printf_fd(1, "id: %d 1Close pipe %d\n", id, data->pipes[n][1]);
-			// if (close(data->pipes[n++][1]) == -1)
-				// ft_printf_fd(1, "id: %d Close failed pipe[%d][1]\n", id, n);
-			/*if (n < id)
-			{
-				left_tree = left_tree->parent->left;
-				if (left_tree->right != NULL)
-				{
-					ft_printf_fd(1, "id: %d 2Close pipe %d\n", id, data->pipes[n][0]);
-					if (close(data->pipes[n][0]) == -1)
-						ft_printf_fd(1, "id: %d Close failed pipe[%d][0]\n", id, n);
-				}
-			}*/
-
 void	close_free_pipes(t_data *data)
 {
 	int	i;
