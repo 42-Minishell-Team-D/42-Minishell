@@ -71,15 +71,14 @@ static void	update_env(char *var, t_data *data)
 	free(join);
 }
 
-static void	update_export(char *var, t_data *data)
+static void update_export(char *var, t_data *data)
 {
 	int		i;
 	char	*tmp;
 	char	*join;
 
 	i = 0;
-	data->export = ft_realloc(data->export, sizeof(char *) \
-	* (array_size(data->export) + 2));
+	data->export = ft_realloc(data->export, sizeof(char *) * (array_size(data->export) + 2));
 	if (data->export == NULL)
 		return ;
 	data->export[array_size(data->export) + 1] = NULL;
@@ -91,13 +90,13 @@ static void	update_export(char *var, t_data *data)
 		{
 			free(tmp);
 			free(join);
-			free(data->export[i]);
 			break ;
 		}
 		free(tmp);
 		free(join);
 		i++;
 	}
+	free(data->export[i]);
 	data->export[i] = ft_strdup(var);
 	join = ft_strjoin("declare -x ", data->export[i]);
 	free(data->export[i]);
@@ -134,5 +133,5 @@ int	exec_export(char **split, t_data *data)
 			i++;
 		}
 	}
-	return (0);
+    return (0);
 }
