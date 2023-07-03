@@ -89,7 +89,10 @@ int redirect_input_check(t_data *data)
 			data->fd_in[0] = open(data->tokens[i + 1], O_RDONLY);
 			// ft_printf_fd(1, "data.fd_in[0] = %d\n", data.fd_in[0]);
 			if (data->fd_in[0] == -1)
+			{
 				printf("minishell: %s: No such file or directory\n", data->tokens[i + 1]);
+				data->fd_in[0] = open("/dev/null", O_RDONLY);
+			}
 			delete_specific_token(data, i + 1);
 			delete_specific_token(data, i);
 		}
