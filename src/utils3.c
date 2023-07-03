@@ -29,9 +29,9 @@ char	**ft_split_args(char *token, t_parser *p)
 	{
 		if (token[p->i] == '"' && !p->in_single)
 			p->in_double = !p->in_double;
-		else if (token[p->i] == '\'' && !p->in_double)
+		if (token[p->i] == '\'' && !p->in_double)
 			p->in_single = !p->in_single;
-		else if (token[p->i] == ' ' && !p->in_double && !p->in_single)
+		if (token[p->i] == ' ' && !p->in_double && !p->in_single)
 		{
 			split[p->n] = (char *)ft_calloc(sizeof(char), p->i + 1 - p->temp);
 			ft_strlcpy(split[p->n++], &token[p->temp], p->i + 1 - p->temp);
