@@ -115,6 +115,9 @@ void	pipe_child(char *join, char **split, t_bt *tree, t_data *data);
 char	*get_eof(char *prompt, t_parser *p);
 void	update_prompt(t_data *data, t_parser *p);
 int		speed_prompt(char *prompt, int *n);
+void	print_export(t_data *data);
+int		check_variable_name(char *var);
+int		is_equal_sign(char *var);
 
 /*			src/init.c			*/
 void	handler(int sig, siginfo_t *id, void *content);
