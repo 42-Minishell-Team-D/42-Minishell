@@ -1,5 +1,10 @@
 #include "../../libs/minishell.h"
 
+// static char	*get_eof2()
+// {
+	
+// }
+
 char	*get_eof(char *prompt, int j, t_parser *p)
 {
 	char	*eof;
