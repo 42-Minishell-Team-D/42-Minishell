@@ -39,24 +39,35 @@ static int	is_equal_sign(char *var)
 
 static void	update_env(char *var, t_data *data)
 {
-	int	i;
+	int		i;
+	char 	*tmp;
+	char	*join;
 
 	i = 0;
 	data->env = ft_realloc(data->env, sizeof(char *) * (array_size(data->env) + 2));
 	if (data->env == NULL)
 		return ;
+	data->env[array_size(data->env) + 1] = NULL;
 	while (data->env[i] != NULL)
 	{
-		if (ft_strncmp(get_before_equal_sign(data->env[i]), get_before_equal_sign(var), ft_strlen(var)) == 0)
+		tmp = get_before_equal_sign(data->env[i]);
+		join = get_before_equal_sign(var);
+		if (ft_strncmp(tmp, join, get_biggest_len(tmp, join)) == 0)
 		{
+			free(tmp);
+			free(join);
 			free(data->env[i]);
 			data->env[i] = ft_strdup(var);
 			return ;
 		}
+		free(tmp);
+		free(join);
 		i++;
 	}
-	data->env[i] = ft_strdup(var);
-	data->env[i + 1] = NULL;
+	join = ft_strjoin(var, "\0");
+	free(data->env[i]);
+	data->env[i] = ft_strjoin(join, "\0");
+	free(join);
 }
 
 static void update_export(char *var, t_data *data)
@@ -90,10 +101,10 @@ static void update_export(char *var, t_data *data)
 	free(data->export[i]);
 	data->export[i] = ft_strjoin(join, "\0");
 	free(join);
-	// data->export[i + 1] = NULL;
 	if (is_equal_sign(var) == 0)
 		return ;
 	join = quote(data->export[i], 0, 0);
+	free(data->export[i]);
 	data->export[i] = ft_strjoin(join, "\0");
 	free(join);
 }
