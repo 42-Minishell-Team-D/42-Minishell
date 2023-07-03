@@ -6,49 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:11:11 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:11:12 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:12:51 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
-
-static void	print_export(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (array_size(data->export) > i && data->export[i] \
-	!= NULL && data->export[i][0] != '\0')
-		ft_printf_fd(1, "%s\n", data->export[i++]);
-}
-
-static int	check_variable_name(char *var)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(var[0]) == 0 && var[0] != '_')
-		return (0);
-	while (var[i] != '\0' && var[i] != '=')
-	{
-		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static int	is_equal_sign(char *var)
-{
-	int	i;
-
-	i = 0;
-	while (var[i] != '\0' && var[i] != '=')
-		i++;
-	if (var[i] == '\0')
-		return (0);
-	return (1);
-}
 
 static void	update_env(char *var, t_data *data)
 {

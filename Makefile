@@ -7,7 +7,7 @@ LIBFT = ./libs/libft/libft.a
 FT_PRINTF_FD = ./libs/ft_printf_fd/libftprintf.a
 FILESC = ./src/main.c ./src/init.c \
 		./src/builtins/cd.c ./src/builtins/echo.c ./src/builtins/env.c	./src/builtins/exit.c \
-		./src/builtins/export.c ./src/builtins/pwd.c ./src/builtins/unset.c \
+		./src/builtins/export.c ./src/builtins/export2.c ./src/builtins/pwd.c ./src/builtins/unset.c \
 		./src/parser/lexical_analyzer.c  ./src/parser/check_syntax.c \
 		./src/parser/create_tree.c ./src/parser/parser.c  ./src/parser/lexical_filter.c \
 		./src/parser/token_memory.c ./src/parser/get_more_prompt.c ./src/parser/get_more_prompt2.c \
