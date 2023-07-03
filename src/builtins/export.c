@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:11:11 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:28:55 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:35:53 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,30 @@ static void	update_env(char *var, t_data *data, char *join, int i)
 	data->env[i] = ft_strjoin(var, "\0");
 }
 
+// static 
+
 static void	update_export(char *var, t_data *data)
 {
 	int		i;
-	char	*tmp;
 	char	*join;
+	char	*tmp;
 	int		b;
 
 	i = 0;
 	b = 0;
 	while (data->export[i] != NULL)
 	{
-		tmp = get_before_equal_sign_export(data->export[i]);
-		join = get_before_equal_sign(var);
-		if (ft_strncmp(tmp, join, get_biggest_len(tmp, join)) == 0)
+		join = get_before_equal_sign_export(data->export[i]);
+		tmp = get_before_equal_sign(var);
+		if (ft_strncmp(join, tmp, get_biggest_len(join, tmp)) == 0)
 		{
-			free(tmp);
 			free(join);
+			free(tmp);
 			b = 1;
 			break ;
 		}
-		free(tmp);
 		free(join);
+		free(tmp);
 		i++;
 	}
 	if (b == 0)
@@ -73,16 +75,16 @@ static void	update_export(char *var, t_data *data)
 	}
 	free(data->export[i]);
 	data->export[i] = ft_strdup(var);
-	join = ft_strjoin("declare -x ", data->export[i]);
+	tmp = ft_strjoin("declare -x ", data->export[i]);
 	free(data->export[i]);
-	data->export[i] = ft_strjoin(join, "\0");
-	free(join);
+	data->export[i] = ft_strjoin(tmp, "\0");
+	free(tmp);
 	if (is_equal_sign(var) == 0)
 		return ;
-	join = quote(data->export[i], 0, 0);
+	tmp = quote(data->export[i], 0, 0);
 	free(data->export[i]);
-	data->export[i] = ft_strjoin(join, "\0");
-	free(join);
+	data->export[i] = ft_strjoin(tmp, "\0");
+	free(tmp);
 }
 
 int	exec_export(char **split, t_data *data, t_bt *tree)
