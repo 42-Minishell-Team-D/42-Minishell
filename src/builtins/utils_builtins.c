@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/03 22:11:04 by loris             #+#    #+#             */
+/*   Updated: 2023/07/03 22:11:06 by loris            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../libs/minishell.h"
 
 char	*get_before_equal_sign(char *var)
@@ -10,15 +22,12 @@ char	*get_before_equal_sign(char *var)
 	return (ft_substr(var, 0, i));
 }
 
-
 char	*get_before_equal_sign_export(char *var)
 {
 	char	*join;
-	char 	*tmp;
+	char	*tmp;
 
 	join = get_before_equal_sign(var);
-
-	// remove "declare -x " from the variable
 	if (ft_strncmp(join, "declare -x ", 11) == 0)
 	{
 		tmp = ft_substr(join, 11, ft_strlen(join));
@@ -27,40 +36,3 @@ char	*get_before_equal_sign_export(char *var)
 	}
 	return (join);
 }
-
-// char	*get_before_equal_sign_export(char *var)
-// {
-// 	char	*join;
-
-// 	join = get_before_equal_sign(var);
-// 	free(var);
-// 	var = NULL;
-// 	// remove "declare -x " from the variable
-// 	if (ft_strncmp(join, "declare -x ", 11) == 0)
-// 	{
-// 		var = ft_substr(join, 11, ft_strlen(join));
-// 		free(join);
-// 		return (var);
-// 	}
-// 	return (join);
-// }
-
-
-
-// char	*get_before_equal_sign_export(char *var)
-// {
-// 	char	*join;
-
-// 	join = get_before_equal_sign(var);
-// 	free(var);
-// 	var = ft_strjoin(join, "\0");
-// 	free(join);
-// 	if (ft_strncmp(var, "declare -x ", 11) == 0)
-// 	{
-// 		join = ft_substr(var, 11, ft_strlen(var));
-// 		free(var);
-// 		var = ft_strjoin(join, "\0");
-// 		free(join);
-// 	}
-// 	return (var);
-// }
