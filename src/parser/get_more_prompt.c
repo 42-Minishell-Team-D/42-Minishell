@@ -53,6 +53,7 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 
 	if (check_valid_syntax(data->prompt) == 1)
 	{
+		data->rt = 2;
 		printf("minishell: syntax error ( °︠ ‿ ︡°)\n");
 		return (1);
 	}
