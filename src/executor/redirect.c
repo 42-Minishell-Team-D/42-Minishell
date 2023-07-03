@@ -30,6 +30,8 @@ char *join, t_bt *tree)
 	return (data->rt);
 }
 
+// static void
+
 void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 {
 	char	**split;
