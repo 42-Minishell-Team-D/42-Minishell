@@ -30,8 +30,6 @@ char *join, t_bt *tree)
 	return (data->rt);
 }
 
-// static void
-
 void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 {
 	char	**split;
@@ -74,11 +72,10 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 	free(split);
 }
 
-t_bt	*redirect_great(t_bt *tree, t_data *data, int option)
+t_bt	*redirect_great(t_bt *tree, t_data *data, int option, int rd)
 {
 	int		fd;
 	char	buf[1024];
-	int		rd;
 
 	if (option == GREAT)
 		fd = open(tree->args, O_WRONLY | O_CREAT | O_TRUNC, 0644);

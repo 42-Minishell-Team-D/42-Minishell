@@ -62,9 +62,9 @@ void	executor(t_data *data, pid_t fork_id, int status)
 	while (tree != NULL)
 	{
 		if (is_new_token(tree->args[0], tree->args[1]) == GREAT)
-			tree = redirect_great(tree->left, data, GREAT);
+			tree = redirect_great(tree->left, data, GREAT, 0);
 		if (is_new_token(tree->args[0], tree->args[1]) == GREATGREAT)
-			tree = redirect_great(tree->left, data, GREATGREAT);
+			tree = redirect_great(tree->left, data, GREATGREAT, 0);
 		if (is_new_token(tree->args[0], tree->args[1]) == PIPE)
 			redirect_pipe(&fork_id, tree->left, data);
 		tree = tree->right;
