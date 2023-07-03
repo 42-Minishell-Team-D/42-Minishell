@@ -110,5 +110,5 @@ int	main(void)
 	}
 	rl_clear_history();
 	free_at_exit(&data);
-	return (0);
+	return (data.rt);
 }
