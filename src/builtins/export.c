@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:11:11 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:35:53 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:47:08 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,8 @@ static void	update_env(char *var, t_data *data, char *join, int i)
 	data->env[i] = ft_strjoin(var, "\0");
 }
 
-// static 
-
-static void	update_export(char *var, t_data *data)
+static void	update_export2(int b, t_data *data, int i, char *var)
 {
-	int		i;
-	char	*join;
-	char	*tmp;
-	int		b;
-
-	i = 0;
-	b = 0;
-	while (data->export[i] != NULL)
-	{
-		join = get_before_equal_sign_export(data->export[i]);
-		tmp = get_before_equal_sign(var);
-		if (ft_strncmp(join, tmp, get_biggest_len(join, tmp)) == 0)
-		{
-			free(join);
-			free(tmp);
-			b = 1;
-			break ;
-		}
-		free(join);
-		free(tmp);
-		i++;
-	}
 	if (b == 0)
 	{
 		data->export = ft_realloc(data->export, sizeof(char *) \
@@ -75,16 +51,42 @@ static void	update_export(char *var, t_data *data)
 	}
 	free(data->export[i]);
 	data->export[i] = ft_strdup(var);
-	tmp = ft_strjoin("declare -x ", data->export[i]);
+	data->tmp = ft_strjoin("declare -x ", data->export[i]);
 	free(data->export[i]);
-	data->export[i] = ft_strjoin(tmp, "\0");
-	free(tmp);
+	data->export[i] = ft_strjoin(data->tmp, "\0");
+	free(data->tmp);
 	if (is_equal_sign(var) == 0)
 		return ;
-	tmp = quote(data->export[i], 0, 0);
+	data->tmp = quote(data->export[i], 0, 0);
 	free(data->export[i]);
-	data->export[i] = ft_strjoin(tmp, "\0");
-	free(tmp);
+	data->export[i] = ft_strjoin(data->tmp, "\0");
+	free(data->tmp);
+}
+
+static void	update_export(char *var, t_data *data)
+{
+	int		i;
+	char	*join;
+	int		b;
+
+	i = 0;
+	b = 0;
+	while (data->export[i] != NULL)
+	{
+		join = get_before_equal_sign_export(data->export[i]);
+		data->tmp = get_before_equal_sign(var);
+		if (ft_strncmp(join, data->tmp, get_biggest_len(join, data->tmp)) == 0)
+		{
+			free(join);
+			free(data->tmp);
+			b = 1;
+			break ;
+		}
+		free(join);
+		free(data->tmp);
+		i++;
+	}
+	update_export2(b, data, i, var);
 }
 
 int	exec_export(char **split, t_data *data, t_bt *tree)
