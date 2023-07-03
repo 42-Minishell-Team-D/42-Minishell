@@ -83,8 +83,6 @@ static void update_export(char *var, t_data *data)
 	while (data->export[i] != NULL)
 	{
 		tmp = get_before_equal_sign_export(data->export[i]);
-		// free(data->export[i]);
-		// data->export[i] = NULL;
 		join = get_before_equal_sign(var);
 		if (ft_strncmp(tmp, join, get_biggest_len(tmp, join)) == 0)
 		{

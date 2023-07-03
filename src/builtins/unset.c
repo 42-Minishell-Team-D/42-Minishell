@@ -29,10 +29,14 @@ void	remove_var_from_env(char *var, char **env)
 		{
 			free(env[i]);
 			place_all_strings(env + i);
+			free(env_before);
+			free(var_before);
 			return ;
 		}
+		free(env_before);
 		i++;
 	}
+	free(var_before);
 }
 
 void	remove_var_from_export(char *var, char **export)
@@ -51,14 +55,17 @@ void	remove_var_from_export(char *var, char **export)
 		{
 			free(export[i]);
 			free(var_before);
+			var_before = NULL;
 			free(export_before);
 			place_all_strings(export + i);
 			return ;
 		}
+		free(export_before);
 		i++;
 	}
-	free(var_before);
-	free(export_before);
+	if (var_before != NULL)
+		free(var_before);
+	// free(export_before);
 }
 
 int	exec_unset(char **split, t_data *data)
