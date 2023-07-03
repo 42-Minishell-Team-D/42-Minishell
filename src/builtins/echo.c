@@ -2,7 +2,7 @@
 
 int	exec_echo(char **split)
 {
-	int		n;
+	int	n;
 
 	n = 1;
 	if (split[1] == NULL)

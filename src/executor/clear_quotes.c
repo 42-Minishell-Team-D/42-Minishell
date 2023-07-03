@@ -2,23 +2,15 @@
 
 char	**clear_quotes(char **split)
 {
-	int		i;
-	int		j;
-	char	*str;
+	int	i;
 
 	i = 0;
-	while (split[i] != NULL)
+	while (split[i])
 	{
 		if (split[i][0] == '\'' || split[i][0] == '"')
 		{
-			str = split[i];
-			j = 0;
-			while (str[j] != '\0')
-			{
-				str[j] = str[j + 1];
-				j++;
-			}
-			str[j - 2] = '\0';
+			split[i][ft_strlen(split[i]) - 1] = '\0';
+			delete_char_filter(&split[i][0]);
 		}
 		i++;
 	}
