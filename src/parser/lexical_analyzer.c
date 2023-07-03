@@ -6,11 +6,19 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 23:08:39 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:12:03 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
+
+static void	lexical_quote_updater(char *ptr, t_parser *p)
+{
+	if (*ptr == '"' && !p->in_single)
+		p->in_double = !p->in_double;
+	if (*ptr == '\'' && !p->in_double)
+		p->in_single = !p->in_single;
+}
 
 int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 {
@@ -18,10 +26,7 @@ int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 		ptr++;
 	while (*ptr != '\0')
 	{
-		if (*ptr == '"' && !p->in_single)
-			p->in_double = !p->in_double;
-		if (*ptr == '\'' && !p->in_double)
-			p->in_single = !p->in_single;
+		lexical_quote_updater(ptr, p);
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar_anal(ptr, p, data);
 		if (!p->in_double && !p->in_single \
