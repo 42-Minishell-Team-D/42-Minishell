@@ -2,16 +2,19 @@
 
 static int	speed_prompt(char *prompt, int *n)
 {
+	// ft_printf_fd(1, "prompt[%d] = %c\n", *n, prompt[*n]);
 	if (prompt[*n] == '"')
 	{
-		while (prompt[*n] != '"')
+		(*n)++;
+		while (prompt[*n] != '\0' && prompt[*n] != '"')
 			(*n)++;
 		if (prompt[*n] == '\0')
 			return (1);
 	}
 	if (prompt[*n] == '\'')
 	{
-		while (prompt[*n] != '\'')
+		(*n)++;
+		while (prompt[*n] != '\0' && prompt[*n] != '\'')
 			(*n)++;
 		if (prompt[*n] == '\0')
 			return (1);
@@ -87,6 +90,7 @@ int	check_valid_syntax(char *prompt)
 		return (1);
 	while (prompt[n])
 	{
+		// ft_printf_fd(1, "prompt[%d] = %c\n", n, prompt[n]);
 		if (speed_prompt(prompt, &n) == 1)
 			return (1);
 		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
