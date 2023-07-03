@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_more_prompt_utils.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/03 22:41:08 by ddantas-          #+#    #+#             */
+/*   Updated: 2023/07/03 22:41:13 by ddantas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../libs/minishell.h"
 
-static int	get_eof3(char *prompt, char *eof, int i, t_parser * p)
+static int	get_eof3(char *prompt, char *eof, int i, t_parser *p)
 {
 	int	j;
 

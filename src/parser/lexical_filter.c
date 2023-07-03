@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexical_filter.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/03 22:39:22 by ddantas-          #+#    #+#             */
+/*   Updated: 2023/07/03 22:39:23 by ddantas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../libs/minishell.h"
 
 static void	delete_token(char **token)
@@ -86,7 +98,7 @@ int	redirect_input_check(t_data *data)
 	i = 0;
 	while (data->tokens[i] != NULL)
 	{
-		if (ft_strncmp(data->tokens[i], "<\0", 2) == 0) 
+		if (ft_strncmp(data->tokens[i], "<\0", 2) == 0)
 		{
 			data->fd_in[0] = open(data->tokens[i + 1], O_RDONLY);
 			if (data->fd_in[0] == -1)
