@@ -50,10 +50,8 @@ static int	quote_handler(char *prompt, char c, int *n)
 
 static int	new_token_checker(char *prompt, int *n)
 {
-	int		i;
 	char	c;
 
-	i = 0;
 	c = '\0';
 	if (is_new_token(prompt[*n], prompt[*n + 1]) <= 2)
 		(*n) += 2;
