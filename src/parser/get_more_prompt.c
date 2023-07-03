@@ -24,7 +24,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p)
 	char	*heredoc_prompt;
 	char	*join;
 
-	eof = get_eof(prompt, 0, p);
+	eof = get_eof(prompt, p);
 	tmp = "\0";
 	heredoc_prompt = "\0";
 	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
