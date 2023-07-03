@@ -10,18 +10,42 @@ char	*get_before_equal_sign(char *var)
 	return (ft_substr(var, 0, i));
 }
 
+
 char	*get_before_equal_sign_export(char *var)
 {
 	char	*join;
+	char 	*tmp;
 
 	join = get_before_equal_sign(var);
-	free(var);
+
 	// remove "declare -x " from the variable
 	if (ft_strncmp(join, "declare -x ", 11) == 0)
-		var = ft_substr(join, 11, ft_strlen(join));
-	free(join);
-	return (var);
+	{
+		tmp = ft_substr(join, 11, ft_strlen(join));
+		free(join);
+		return (tmp);
+	}
+	return (join);
 }
+
+// char	*get_before_equal_sign_export(char *var)
+// {
+// 	char	*join;
+
+// 	join = get_before_equal_sign(var);
+// 	free(var);
+// 	var = NULL;
+// 	// remove "declare -x " from the variable
+// 	if (ft_strncmp(join, "declare -x ", 11) == 0)
+// 	{
+// 		var = ft_substr(join, 11, ft_strlen(join));
+// 		free(join);
+// 		return (var);
+// 	}
+// 	return (join);
+// }
+
+
 
 // char	*get_before_equal_sign_export(char *var)
 // {
