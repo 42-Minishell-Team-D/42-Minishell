@@ -104,7 +104,7 @@ int	main(void)
 			data.tree = create_tree(data.tokens, data.tree, 0);
 			// print_tree(data.tree);
 
-			executor(&data);
+			executor(&data, 0, 0);
 			free_after_execution(&data);
 		}
 	}

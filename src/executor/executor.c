@@ -24,41 +24,6 @@ int	get_number_of_processes(t_bt *tree)
 	return (count);
 }
 
-void	close_unused_pipes(int id, t_bt *tree, t_data *data)
-{
-	int		n;
-	int		reading;
-	int		writing;
-
-	n = 0;
-	if (id == 0)
-	{
-		if (tree->right != NULL)
-			close(data->pipes[id][0]);
-		while (++id < get_number_of_processes(data->tree) - 1)
-		{
-			close(data->pipes[id][0]);
-			close(data->pipes[id][1]);
-		}
-	}
-	else
-	{
-		reading = data->pipes[id - 1][0];
-		if (tree->parent->right != NULL)
-			writing = data->pipes[id][1];
-		else
-			writing = -1;
-		while (n < id)
-		{
-			if (reading != data->pipes[n][0])
-				close(data->pipes[n][0]);
-			if (writing != data->pipes[n][1])
-				close(data->pipes[n][1]);
-			n++;
-		}
-	}
-}
-
 void	close_free_pipes(t_data *data)
 {
 	int	i;
@@ -80,11 +45,9 @@ void	close_free_pipes(t_data *data)
 	data->pipes = NULL;
 }
 
-void	executor(t_data *data)
+void	executor(t_data *data, pid_t fork_id, int status)
 {
 	t_bt	*tree;
-	pid_t	fork_id;
-	int		status;
 
 	tree = data->tree;
 	fork_id = 0;

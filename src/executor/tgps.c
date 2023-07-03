@@ -20,6 +20,41 @@ static void	init_pipes(t_data *data)
 	}
 }
 
+void	close_unused_pipes(int id, t_bt *tree, t_data *data)
+{
+	int		n;
+	int		reading;
+	int		writing;
+
+	n = 0;
+	if (id == 0)
+	{
+		if (tree->right != NULL)
+			close(data->pipes[id][0]);
+		while (++id < get_number_of_processes(data->tree) - 1)
+		{
+			close(data->pipes[id][0]);
+			close(data->pipes[id][1]);
+		}
+	}
+	else
+	{
+		reading = data->pipes[id - 1][0];
+		if (tree->parent->right != NULL)
+			writing = data->pipes[id][1];
+		else
+			writing = -1;
+		while (n < id)
+		{
+			if (reading != data->pipes[n][0])
+				close(data->pipes[n][0]);
+			if (writing != data->pipes[n][1])
+				close(data->pipes[n][1]);
+			n++;
+		}
+	}
+}
+
 int	init_executor(t_data *data)
 {
 	int	i;
