@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:48 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:40:49 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:04:05 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parser(t_data *data)
 	malloc_token(data, p);
 	p->in_double = 0;
 	p->in_single = 0;
-	lexical_analyzer(data, p);
+	lexical_analyzer(data, p, data->prompt);
 	if (p->token != NULL)
 		free(p->token);
 	reset_p_vars(p);

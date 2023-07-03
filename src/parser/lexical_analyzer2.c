@@ -6,13 +6,13 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:58:28 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:08:56 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
 
-static char	*handle_special_char_2(char *ptr, int special,
+static char	*handle_special_char_2_anal(char *ptr, int special,
 									t_parser *p, t_data *data)
 {
 	if (special == LESSLESS)
@@ -39,7 +39,7 @@ static char	*handle_special_char_2(char *ptr, int special,
 	return (ptr);
 }
 
-char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
+char	*handle_special_char_anal(char *ptr, t_parser *p, t_data *data)
 {
 	int	special;
 
@@ -54,7 +54,7 @@ char	*handle_special_char(char *ptr, t_parser *p, t_data *data)
 		data->tokens[p->i++][1] = '>';
 		return (ptr + 2);
 	}
-	return (handle_special_char_2(ptr, special, p, data));
+	return (handle_special_char_2_anal(ptr, special, p, data));
 }
 
 static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)

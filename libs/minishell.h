@@ -85,7 +85,7 @@ int		exec_unset(char **split, t_data *data);
 
 /*		src/parser	*/
 void	reset_p_vars(t_parser *p);
-int		lexical_analyzer(t_data *data, t_parser *p);
+int		lexical_analyzer(t_data *data, t_parser *p, char *ptr);
 void	malloc_token(t_data *data, t_parser *p);
 char	*lexical_prompt_filter(char *prompt);
 void	lexical_filter(t_data *data, t_parser *p);
@@ -97,7 +97,7 @@ int		check_valid_syntax(char *prompt);
 int		redirect_input_check(t_data *data);
 int		check_valid_last_pipe(char *prompt);
 char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data);
-char	*handle_special_char(char *ptr, t_parser *p, t_data *data);
+char	*handle_special_char_anal(char *ptr, t_parser *p, t_data *data);
 
 /*		src/free	*/
 void	free_after_execution(t_data *data);

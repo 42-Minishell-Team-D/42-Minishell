@@ -6,17 +6,14 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:58:39 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:08:39 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
 
-int	lexical_analyzer(t_data *data, t_parser *p)
+int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 {
-	char	*ptr;
-
-	ptr = data->prompt;
 	while (*ptr == ' ')
 		ptr++;
 	while (*ptr != '\0')
@@ -29,7 +26,7 @@ int	lexical_analyzer(t_data *data, t_parser *p)
 			ptr = handle_dollar_anal(ptr, p, data);
 		if (!p->in_double && !p->in_single \
 		&& is_new_token(*ptr, *(ptr + 1)) > 1)
-			ptr = handle_special_char(ptr, p, data);
+			ptr = handle_special_char_anal(ptr, p, data);
 		else if (*ptr != '\0')
 		{
 			if (is_new_token(*ptr, *(ptr + 1)) > 0)
