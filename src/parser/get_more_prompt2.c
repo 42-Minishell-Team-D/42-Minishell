@@ -11,7 +11,7 @@ static int	speed_prompt(char *prompt, int *n)
 	}
 	if (prompt[*n] == '\'')
 	{
-		while (prompt[*n] == '\'')
+		while (prompt[*n] != '\'')
 			(*n)++;
 		if (prompt[*n] == '\0')
 			return (1);
