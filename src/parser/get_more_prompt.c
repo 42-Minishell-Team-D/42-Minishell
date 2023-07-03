@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_more_prompt.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:40:55 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:13:40 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,24 @@ static char	*heredoc_readline(char *prompt, t_parser *p, char *tmp, char *join)
 	return (heredoc_prompt);
 }
 
-int	get_more_prompt(t_data *data, t_parser *p, int baal)
+static int get_more_prompt_ext(t_data *data, int baal, t_parser *p, char *join)
 {
-	char	*tmp;
-	char	*join;
+	data->tmp = heredoc_readline(data->prompt, p, "\0", NULL);
+	if (ft_strncmp("\0", data->tmp, 3) == 0)
+		return (1);
+	join = ft_strjoin(p->char_temp, data->tmp);
+	free(p->char_temp);
+	p->char_temp = ft_strjoin(join, "\0");
+	free(join);
+	free(data->tmp);
+	update_prompt(data, p);
+	if (baal == 0)
+		pipe(data->fd_in);
+	return (0);
+}
 
+int	get_more_prompt(t_data *data, t_parser *p, int baal, char *join)
+{
 	if (check_valid_syntax(data->prompt) == 1)
 	{
 		data->rt = 2;
@@ -71,31 +84,22 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 	}
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
-		tmp = heredoc_readline(data->prompt, p, "\0", NULL);
-		if (ft_strncmp("\0", tmp, 3) == 0)
+		if (get_more_prompt_ext(data, baal, p, NULL) == 1)
 			return (1);
-		join = ft_strjoin(p->char_temp, tmp);
-		free(p->char_temp);
-		p->char_temp = ft_strjoin(join, "\0");
-		free(join);
-		free(tmp);
-		update_prompt(data, p);
-		if (baal == 0)
-			pipe(data->fd_in);
 	}
 	else if (check_valid_last_pipe(data->prompt) == 1)
 	{
-		tmp = readline("minipipe> ");
-		if (tmp == NULL)
+		data->tmp = readline("minipipe> ");
+		if (data->tmp == NULL)
 			return (ft_printf_fd(1, "\n"));
-		join = ft_strjoin(data->prompt, tmp);
+		join = ft_strjoin(data->prompt, data->tmp);
 		free(data->prompt);
 		data->prompt = ft_strdup(join);
 		free(join);
-		free(tmp);
+		free(data->tmp);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_heredoc(data->prompt) == 1))
-		get_more_prompt(data, p, 1);
+		get_more_prompt(data, p, 1, NULL);
 	return (0);
 }
