@@ -96,6 +96,8 @@ int		get_more_prompt(t_data *data, t_parser *p, int baal);
 int		check_valid_syntax(char *prompt);
 int		redirect_input_check(t_data *data);
 int		check_valid_last_pipe(char *prompt);
+char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data);
+char	*handle_special_char(char *ptr, t_parser *p, t_data *data);
 
 /*		src/free	*/
 void	free_after_execution(t_data *data);
