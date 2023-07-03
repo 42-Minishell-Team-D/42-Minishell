@@ -1,9 +1,29 @@
 #include "../../libs/minishell.h"
 
-// static char	*get_eof2()
+// static char	*get_eof3(char *prompt, char *eof, int i, t_parser * p)
 // {
-	
+// 	int j;
+
+// 	j = 0;
 // }
+
+static int get_eof2(char *prompt, int i, t_parser *p)
+{
+	i += 2;
+	while (prompt[i] == ' ' && prompt[i])
+		i++;
+	if (prompt[i] == '"')
+	{
+		p->in_double = 1;
+		i++;
+	}
+	else if (prompt[i] == '\'')
+	{
+		p->in_single = 1;
+		i++;
+	}
+	return (i);
+}
 
 char	*get_eof(char *prompt, int j, t_parser *p)
 {
@@ -17,19 +37,7 @@ char	*get_eof(char *prompt, int j, t_parser *p)
 	{
 		if (is_new_token(prompt[i], prompt[i + 1]) == 1)
 		{
-			i += 2;
-			while (prompt[i] == ' ' && prompt[i])
-				i++;
-			if (prompt[i] == '"')
-			{
-				p->in_double = 1;
-				i++;
-			}
-			else if (prompt[i] == '\'')
-			{
-				p->in_single = 1;
-				i++;
-			}
+			i = get_eof2(prompt, i, p);
 			if (p->in_double == 0 && p->in_single == 0)
 			{
 				while (prompt[i] != '\0' && prompt[i] \
@@ -42,15 +50,11 @@ char	*get_eof(char *prompt, int j, t_parser *p)
 				}
 			}
 			else if (p->in_double == 1)
-			{
 				while (prompt[i] != '"' && prompt[i] != '\0')
 					eof[j++] = prompt[i++];
-			}
 			else if (p->in_single == 1)
-			{
 				while (prompt[i] != '\'' && prompt[i] != '\0')
 					eof[j++] = prompt[i++];
-			}
 			eof[j] = '\0';
 			reset_p_vars(p);
 			return (eof);

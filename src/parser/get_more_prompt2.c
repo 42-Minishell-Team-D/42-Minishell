@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-static int	speed_prompt(char *prompt, int *n)
+int	speed_prompt(char *prompt, int *n)
 {
 	// ft_printf_fd(1, "prompt[%d] = %c\n", *n, prompt[*n]);
 	if (prompt[*n] == '"')
@@ -108,6 +108,7 @@ int	check_valid_last_pipe(char *prompt)
 {
 	int	i;
 
+	speed_prompt(prompt, &i);
 	i = ft_strlen(prompt) - 1;
 	if (prompt[0] == '|')
 		return (0);

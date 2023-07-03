@@ -7,6 +7,7 @@ static int	check_valid_heredoc(char *prompt)
 	i = 0;
 	while (prompt[i])
 	{
+		speed_prompt(prompt, &i);
 		if (is_new_token(prompt[i], prompt[i + 1]) == 1)
 			return (1);
 		i++;
