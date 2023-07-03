@@ -50,7 +50,6 @@ void	executor(t_data *data, pid_t fork_id, int status)
 	t_bt	*tree;
 
 	tree = data->tree;
-	fork_id = 0;
 	if (init_executor(data))
 		return ;
 	if (ft_strncmp(tree->args, "\0", 1) != 0)
