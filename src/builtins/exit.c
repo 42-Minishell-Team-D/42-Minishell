@@ -27,7 +27,7 @@ int	exec_exit_else(char **split, t_data *data, int i, char *join)
 		if (ft_isdigit(split[1][i++]) == 0)
 		{
 			ft_printf_fd(2, "minishell: exit: %s: \
-			numeric argument required\n", split[1]);
+numeric argument required\n", split[1]);
 			free_and_exit(data, 2, join, split);
 		}
 	}
