@@ -32,34 +32,6 @@
 
 // missing: ttyslot, sigaddset, lstat
 
-typedef struct pipe
-{
-	int			fd[2];
-}				t_pipe;
-
-typedef struct great
-{
-	int			fd[2];
-}				t_great;
-
-typedef struct greatgreat
-{
-	int			read_fd;
-	int			write_fd;
-}				t_greatgreat;
-
-typedef struct less
-{
-	int			read_fd;
-	int			write_fd;
-}				t_less;
-
-typedef struct lessless
-{
-	int			read_fd;
-	int			write_fd;
-}				t_lessless;
-
 typedef struct binary_tree
 {
 	char				*args;
