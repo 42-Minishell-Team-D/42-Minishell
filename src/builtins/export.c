@@ -116,14 +116,14 @@ static void update_export(char *var, t_data *data)
 	free(join);
 }
 
-int	exec_export(char **split, t_data *data)
+int	exec_export(char **split, t_data *data, t_bt *tree)
 {
 	int	i;
 
 	i = 1;
 	if (split[1] == NULL)
 		print_export(data);
-	else
+	else if (tree->parent == NULL && tree->right == NULL && tree->left == NULL)
 	{
 		while (split[i] != NULL)
 		{

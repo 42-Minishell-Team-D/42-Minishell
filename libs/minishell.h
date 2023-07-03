@@ -76,7 +76,7 @@ int		exec_cd(char **split);
 int		exec_echo(char **split);
 int		exec_env(t_data *data);
 int		exec_exit(char **split, t_data *data, int i, char *join);
-int		exec_export(char **split, t_data *data);
+int		exec_export(char **split, t_data *data, t_bt *tree);
 int		exec_pwd(void);
 int		exec_unset(char **split, t_data *data);
 

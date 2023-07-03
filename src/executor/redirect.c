@@ -19,7 +19,7 @@ static int	builtin_executor_parent(char **split, t_data *data, char *join, t_bt 
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
 		data->rt = exec_cd(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] != NULL)
-		data->rt = exec_export(split, data);
+		data->rt = exec_export(split, data, tree);
 	else if (ft_strncmp(split[0], "unset\0", 6) == 0)
 		data->rt = exec_unset(split, data);
 	else if (ft_strncmp(split[0], "exit\0", 5) == 0 && tree->id / 2 == 0 && tree->right == NULL)
@@ -53,7 +53,7 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 			free(join);
 			free_after_execution(data);
 			free_at_exit(data);
-			exit(123);
+			exit(0);
 		}
 	}
 	else

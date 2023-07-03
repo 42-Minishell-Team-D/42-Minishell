@@ -1,6 +1,6 @@
 #include "../../libs/minishell.h"
 
-static int	builtin_executor_child(char **split, t_data *data)
+static int	builtin_executor_child(char **split, t_data *data, t_bt *tree)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "pwd\0", 4) == 0)
@@ -8,7 +8,7 @@ static int	builtin_executor_child(char **split, t_data *data)
 	else if (ft_strncmp(split[0], "echo\0", 5) == 0)
 		data->rt = exec_echo(split);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] == NULL)
-		data->rt = exec_export(split, data);
+		data->rt = exec_export(split, data, tree);
 	else if (ft_strncmp(split[0], "env\0", 4) == 0)
 		data->rt = exec_env(data);
 	return (data->rt);
@@ -42,7 +42,7 @@ void	pipe_child(char *join, char **split, t_bt *tree, t_data *data)
 		if (tree->parent->right != NULL)
 			dup2(data->pipes[id][1], 1);
 	}
-	if (builtin_executor_child(split, data) == 0)
+	if (builtin_executor_child(split, data, tree) == 0)
 		return ;
 	execve(join, split, data->env);
 	execve(split[0], split, data->env);
