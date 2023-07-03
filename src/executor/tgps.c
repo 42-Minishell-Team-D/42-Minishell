@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tgps.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/03 22:33:20 by ddantas-          #+#    #+#             */
+/*   Updated: 2023/07/03 22:33:31 by ddantas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../libs/minishell.h"
 
 static void	init_pipes(t_data *data)
@@ -20,13 +32,30 @@ static void	init_pipes(t_data *data)
 	}
 }
 
-void	close_unused_pipes(int id, t_bt *tree, t_data *data)
+static void	close_unused_pipes_2(int id, t_bt *tree, t_data *data)
 {
-	int		n;
 	int		reading;
 	int		writing;
+	int		n;
 
 	n = 0;
+	reading = data->pipes[id - 1][0];
+	if (tree->parent->right != NULL)
+		writing = data->pipes[id][1];
+	else
+		writing = -1;
+	while (n < id)
+	{
+		if (reading != data->pipes[n][0])
+			close(data->pipes[n][0]);
+		if (writing != data->pipes[n][1])
+			close(data->pipes[n][1]);
+		n++;
+	}
+}
+
+void	close_unused_pipes(int id, t_bt *tree, t_data *data)
+{
 	if (id == 0)
 	{
 		if (tree->right != NULL)
@@ -38,21 +67,7 @@ void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 		}
 	}
 	else
-	{
-		reading = data->pipes[id - 1][0];
-		if (tree->parent->right != NULL)
-			writing = data->pipes[id][1];
-		else
-			writing = -1;
-		while (n < id)
-		{
-			if (reading != data->pipes[n][0])
-				close(data->pipes[n][0]);
-			if (writing != data->pipes[n][1])
-				close(data->pipes[n][1]);
-			n++;
-		}
-	}
+		close_unused_pipes_2(id, tree, data);
 }
 
 int	init_executor(t_data *data)
