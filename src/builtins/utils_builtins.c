@@ -12,9 +12,18 @@ char	*get_before_equal_sign(char *var)
 
 char	*get_before_equal_sign_export(char *var)
 {
-	var = get_before_equal_sign(var);
-	// remove "declare -x " from the variable
+	char	*join;
+	
+	join = get_before_equal_sign(var);
+	free(var);
+	var = ft_strjoin(join, "\0");
+	free(join);
 	if (ft_strncmp(var, "declare -x ", 11) == 0)
-		var = ft_substr(var, 11, ft_strlen(var));
+	{
+		join = ft_substr(var, 11, ft_strlen(var));
+		free(var);
+		var = ft_strjoin(join, "\0");
+		free(join);
+	}
 	return (var);
 }
