@@ -103,7 +103,7 @@ int	main(void)
 			
 			// print_tokens(data.tokens);
 
-			data.tree = create_tree(data.tokens, data.tree);
+			data.tree = create_tree(data.tokens, data.tree, 0);
 			// print_tree(data.tree);
 
 			executor(&data);

@@ -45,13 +45,11 @@ t_bt	*assign_parents(t_bt *tree, t_bt *parent)
 	return (tree);
 }
 
-t_bt	*create_tree(char **tokens, t_bt *tree)
+t_bt	*create_tree(char **tokens, t_bt *tree, int i)
 {
-	int		i;
 	int		size;
 	t_bt	*tmp;
 
-	i = 0;
 	size = array_size(tokens);
 	tokens = reverse_array(tokens, size);
 	tree = ft_btnew(tokens[i], size - i, NULL, NULL);

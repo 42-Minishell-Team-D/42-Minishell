@@ -87,7 +87,7 @@ void	malloc_token(t_data *data, t_parser *p);
 char	*lexical_prompt_filter(char *prompt);
 void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
-t_bt	*create_tree(char **parser, t_bt *tree);
+t_bt	*create_tree(char **parser, t_bt *tree, int i);
 int		check_syntax(t_bt *tree);
 int		get_more_prompt(t_data *data, t_parser *p, int baal);
 int		check_valid_syntax(char *prompt);
