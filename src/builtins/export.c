@@ -6,19 +6,14 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:11:11 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:12:51 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:28:55 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
 
-static void	update_env(char *var, t_data *data)
+static void	update_env(char *var, t_data *data, char *join, int i)
 {
-	int		i;
-	char	*tmp;
-	char	*join;
-
-	i = 0;
 	data->env = ft_realloc(data->env, sizeof(char *) * \
 	(array_size(data->env) + 2));
 	if (data->env == NULL)
@@ -26,27 +21,25 @@ static void	update_env(char *var, t_data *data)
 	data->env[array_size(data->env) + 1] = NULL;
 	while (data->env[i] != NULL)
 	{
-		tmp = get_before_equal_sign(data->env[i]);
+		data->tmp = get_before_equal_sign(data->env[i]);
 		join = get_before_equal_sign(var);
-		if (ft_strncmp(tmp, join, get_biggest_len(tmp, join)) == 0)
+		if (ft_strncmp(data->tmp, join, get_biggest_len(data->tmp, join)) == 0)
 		{
-			free(tmp);
+			free(data->tmp);
 			free(join);
 			free(data->env[i]);
 			data->env[i] = ft_strdup(var);
 			return ;
 		}
-		free(tmp);
+		free(data->tmp);
 		free(join);
 		i++;
 	}
-	join = ft_strjoin(var, "\0");
 	free(data->env[i]);
-	data->env[i] = ft_strjoin(join, "\0");
-	free(join);
+	data->env[i] = ft_strjoin(var, "\0");
 }
 
-static void update_export(char *var, t_data *data)
+static void	update_export(char *var, t_data *data)
 {
 	int		i;
 	char	*tmp;
@@ -109,11 +102,11 @@ int	exec_export(char **split, t_data *data, t_bt *tree)
 			else
 			{
 				if (is_equal_sign(split[i]) == 1)
-					update_env(split[i], data);
+					update_env(split[i], data, NULL, i);
 				update_export(split[i], data);
 			}
 			i++;
 		}
 	}
-    return (0);
+	return (0);
 }
