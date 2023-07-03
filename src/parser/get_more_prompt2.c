@@ -108,7 +108,6 @@ int	check_valid_last_pipe(char *prompt)
 {
 	int	i;
 
-	speed_prompt(prompt, &i);
 	i = ft_strlen(prompt) - 1;
 	if (prompt[0] == '|')
 		return (0);
