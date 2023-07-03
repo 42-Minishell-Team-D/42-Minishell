@@ -15,6 +15,26 @@ static void	free_and_exit(t_data *data, int ret, char *join, char **split)
 	exit (ret);
 }
 
+int	exec_exit_else(char **split, t_data *data, int i, char *join)
+{
+	int	ret;
+
+	ret = 0;
+	if (split[1][i] == '-' && split[1][i + 1] != '\0')
+		i++;
+	while (split[1][i] != '\0')
+	{
+		if (ft_isdigit(split[1][i++]) == 0)
+		{
+			ft_printf_fd(2, "minishell: exit: %s: \
+			numeric argument required\n", split[1]);
+			free_and_exit(data, 2, join, split);
+		}
+	}
+	ret = ft_atoi(split[1]);
+	return (ret);
+}
+
 int	exec_exit(char **split, t_data *data, int i, char *join)
 {
 	int	ret;
@@ -23,20 +43,7 @@ int	exec_exit(char **split, t_data *data, int i, char *join)
 	if (split[1] == NULL)
 		free_and_exit(data, 0, join, split);
 	else
-	{
-		if (split[1][i] == '-' && split[1][i + 1] != '\0')
-			i++;
-		while (split[1][i] != '\0')
-		{
-			if (ft_isdigit(split[1][i++]) == 0)
-			{
-				ft_printf_fd(2, "minishell: exit: %s: \
-				numeric argument required\n", split[1]);
-				free_and_exit(data, 2, join, split);
-			}
-		}
-		ret = ft_atoi(split[1]);
-	}
+		ret = exec_exit_else(split, data, i, join);
 	if (split[2] != NULL)
 	{
 		ft_printf_fd(2, "minishell: exit: too many arguments\n");
