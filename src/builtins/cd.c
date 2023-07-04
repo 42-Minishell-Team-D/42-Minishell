@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:09:59 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:10:00 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/04 19:21:58 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	exec_cd(char **split)
 	{
 		ft_printf_fd(2, "minishell: cd: \
 %s: No such file or directory\n", split[1]);
+		return (1);
 	}
 	return (0);
 }
