@@ -6,7 +6,7 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:23:22 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 13:42:26 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:46:01 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	*quote(char *export, int i, int j)
 {
-	char	temp[ft_strlen(export) + 3];
+	char	*temp;
 
+	temp = (char *)ft_calloc(ft_strlen(export) + 3, sizeof(char *));
 	while (export[i] && export[i] != '=')
 		temp[j++] = export[i++];
 	if (export[i])
@@ -28,6 +29,7 @@ char	*quote(char *export, int i, int j)
 		temp[j++] = '\0';
 		export = ft_strdup(temp);
 	}
+	free(temp);
 	return (export);
 }
 
