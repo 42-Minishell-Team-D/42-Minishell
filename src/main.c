@@ -55,16 +55,35 @@ void print_tree(t_bt *tree)
 	printf("\n");
 }
 
+static int	check_empty_prompt(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->prompt[i] != '\0')
+	{
+		if (data->prompt[i] != ' ' && data->prompt[i] != '\t')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	main(void)
 {
 	t_data		data;
-
+	
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
 		if (data.slash_r == 0)
 			write(1, "\r", 1);
 		data.prompt = readline("minishell$ ");
+		if (data.prompt != NULL && check_empty_prompt(&data) == 0)
+		{
+			free(data.prompt);
+			continue ;
+		}
 		if (data.prompt != NULL && data.prompt[0] != '\0' && data.prompt[0] != '\n')
 			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
 		data.slash_r = 0;
@@ -88,7 +107,8 @@ int	main(void)
 			// printf("Prompt: %s\n", data.prompt);
 
 			parser(&data);
-
+			if (data.tokens[0][0] == '\0')
+				continue ;
 			// print_tokens(data.tokens);
 
 			if (redirect_input_check(&data) > 0)
@@ -105,8 +125,6 @@ int	main(void)
 			executor(&data, 0, 0);
 			free_after_execution(&data);
 		}
-		// if (data.prompt != NULL)
-			// free(data.prompt	);
 	}
 	rl_clear_history();
 	free_at_exit(&data);
