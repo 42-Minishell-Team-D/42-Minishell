@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 18:54:50 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:08:33 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct minishell
 	char				*itoa;
 	int					fd_in[2];
 	char				**tokens;
+	// int					failed_cmd;
 	char				**env;
 	char				*join;
 	char				*tmp;

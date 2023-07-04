@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:29:17 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 18:28:54 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:09:11 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	redirect_pipe_fork(t_bt *tree, t_data *data)
 		free(data->split);
 		free_after_execution(data);
 		free_at_exit(data);
-		exit(0);
+		exit(data->rt);
 	}
 }
 
