@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:28:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 18:09:37 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:27:00 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,18 @@ void	close_free_pipes(t_data *data)
 	data->pipes = NULL;
 }
 
-void	executor(t_data *data, int status)
+static void	finish_executor(t_data *data)
+{
+	int	status;
+
+	status = 0;
+	while (data->childs_pid[data->n] >= 0)
+		waitpid(data->childs_pid[data->n++], &status, 0);
+	data->rt = WEXITSTATUS(status);
+	close_free_pipes(data);
+}
+
+void	executor(t_data *data)
 {
 	t_bt	*tree;
 
@@ -81,9 +92,5 @@ void	executor(t_data *data, int status)
 			redirect_pipe(tree->left, data);
 		tree = tree->right;
 	}
-	
-	while (data->childs_pid[data->n] > 0)
-		waitpid(data->childs_pid[data->n++], &status, 0);
-	data->rt = WEXITSTATUS(status);
-	close_free_pipes(data);
+	finish_executor(data);
 }

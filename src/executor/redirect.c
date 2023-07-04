@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:29:17 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 18:08:35 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:28:54 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char *join, t_bt *tree)
 static void	redirect_pipe_fork(t_bt *tree, t_data *data)
 {
 	data->childs_pid[tree->id / 2] = fork();
-	if (data->childs_pid[tree->id / 2]  == 0)
+	if (data->childs_pid[tree->id / 2] == 0)
 	{
 		init_child(tree->id / 2, tree, data);
 		pipe_child(data->split, tree, data);

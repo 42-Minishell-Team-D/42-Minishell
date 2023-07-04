@@ -93,7 +93,7 @@ static int main2(t_data *data)
 		return (1);
 	}
 	data->tree = create_tree(data->tokens, data->tree, 0);
-	executor(data, 0);
+	executor(data);
 	free_after_execution(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 18:08:39 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:29:16 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	free_if_err(char **var, int exit_code);
 void	free_tree(t_bt *tree);
 
 /*		src/executor	*/
-void	executor(t_data *data, int status);
+void	executor(t_data *data);
 int		init_executor(t_data *data);
 void	close_free_pipes(t_data *data);
 void	close_unused_pipes(int i, t_bt *tree, t_data *data);
