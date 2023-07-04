@@ -6,7 +6,7 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 16:58:22 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:06:19 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@
 # define LESS 4
 # define GREAT 3
 # define PIPE 5
-
-// missing: ttyslot, sigaddset, lstat
 
 typedef struct binary_tree
 {
