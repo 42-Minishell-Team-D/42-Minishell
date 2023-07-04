@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 18:08:12 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:55:07 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_stuff(t_data *data, char **prompt)
 	data->tree = NULL;
 	data->join = NULL;
 	data->split = NULL;
+	data->itoa = NULL;
 	data->tmp = NULL;
 	data->slash_r = 0;
 	init_env(data, 0);

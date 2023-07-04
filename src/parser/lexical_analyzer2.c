@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 11:40:24 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:54:41 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,11 @@ char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data)
 	ptr++;
 	if (*ptr == '?')
 	{
-		p->char_temp = malloc(sizeof(char) * ft_strlen(ft_itoa(data->rt)));
-		if (p->char_temp == NULL)
-			return (NULL);
-		p->char_temp = ft_itoa(data->rt);
-		p->char_temp = ft_strjoin(p->token, p->char_temp);
+		data->itoa = ft_itoa(data->rt);
+		p->char_temp = ft_strjoin(p->token, data->itoa);
 		ft_strlcpy(p->token, p->char_temp, ft_strlen(p->char_temp) + 1);
-		p->n += ft_strlen(ft_itoa(data->rt));
+		p->n += ft_strlen(data->itoa);
+		free(data->itoa);
 		free(p->char_temp);
 		ptr++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 18:39:12 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:54:50 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct minishell
 	char				*prompt;
 	pid_t				childs_pid[10];
 	int					n;
+	char				*itoa;
 	int					fd_in[2];
 	char				**tokens;
 	char				**env;
