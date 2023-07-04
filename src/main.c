@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/04 18:40:53 by ddantas-          #+#    #+#             */
+/*   Updated: 2023/07/04 18:41:11 by ddantas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libs/minishell.h"
 
 // void	print_tokens(char **tokens)
@@ -55,6 +67,14 @@
 // 	printf("\n");
 // }
 
+static char	*get_prompt(t_data *data)
+{
+	if (data->slash_r == 0)
+		write(1, "\r", 1);
+	data->slash_r = 0;
+	return (readline("minishell$ "));
+}
+
 static int	check_empty_prompt(t_data *data)
 {
 	int	i;
@@ -69,7 +89,7 @@ static int	check_empty_prompt(t_data *data)
 	return (0);
 }
 
-static int main2(t_data *data)
+static int	main2(t_data *data)
 {
 	if (get_more_prompt(data, &data->p, 0) == 1)
 	{
@@ -105,23 +125,21 @@ int	main(void)
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
-		if (data.slash_r == 0)
-			write(1, "\r", 1);
-		data.prompt = readline("minishell$ ");
+		data.prompt = get_prompt(&data);
 		if (data.prompt != NULL && check_empty_prompt(&data) == 0)
 		{
 			free(data.prompt);
 			continue ;
 		}
-		if (data.prompt != NULL && data.prompt[0] != '\0' && data.prompt[0] != '\n')
+		if (data.prompt != NULL && data.prompt[0] != '\0'
+			&& data.prompt[0] != '\n')
 			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
-		data.slash_r = 0;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			add_history(data.prompt);
 			data.p.char_temp = ft_calloc(1, 1);
 			if (main2(&data) == 1)
-				continue;
+				continue ;
 		}
 	}
 	rl_clear_history();
