@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 08:32:46 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/04 08:36:38 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ static void	get_more_prompt_pipe(t_data *data, char *join)
 	free(data->tmp);
 }
 
-int	get_more_prompt(t_data *data, t_parser *p, int baal, char *join)
+int	get_more_prompt(t_data *data, t_parser *p, int baal)
 {
-	(void)join;
 	if (check_valid_syntax(data->prompt) == 1)
 	{
 		data->rt = 2;
@@ -104,11 +103,9 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal, char *join)
 			return (1);
 	}
 	else if (check_valid_last_pipe(data->prompt) == 1)
-	{
 		get_more_prompt_pipe(data, NULL);
-	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_heredoc(data->prompt) == 1))
-		get_more_prompt(data, p, 1, NULL);
+		get_more_prompt(data, p, 1);
 	return (0);
 }
