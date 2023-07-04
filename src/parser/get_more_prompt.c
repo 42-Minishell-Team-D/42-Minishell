@@ -45,6 +45,7 @@ static char	*heredoc_readline(t_data *data, char *join, char *eof, char *h_p)
 			free(join);
 			join = ft_strjoin(h_p, data->tmp);
 			free(data->tmp);
+			data->tmp = "\0";
 			if (h_p[0] != '\0')
 				free(h_p);
 			h_p = ft_strdup(join);

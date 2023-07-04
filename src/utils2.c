@@ -39,7 +39,6 @@ int	get_biggest_len(char *s1, char *s2)
 	return (len2);
 }
 
-
 char	*ft_getenv(char *name, char **env)
 {
 	int		i;
