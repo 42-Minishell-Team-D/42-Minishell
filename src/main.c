@@ -75,7 +75,6 @@ int	main(void)
 			data.p.char_temp = ft_calloc(1, 1);
 			if (get_more_prompt(&data, &data.p, 0) == 1)
 			{
-				// free_after_execution(&data);
 				if (data.prompt != NULL)
 					free(data.prompt);
 				free(data.p.char_temp);
