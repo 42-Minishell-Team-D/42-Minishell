@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:28:55 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:28:56 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:04:52 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	builtin_executor_child(char **split, t_data *data, t_bt *tree)
 
 void	init_child(int id, t_bt *tree, t_data *data)
 {
-	close_unused_pipes(id, tree, data);
+	// close_unused_pipes(id, tree, data);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	(void)tree;
