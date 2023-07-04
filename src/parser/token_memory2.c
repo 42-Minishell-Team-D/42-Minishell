@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:14:58 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 18:53:14 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:59:46 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 
 static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 {
-	ptr++;
 	if (*ptr == '?')
 	{
 		data->itoa = ft_itoa(data->rt);
@@ -104,7 +103,7 @@ void	token_memory_alloc(t_data *data, t_parser *p)
 	{
 		token_ptr_quote(ptr, p);
 		if (*ptr == '$' && !p->in_single)
-			ptr = handle_dollar(ptr, p, data);
+			ptr = handle_dollar(ptr + 1, p, data);
 		if (*ptr == '\0')
 			break ;
 		if (!p->in_double && !p->in_single && \
