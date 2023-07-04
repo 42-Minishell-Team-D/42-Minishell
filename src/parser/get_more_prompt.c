@@ -107,7 +107,7 @@ int	get_more_prompt(t_data *data, t_parser *p, int b)
 			return (1);
 	}
 	else if (check_valid_last_pipe(data->prompt) == 1)
-	{		
+	{
 		if (get_more_prompt_pipe(data, NULL) == 1)
 			return (1);
 	}
