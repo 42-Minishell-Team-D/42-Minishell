@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 11:27:02 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:33:26 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ static void	lexical_quote_updater(char *ptr, t_parser *p)
 		p->in_double = !p->in_double;
 	if (*ptr == '\'' && !p->in_double)
 		p->in_single = !p->in_single;
+}
+
+static void lexical_ptr(char *ptr, t_parser *p)
+{
+	if (is_new_token(*ptr, *(ptr + 1)) > 0)
+	{
+		p->token[p->n++] = *ptr;
+		ptr++;
+	}
+	p->token[p->n++] = *ptr;
+	ptr++;
 }
 
 int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
@@ -35,15 +46,7 @@ int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 		&& is_new_token(*ptr, *(ptr + 1)) > 1)
 			ptr = handle_special_char_anal(ptr, p, data);
 		else if (*ptr != '\0')
-		{
-			if (is_new_token(*ptr, *(ptr + 1)) > 0)
-			{
-				p->token[p->n++] = *ptr;
-				ptr++;
-			}
-			p->token[p->n++] = *ptr;
-			ptr++;
-		}
+			lexical_ptr(ptr, p);
 	}
 	if (p->n != 0)
 		ft_strlcpy(data->tokens[p->i++], p->token, p->n + 1);
