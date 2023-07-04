@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:29:17 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:29:18 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:26:16 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,11 @@ static void	redirect_pipe_fork(pid_t *fork_id, t_bt *tree, t_data *data)
 	if ((*fork_id) == 0)
 	{
 		init_child(tree->id / 2, tree, data);
-		pipe_child(data->join, data->split, tree, data);
+		pipe_child(data->split, tree, data);
 		tree->id = 0;
 		while (data->split[tree->id])
 			free(data->split[tree->id++]);
 		free(data->split);
-		free(data->join);
 		free_after_execution(data);
 		free_at_exit(data);
 		exit(0);
@@ -66,7 +65,6 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 
 	id = tree->id / 2;
 	data->split = clear_quotes(ft_split_args(tree->args, &data->p));
-	data->join = ft_strjoin("/bin/", data->split[0]);
 	if (ft_strncmp(data->split[0], "echo\0", 7) == 0 && \
 	ft_strncmp(data->split[1], "-n\0", 3) == 0 && data->split[1] != NULL)
 		data->slash_r = 1;
@@ -74,7 +72,6 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 		redirect_pipe_fork(fork_id, tree, data);
 	else
 		builtin_executor_parent(data->split, data, data->join, tree);
-	free(data->join);
 	if (id == 0 && tree->right != NULL && data->pipes[id][1] > 0)
 		close(data->pipes[id][1]);
 	else if (id > 0 && tree->parent->right != NULL && data->pipes[id][1] > 0)

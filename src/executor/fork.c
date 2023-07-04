@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:28:55 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 10:16:26 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:07:46 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,46 @@ void	init_child(int id, t_bt *tree, t_data *data)
 	(void)id;
 }
 
-void	pipe_child(char *join, char **split, t_bt *tree, t_data *data)
+void	exec_loop(char **split, t_data *data)
 {
-	int	id;
+	char	*tmp;
+	char	**paths;
+	char	**paths2;
+	int		i;
+
+	i = 0;
+	tmp = ft_getenv("PATH", data->env);
+	if (tmp != NULL)
+	{
+		paths = ft_split(tmp, ':');
+		free(tmp);
+		paths2 = (char **)ft_calloc(array_size(paths) + 1, sizeof(char *));
+		while (paths[i] != NULL)
+		{
+			paths2[i] = ft_strjoin(paths[i], "/");
+			i++;
+		}
+		i = 0;
+		while (paths[i])
+			free(paths[i++]);
+		free(paths);
+		i = 0;
+		while (paths2[i] != NULL)
+		{
+			data->join = ft_strjoin(paths2[i], split[0]);
+			free(paths2[i]);
+			execve(data->join, split, data->env);
+			free(data->join);
+			i++;
+		}
+		free(paths2);
+	}
+	(void)split;
+}
+
+void	pipe_child(char **split, t_bt *tree, t_data *data)
+{
+	int		id;
 
 	id = tree->id / 2;
 	if (id == 0)
@@ -55,7 +92,7 @@ void	pipe_child(char *join, char **split, t_bt *tree, t_data *data)
 	}
 	if (builtin_executor_child(split, data, tree) == 0)
 		return ;
-	execve(join, split, data->env);
+	exec_loop(split, data);
 	execve(split[0], split, data->env);
 	write(1, "\0", 1);
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", \
