@@ -69,6 +69,35 @@ static int	check_empty_prompt(t_data *data)
 	return (0);
 }
 
+static int main2(t_data *data)
+{
+	if (get_more_prompt(data, &data->p, 0) == 1)
+	{
+		if (data->prompt != NULL)
+			free(data->prompt);
+		free(data->p.char_temp);
+		close(data->fd_in[1]);
+		return (1);
+	}
+	if (data->fd_in[1] > 0)
+		write(data->fd_in[1], data->p.char_temp, ft_strlen(data->p.char_temp));
+	free(data->p.char_temp);
+	if (data->fd_in[1] > 0)
+		close(data->fd_in[1]);
+	parser(data);
+	if (data->tokens[0][0] == '\0')
+		return (1);
+	if (redirect_input_check(data) > 0)
+	{
+		free_after_execution(data);
+		return (1);
+	}
+	data->tree = create_tree(data->tokens, data->tree, 0);
+	executor(data, 0);
+	free_after_execution(data);
+	return (0);
+}
+
 int	main(void)
 {
 	t_data		data;
@@ -91,30 +120,8 @@ int	main(void)
 		{
 			add_history(data.prompt);
 			data.p.char_temp = ft_calloc(1, 1);
-			if (get_more_prompt(&data, &data.p, 0) == 1)
-			{
-				if (data.prompt != NULL)
-					free(data.prompt);
-				free(data.p.char_temp);
-				close(data.fd_in[1]);
-				continue ;
-			}
-			if (data.fd_in[1] > 0)
-				write(data.fd_in[1], data.p.char_temp, ft_strlen(data.p.char_temp));
-			free(data.p.char_temp);
-			if (data.fd_in[1] > 0)
-				close(data.fd_in[1]);
-			parser(&data);
-			if (data.tokens[0][0] == '\0')
-				continue ;
-			if (redirect_input_check(&data) > 0)
-			{
-				free_after_execution(&data);
-				continue ;
-			}
-			data.tree = create_tree(data.tokens, data.tree, 0);
-			executor(&data, 0); 
-			free_after_execution(&data);
+			if (main2(&data) == 1)
+				continue;
 		}
 	}
 	rl_clear_history();
