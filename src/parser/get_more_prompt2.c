@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:45:53 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:45:55 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:36:58 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	quote_handler(char *prompt, char c, int *n)
 	return (0);
 }
 
-static int	new_token_checker(char *prompt, int *n)
+static int	new_token_checker(char *prompt, int *n, int i)
 {
 	char	c;
 
@@ -72,7 +72,10 @@ static int	new_token_checker(char *prompt, int *n)
 	else
 		(*n)++;
 	while (prompt[*n] == ' ' && prompt[*n])
+	{
 		(*n)++;
+		i++;
+	}
 	if (prompt[*n] == '\'' || prompt[*n] == '"')
 		c = prompt[*n];
 	if (c > 0)
@@ -81,7 +84,7 @@ static int	new_token_checker(char *prompt, int *n)
 			return (1);
 		return (0);
 	}
-	if ((prompt[*n] == '\0' && prompt[*n - 1] != '|'))
+	if ((prompt[*n] == '\0' && prompt[*n - i - 1] != '|'))
 		return (1);
 	if (ft_strncmp(&prompt[*n], "\0", 2) == 0)
 		return (0);
@@ -105,7 +108,7 @@ int	check_valid_syntax(char *prompt)
 			return (1);
 		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
 		{
-			if (new_token_checker(prompt, &n) == 1)
+			if (new_token_checker(prompt, &n, 0) == 1)
 				return (1);
 		}
 		n++;
