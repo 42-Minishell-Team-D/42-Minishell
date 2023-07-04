@@ -39,22 +39,26 @@ int	get_biggest_len(char *s1, char *s2)
 	return (len2);
 }
 
+
 char	*ft_getenv(char *name, char **env)
 {
 	int		i;
 	char	*ret;
+	char	*join;
 
 	i = 0;
 	ret = NULL;
+	join = ft_strjoin(name, "=");
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], name, ft_strlen(name)) == 0)
+		if (ft_strncmp(env[i], join, ft_strlen(join)) == 0)
 		{
 			ret = ft_strdup(env[i] + ft_strlen(name) + 1);
 			break ;
 		}
 		i++;
 	}
+	free(join);
 	return (ret);
 }
 
