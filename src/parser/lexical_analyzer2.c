@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 09:55:29 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:40:24 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
 {
 	while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 	{
-		if (p->in_double && *ptr == '"')
+		if ((p->in_double && *ptr == '"') || *ptr == '\0')
 			break ;
 		if (is_new_token(*ptr, *(ptr + 1)) > 1)
 			break ;

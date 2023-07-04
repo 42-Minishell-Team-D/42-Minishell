@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 23:12:03 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:27:02 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 		lexical_quote_updater(ptr, p);
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar_anal(ptr, p, data);
+		if (*ptr == '\0')
+			break ;
 		if (!p->in_double && !p->in_single \
 		&& is_new_token(*ptr, *(ptr + 1)) > 1)
 			ptr = handle_special_char_anal(ptr, p, data);

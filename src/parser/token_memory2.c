@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:14:58 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 09:38:25 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:40:25 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 	{
 		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 		{
-			if (p->in_double && *ptr == '"')
+
+			if ((p->in_double && *ptr == '"') || *ptr == '\0')
 				break ;
 			if (is_new_token(*ptr, *(ptr + 1)) > 1)
 				break ;
@@ -105,6 +106,8 @@ void	token_memory_alloc(t_data *data, t_parser *p)
 		token_ptr_quote(ptr, p);
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar(ptr, p, data);
+		if (*ptr == '\0')
+			break ;
 		if (!p->in_double && !p->in_single && \
 		is_new_token(*ptr, *(ptr + 1)) > 1)
 			ptr = handle_special_char(ptr, p);
