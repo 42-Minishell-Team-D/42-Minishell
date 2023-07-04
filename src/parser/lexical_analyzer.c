@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_analyzer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 13:40:37 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:04:41 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 		else if (*ptr != '\0')
 		{
 			if (is_new_token(*ptr, *(ptr + 1)) > 0)
-			{
-				p->token[p->n++] = *ptr;
-				ptr++;
-			}
-			p->token[p->n++] = *ptr;
-			ptr++;
+				p->token[p->n++] = *ptr++;
+			p->token[p->n++] = *ptr++;
 		}
 	}
 	if (p->n != 0)
