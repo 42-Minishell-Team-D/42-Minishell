@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:28:55 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 19:10:14 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:35:00 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,4 @@ void	pipe_child(char **split, t_bt *tree, t_data *data)
 	data->rt = 127;
 	ft_printf_fd(2, "minishell: %s command not found, you can do it! :D\n", \
 	split[0]);
-
 }
