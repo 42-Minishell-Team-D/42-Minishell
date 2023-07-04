@@ -64,7 +64,6 @@ int	main(void)
 	{
 		if (data.slash_r == 0)
 			write(1, "\r", 1);
-		data.prompt = NULL;
 		data.prompt = readline("minishell$ ");
 		if (data.prompt != NULL && data.prompt[0] != '\0' && data.prompt[0] != '\n')
 			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
@@ -106,6 +105,8 @@ int	main(void)
 			executor(&data, 0, 0);
 			free_after_execution(&data);
 		}
+		// if (data.prompt != NULL)
+			// free(data.prompt	);
 	}
 	rl_clear_history();
 	free_at_exit(&data);

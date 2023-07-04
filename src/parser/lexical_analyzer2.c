@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 09:42:05 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:55:29 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	handle_dollar_anal_env(t_parser *p, t_data *data)
 {
 	char	*getenv;
 
+	getenv = NULL;
 	getenv = ft_getenv(p->char_temp, data->env);
 	if (getenv)
 	{
