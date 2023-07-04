@@ -1,14 +1,14 @@
 #include "../libs/minishell.h"
 
-void	print_tokens(char **tokens)
-{
-	printf("Tokens:\n");
-	for (int i = 0; i < array_size(tokens); i++)
-	{
-		printf("  %i: %s\n", i, tokens[i]);
-	}
-	printf("\n");
-}
+// void	print_tokens(char **tokens)
+// {
+// 	printf("Tokens:\n");
+// 	for (int i = 0; i < array_size(tokens); i++)
+// 	{
+// 		printf("  %i: %s\n", i, tokens[i]);
+// 	}
+// 	printf("\n");
+// }
 
 // void print_tree(t_bt *tree)
 // {
