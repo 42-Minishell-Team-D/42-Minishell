@@ -65,7 +65,7 @@ int	main(void)
 		if (data.slash_r == 0)
 			write(1, "\r", 1);
 		data.prompt = readline("minishell$ ");
-		if (data.prompt != NULL)
+		if (data.prompt != NULL && data.prompt[0] != '\0')
 			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
 		data.slash_r = 0;
 		data.fd_in[0] = -1;
