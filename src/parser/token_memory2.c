@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_memory2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:14:58 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 11:40:25 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:58:19 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 	{
 		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 		{
-
 			if ((p->in_double && *ptr == '"') || *ptr == '\0')
 				break ;
 			if (is_new_token(*ptr, *(ptr + 1)) > 1)

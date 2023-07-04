@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_more_prompt2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:45:53 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 10:14:53 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:01:02 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ static int	quote_handler(char *prompt, char c, int *n)
 	return (0);
 }
 
-static int	new_token_checker(char *prompt, int *n, int i)
+static int	new_token_checker(char *prompt, int *n, int i, int c)
 {
-	char	c;
-
-	c = '\0';
 	if (is_new_token(prompt[*n], prompt[*n + 1]) <= 2)
 		(*n) += 2;
 	else
@@ -108,7 +105,7 @@ int	check_valid_syntax(char *prompt)
 			return (1);
 		if (is_new_token(prompt[n], prompt[n + 1]) > 0)
 		{
-			if (new_token_checker(prompt, &n, 0) == 1)
+			if (new_token_checker(prompt, &n, 0, '\0') == 1)
 				return (1);
 		}
 		n++;
