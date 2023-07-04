@@ -6,13 +6,11 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 13:39:29 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:42:23 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/minishell.h"
-
-
 
 void	init_sa(struct sigaction sa, struct sigaction sb)
 {
@@ -42,4 +40,34 @@ void	init_stuff(t_data *data, char **prompt)
 	init_sa(data->sa, data->sb);
 	reset_p_vars(&data->p);
 	*prompt = (char *)1;
+}
+
+void	handler(int sig, siginfo_t *id, void *content)
+{
+	(void)id;
+	(void)content;
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	return ;
+}
+
+void	init_env(t_data *data, int i)
+{
+	extern char	**environ;
+
+	data->env = NULL;
+	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
+	if (!data->env)
+		free_if_err(data->env, 1);
+	while (i < array_size(environ) - 2)
+	{
+		data->env[i] = ft_strjoin(environ[i], "\0");
+		i++;
+	}
+	data->env[i] = NULL;
 }

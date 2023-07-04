@@ -72,7 +72,7 @@ static int	check_empty_prompt(t_data *data)
 int	main(void)
 {
 	t_data		data;
-	
+
 	init_stuff(&data, &data.prompt);
 	while (data.prompt)
 	{
