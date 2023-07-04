@@ -23,11 +23,9 @@ static void	handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 	p->temp = 0;
 	getenv = ft_getenv(p->char_temp, data->env);
 	if (getenv)
-	{
 		p->token_alloc[p->i] += ft_strlen(getenv);
-		free(p->char_temp);
-		p->char_temp = NULL;
-	}
+	free(p->char_temp);
+	p->char_temp = NULL;
 	free(getenv);
 }
 

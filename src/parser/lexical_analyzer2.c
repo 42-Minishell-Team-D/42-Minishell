@@ -68,9 +68,9 @@ static void	handle_dollar_anal_env(t_parser *p, t_data *data)
 		ft_strlcpy(&p->token[ft_strlen(p->token)],
 			getenv, ft_strlen(getenv) + 1);
 		p->n += ft_strlen(getenv);
-		free(p->char_temp);
-		p->char_temp = NULL;
 	}
+	free(p->char_temp);
+	p->char_temp = NULL;
 	if (getenv != NULL)
 		free(getenv);
 }
