@@ -6,15 +6,13 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 18:38:47 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:40:32 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
 
-
-
-static char *heredoc_readline2(char *join, t_data *data, char *h_p)
+static char	*heredoc_readline2(char *join, t_data *data, char *h_p)
 {
 	join = ft_strjoin(data->tmp, "\n");
 	free(data->tmp);
