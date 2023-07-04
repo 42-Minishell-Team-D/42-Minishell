@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 09:58:31 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/04 10:25:21 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,46 +29,42 @@ static int	check_valid_heredoc(char *prompt)
 	return (0);
 }
 
-static char	*heredoc_readline(char *prompt, t_parser *p, char *tmp, char *join)
+static char	*heredoc_readline(t_data *data, char *join, char *eof, char *h_p)
 {
-	char	*eof;
-	char	*heredoc_prompt;
-
-	eof = get_eof(prompt, p);
-	heredoc_prompt = "\0";
-	while (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
+	data->tmp = "\0";
+	while (ft_strncmp(eof, data->tmp, get_biggest_len(eof, data->tmp)) != 0)
 	{
-		tmp = readline("minihduc🐣> ");
-		if (tmp == NULL)
-			return NULL;
-		if (ft_strncmp(eof, tmp, get_biggest_len(eof, tmp)) != 0)
+		data->tmp = readline("minihduc🐣> ");
+		if (data->tmp == NULL)
+			return (NULL);
+		if (ft_strncmp(eof, data->tmp, get_biggest_len(eof, data->tmp)) != 0)
 		{
-			join = ft_strjoin(tmp, "\n");
-			free(tmp);
-			tmp = ft_strjoin(join, "\0");
+			join = ft_strjoin(data->tmp, "\n");
+			free(data->tmp);
+			data->tmp = ft_strjoin(join, "\0");
 			free(join);
-			join = ft_strjoin(heredoc_prompt, tmp);
-			free(tmp);
-			if (heredoc_prompt[0] != '\0')
-				free(heredoc_prompt);
-			heredoc_prompt = ft_strdup(join);
+			join = ft_strjoin(h_p, data->tmp);
+			free(data->tmp);
+			if (h_p[0] != '\0')
+				free(h_p);
+			h_p = ft_strdup(join);
 			free(join);
 		}
 	}
 	free(eof);
-	free(tmp);
-	return (heredoc_prompt);
+	free(data->tmp);
+	return (h_p);
 }
 
-static int	get_more_prompt_hduc(t_data *data, int baal, t_parser *p, char *join)
+static int	get_more_prompt_hduc(t_data *data, int b, t_parser *p, char *join)
 {
-	data->tmp = heredoc_readline(data->prompt, p, "\0", NULL);
+	data->tmp = heredoc_readline(data, NULL, get_eof(data->prompt, p), "\0");
 	if (data->tmp == NULL)
 		return (1);
 	if (ft_strncmp("\0", data->tmp, 3) == 0)
 	{
 		update_prompt(data, p);
-		if (baal == 0)
+		if (b == 0)
 			pipe(data->fd_in);
 		return (0);
 	}
@@ -78,6 +74,8 @@ static int	get_more_prompt_hduc(t_data *data, int baal, t_parser *p, char *join)
 	free(join);
 	free(data->tmp);
 	update_prompt(data, p);
+	if (b == 0)
+		pipe(data->fd_in);
 	return (0);
 }
 
@@ -85,7 +83,7 @@ static int	get_more_prompt_pipe(t_data *data, char *join)
 {
 	data->tmp = readline("minipipe> ");
 	if (data->tmp == NULL)
-		return(1);
+		return (1);
 	join = ft_strjoin(data->prompt, data->tmp);
 	free(data->prompt);
 	data->prompt = ft_strdup(join);
@@ -94,7 +92,7 @@ static int	get_more_prompt_pipe(t_data *data, char *join)
 	return (0);
 }
 
-int	get_more_prompt(t_data *data, t_parser *p, int baal)
+int	get_more_prompt(t_data *data, t_parser *p, int b)
 {
 	if (check_valid_syntax(data->prompt) == 1)
 	{
@@ -104,7 +102,7 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal)
 	}
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
-		if (get_more_prompt_hduc(data, baal, p, NULL) == 1)
+		if (get_more_prompt_hduc(data, b, p, NULL) == 1)
 			return (1);
 	}
 	else if (check_valid_last_pipe(data->prompt) == 1)
