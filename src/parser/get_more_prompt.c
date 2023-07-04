@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 23:13:40 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/04 08:32:46 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*heredoc_readline(char *prompt, t_parser *p, char *tmp, char *join)
 	return (heredoc_prompt);
 }
 
-static int get_more_prompt_ext(t_data *data, int baal, t_parser *p, char *join)
+static int	get_more_prompt_hduc(t_data *data, int baal, t_parser *p, char *join)
 {
 	data->tmp = heredoc_readline(data->prompt, p, "\0", NULL);
 	if (ft_strncmp("\0", data->tmp, 3) == 0)
@@ -74,8 +74,24 @@ static int get_more_prompt_ext(t_data *data, int baal, t_parser *p, char *join)
 	return (0);
 }
 
+static void	get_more_prompt_pipe(t_data *data, char *join)
+{
+	data->tmp = readline("minipipe> ");
+	if (data->tmp == NULL)
+	{
+		ft_printf_fd(1, "\n");
+		return ;
+	}
+	join = ft_strjoin(data->prompt, data->tmp);
+	free(data->prompt);
+	data->prompt = ft_strdup(join);
+	free(join);
+	free(data->tmp);
+}
+
 int	get_more_prompt(t_data *data, t_parser *p, int baal, char *join)
 {
+	(void)join;
 	if (check_valid_syntax(data->prompt) == 1)
 	{
 		data->rt = 2;
@@ -84,19 +100,12 @@ int	get_more_prompt(t_data *data, t_parser *p, int baal, char *join)
 	}
 	if (check_valid_heredoc(data->prompt) == 1)
 	{
-		if (get_more_prompt_ext(data, baal, p, NULL) == 1)
+		if (get_more_prompt_hduc(data, baal, p, NULL) == 1)
 			return (1);
 	}
 	else if (check_valid_last_pipe(data->prompt) == 1)
 	{
-		data->tmp = readline("minipipe> ");
-		if (data->tmp == NULL)
-			return (ft_printf_fd(1, "\n"));
-		join = ft_strjoin(data->prompt, data->tmp);
-		free(data->prompt);
-		data->prompt = ft_strdup(join);
-		free(join);
-		free(data->tmp);
+		get_more_prompt_pipe(data, NULL);
 	}
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_heredoc(data->prompt) == 1))
