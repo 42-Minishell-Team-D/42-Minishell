@@ -6,51 +6,43 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 13:42:36 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:38:47 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
 
-static int	check_valid_heredoc(char *prompt)
-{
-	int	i;
 
-	i = 0;
-	while (prompt[i])
-	{
-		speed_prompt(prompt, &i);
-		if (prompt[i] == '\0')
-			return (0);
-		if (is_new_token(prompt[i], prompt[i + 1]) == 1)
-			return (1);
-		i++;
-	}
-	return (0);
+
+static char *heredoc_readline2(char *join, t_data *data, char *h_p)
+{
+	join = ft_strjoin(data->tmp, "\n");
+	free(data->tmp);
+	data->tmp = ft_strjoin(join, "\0");
+	free(join);
+	join = ft_strjoin(h_p, data->tmp);
+	free(data->tmp);
+	data->tmp = "\0";
+	if (h_p[0] != '\0')
+		free(h_p);
+	h_p = ft_strdup(join);
+	free(join);
+	return (h_p);
 }
 
-static char	*heredoc_readline(t_data *data, char *join, char *eof, char *h_p)
+static char	*heredoc_readline(t_data *data, char *eof, char *h_p)
 {
 	data->tmp = "\0";
 	while (ft_strncmp(eof, data->tmp, get_biggest_len(eof, data->tmp)) != 0)
 	{
 		data->tmp = readline("minihduc🐣> ");
 		if (data->tmp == NULL)
-			return (NULL);
-		if (ft_strncmp(eof, data->tmp, get_biggest_len(eof, data->tmp)) != 0)
 		{
-			join = ft_strjoin(data->tmp, "\n");
-			free(data->tmp);
-			data->tmp = ft_strjoin(join, "\0");
-			free(join);
-			join = ft_strjoin(h_p, data->tmp);
-			free(data->tmp);
-			data->tmp = "\0";
-			if (h_p[0] != '\0')
-				free(h_p);
-			h_p = ft_strdup(join);
-			free(join);
+			free(eof);
+			return (NULL);
 		}
+		if (ft_strncmp(eof, data->tmp, get_biggest_len(eof, data->tmp)) != 0)
+			h_p = heredoc_readline2(NULL, data, h_p);
 	}
 	free(eof);
 	free(data->tmp);
@@ -59,7 +51,7 @@ static char	*heredoc_readline(t_data *data, char *join, char *eof, char *h_p)
 
 static int	get_more_prompt_hduc(t_data *data, int b, t_parser *p, char *join)
 {
-	data->tmp = heredoc_readline(data, NULL, get_eof(data->prompt, p), "\0");
+	data->tmp = heredoc_readline(data, get_eof(data->prompt, p), "\0");
 	if (data->tmp == NULL)
 		return (1);
 	if (ft_strncmp("\0", data->tmp, 3) == 0)

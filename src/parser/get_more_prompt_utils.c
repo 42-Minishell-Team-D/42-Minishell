@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_more_prompt_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:41:08 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 22:41:13 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:38:51 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,21 @@ void	update_prompt(t_data *data, t_parser *p)
 	free(data->prompt);
 	data->prompt = ft_strdup(join);
 	free(join);
+}
+
+int	check_valid_heredoc(char *prompt)
+{
+	int	i;
+
+	i = 0;
+	while (prompt[i])
+	{
+		speed_prompt(prompt, &i);
+		if (prompt[i] == '\0')
+			return (0);
+		if (is_new_token(prompt[i], prompt[i + 1]) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
 }

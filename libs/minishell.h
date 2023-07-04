@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 18:29:16 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:39:12 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int		redirect_input_check(t_data *data);
 int		check_valid_last_pipe(char *prompt);
 char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data);
 char	*handle_special_char_anal(char *ptr, t_parser *p, t_data *data);
+int		check_valid_heredoc(char *prompt);
 
 /*		src/free	*/
 void	free_after_execution(t_data *data);
