@@ -64,11 +64,11 @@ int	main(void)
 	{
 		if (data.slash_r == 0)
 			write(1, "\r", 1);
+		data.prompt = NULL;
 		data.prompt = readline("minishell$ ");
-		if (data.prompt != NULL && data.prompt[0] != '\0')
+		if (data.prompt != NULL && data.prompt[0] != '\0' && data.prompt[0] != '\n')
 			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
 		data.slash_r = 0;
-		data.fd_in[0] = -1;
 		if (data.prompt != NULL && data.prompt[0] != '\0')
 		{
 			add_history(data.prompt);

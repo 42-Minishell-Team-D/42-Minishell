@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:37:02 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/03 23:27:26 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:42:05 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,25 @@ char	*handle_special_char_anal(char *ptr, t_parser *p, t_data *data)
 	return (handle_special_char_2_anal(ptr, special, p, data));
 }
 
-static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
+static void	handle_dollar_anal_env(t_parser *p, t_data *data)
 {
 	char	*getenv;
 
+	getenv = ft_getenv(p->char_temp, data->env);
+	if (getenv)
+	{
+		ft_strlcpy(&p->token[ft_strlen(p->token)],
+			getenv, ft_strlen(getenv) + 1);
+		p->n += ft_strlen(getenv);
+		free(p->char_temp);
+		p->char_temp = NULL;
+	}
+	if (getenv != NULL)
+		free(getenv);
+}
+
+static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
+{
 	while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 	{
 		if (p->in_double && *ptr == '"')
@@ -75,17 +90,7 @@ static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
 		return (NULL);
 	ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
 	p->temp = 0;
-	getenv = ft_getenv(p->char_temp, data->env);
-	if (getenv)
-	{
-		ft_strlcpy(&p->token[ft_strlen(p->token)],
-			getenv, ft_strlen(getenv) + 1);
-		p->n += ft_strlen(getenv);
-		free(p->char_temp);
-		p->char_temp = NULL;
-	}
-	if (getenv != NULL)
-		free(getenv);
+	handle_dollar_anal_env(p, data);
 	return (ptr);
 }
 
