@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:55:48 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:55:49 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/04 10:13:50 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	is_new_token(char c, char c2)
 		return (LESS);
 	else if (c == '>' && c2 != '>')
 		return (GREAT);
-	else if (c == '|' && c2 != '|')
+	else if (c == '|')
 		return (PIPE);
 	return (0);
 }
