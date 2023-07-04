@@ -6,7 +6,7 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:23:22 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 13:46:01 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:57:09 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,31 @@ char	*quote(char *export, int i, int j)
 	return (export);
 }
 
-static void	sort_export_ascii(char **export, int size, int i, int j)
+static void	sort_export_ascii2(int i, int size, char **export)
 {
+	int		j;
 	char	*temp;
+
+	j = 0;
+	while (j < size - i - 1)
+	{
+		if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
+		{
+			temp = export[j];
+			export[j] = export[j + 1];
+			export[j + 1] = temp;
+		}
+		j++;
+	}
+}
+
+static void	sort_export_ascii(char **export, int size, int i)
+{
 	char	*join;
 
 	while (i < size)
 	{
-		j = 0;
-		while (j < size - i - 1)
-		{
-			if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
-			{
-				temp = export[j];
-				export[j] = export[j + 1];
-				export[j + 1] = temp;
-			}
-			j++;
-		}
+		sort_export_ascii2(i, size, export);
 		i++;
 	}
 	i = 0;
@@ -77,5 +84,5 @@ void	init_export(t_data *data, int i)
 		i++;
 	}
 	data->export[i] = NULL;
-	sort_export_ascii(data->export, array_size(data->export), 0, 0);
+	sort_export_ascii(data->export, array_size(data->export), 0);
 }
