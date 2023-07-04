@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 14:00:07 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:08:12 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 void	init_stuff(t_data *data, char **prompt)
 {
 	data->rt = 0;
+	data->n = 0;
+	while (data->n < 10)
+		data->childs_pid[data->n++] = -1;
+	data->n = 0;
 	data->fd_in[0] = -1;
 	data->fd_in[1] = -1;
 	data->tree = NULL;

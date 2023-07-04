@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:28:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 08:51:44 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:09:37 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	close_free_pipes(t_data *data)
 	data->pipes = NULL;
 }
 
-void	executor(t_data *data, pid_t fork_id, int status)
+void	executor(t_data *data, int status)
 {
 	t_bt	*tree;
 
@@ -65,7 +65,7 @@ void	executor(t_data *data, pid_t fork_id, int status)
 	if (init_executor(data))
 		return ;
 	if (ft_strncmp(tree->args, "\0", 1) != 0)
-		redirect_pipe(&fork_id, tree, data);
+		redirect_pipe(tree, data);
 	else
 		write(data->pipes[0][1], "\0", 1);
 	if (data->fd_in[0] > 0)
@@ -78,10 +78,12 @@ void	executor(t_data *data, pid_t fork_id, int status)
 		if (is_new_token(tree->args[0], tree->args[1]) == GREATGREAT)
 			tree = redirect_great(tree->left, data, GREATGREAT, 0);
 		if (is_new_token(tree->args[0], tree->args[1]) == PIPE)
-			redirect_pipe(&fork_id, tree->left, data);
+			redirect_pipe(tree->left, data);
 		tree = tree->right;
 	}
-	waitpid(fork_id, &status, 0);
+	
+	while (data->childs_pid[data->n] > 0)
+		waitpid(data->childs_pid[data->n++], &status, 0);
 	data->rt = WEXITSTATUS(status);
 	close_free_pipes(data);
 }

@@ -113,7 +113,7 @@ int	main(void)
 				continue ;
 			}
 			data.tree = create_tree(data.tokens, data.tree, 0);
-			executor(&data, 0, 0);
+			executor(&data, 0); 
 			free_after_execution(&data);
 		}
 	}

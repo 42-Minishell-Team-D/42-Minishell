@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:29:17 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 12:26:16 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:08:35 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char *join, t_bt *tree)
 	return (data->rt);
 }
 
-static void	redirect_pipe_fork(pid_t *fork_id, t_bt *tree, t_data *data)
+static void	redirect_pipe_fork(t_bt *tree, t_data *data)
 {
-	(*fork_id) = fork();
-	if ((*fork_id) == 0)
+	data->childs_pid[tree->id / 2] = fork();
+	if (data->childs_pid[tree->id / 2]  == 0)
 	{
 		init_child(tree->id / 2, tree, data);
 		pipe_child(data->split, tree, data);
@@ -59,7 +59,7 @@ static void	redirect_pipe_fork(pid_t *fork_id, t_bt *tree, t_data *data)
 	}
 }
 
-void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
+void	redirect_pipe(t_bt *tree, t_data *data)
 {
 	int		id;
 
@@ -69,7 +69,7 @@ void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data)
 	ft_strncmp(data->split[1], "-n\0", 3) == 0 && data->split[1] != NULL)
 		data->slash_r = 1;
 	if (builtin_checker_parent(data->split) > 0)
-		redirect_pipe_fork(fork_id, tree, data);
+		redirect_pipe_fork(tree, data);
 	else
 		builtin_executor_parent(data->split, data, data->join, tree);
 	if (id == 0 && tree->right != NULL && data->pipes[id][1] > 0)

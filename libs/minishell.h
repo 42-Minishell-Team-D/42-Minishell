@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 17:06:19 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:08:39 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct minishell
 {
 	int					rt;
 	char				*prompt;
+	pid_t				childs_pid[10];
+	int					n;
 	int					fd_in[2];
 	char				**tokens;
 	char				**env;
@@ -118,12 +120,12 @@ void	free_if_err(char **var, int exit_code);
 void	free_tree(t_bt *tree);
 
 /*		src/executor	*/
-void	executor(t_data *data, pid_t fork_id, int status);
+void	executor(t_data *data, int status);
 int		init_executor(t_data *data);
 void	close_free_pipes(t_data *data);
 void	close_unused_pipes(int i, t_bt *tree, t_data *data);
 int		get_number_of_processes(t_bt *tree);
-void	redirect_pipe(pid_t *fork_id, t_bt *tree, t_data *data);
+void	redirect_pipe(t_bt *tree, t_data *data);
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option, int rd);
 char	**clear_quotes(char **split);
 void	init_child(int id, t_bt *tree, t_data *data);

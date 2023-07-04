@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:34:23 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 13:10:10 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:10:14 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	free_after_execution(t_data *data)
 		close(data->fd_in[1]);
 	data->fd_in[0] = -1;
 	data->fd_in[1] = -1;
+	data->n = 0;
+	while (data->n < 10)
+		data->childs_pid[data->n++] = -1;
+	data->n = 0;
 }
 
 void	free_at_exit(t_data *data)
