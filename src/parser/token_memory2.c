@@ -6,16 +6,33 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 09:14:58 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 09:18:17 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:38:25 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
 
-static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
+static void	handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 {
 	char	*getenv;
 
+	p->char_temp = ft_calloc(p->temp + 1, sizeof(char));
+	if (p->char_temp == NULL)
+		free_if_err(data->tokens, 1);
+	ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
+	p->temp = 0;
+	getenv = ft_getenv(p->char_temp, data->env);
+	if (getenv)
+	{
+		p->token_alloc[p->i] += ft_strlen(getenv);
+		free(p->char_temp);
+		p->char_temp = NULL;
+	}
+	free(getenv);
+}
+
+static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
+{
 	ptr++;
 	if (*ptr == '?')
 	{
@@ -33,19 +50,7 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 			ptr++;
 			p->temp++;
 		}
-		p->char_temp = ft_calloc(p->temp + 1, sizeof(char));
-		if (p->char_temp == NULL)
-			return (NULL);
-		ft_strlcpy(p->char_temp, ptr - p->temp, p->temp + 1);
-		p->temp = 0;
-		getenv = ft_getenv(p->char_temp, data->env);
-		if (getenv)
-		{
-			p->token_alloc[p->i] += ft_strlen(getenv);
-			free(p->char_temp);
-			p->char_temp = NULL;
-		}
-		free(getenv);
+		handle_dollar_2(ptr, p, data);
 	}
 	else
 		p->token_alloc[p->i]++;
@@ -74,7 +79,7 @@ static char	*handle_special_char(char *ptr, t_parser *p)
 	return (ptr);
 }
 
-void token_ptr_quote(char *ptr, t_parser *p)
+void	token_ptr_quote(char *ptr, t_parser *p)
 {
 	if (*ptr == '"' && !p->in_single)
 	{
