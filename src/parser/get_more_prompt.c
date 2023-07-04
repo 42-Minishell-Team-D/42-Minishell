@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 08:59:42 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/04 09:58:31 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ static int	get_more_prompt_hduc(t_data *data, int baal, t_parser *p, char *join)
 		return (1);
 	if (ft_strncmp("\0", data->tmp, 3) == 0)
 	{
-		free(data->tmp);
-		return (1);		
+		update_prompt(data, p);
+		if (baal == 0)
+			pipe(data->fd_in);
+		return (0);
 	}
 	join = ft_strjoin(p->char_temp, data->tmp);
 	free(p->char_temp);
@@ -76,8 +78,6 @@ static int	get_more_prompt_hduc(t_data *data, int baal, t_parser *p, char *join)
 	free(join);
 	free(data->tmp);
 	update_prompt(data, p);
-	if (baal == 0)
-		pipe(data->fd_in);
 	return (0);
 }
 
@@ -85,16 +85,7 @@ static int	get_more_prompt_pipe(t_data *data, char *join)
 {
 	data->tmp = readline("minipipe> ");
 	if (data->tmp == NULL)
-	{
-		free(data->tmp);
-		return(ft_printf_fd(1, "\n"));		
-	}
-	else if (data->tmp[0] == '|')
-	{
-		free(data->tmp);
-		printf("minishell: syntax error ( °︠ ‿ ︡°)\n");
-		return (1);		
-	}
+		return(1);
 	join = ft_strjoin(data->prompt, data->tmp);
 	free(data->prompt);
 	data->prompt = ft_strdup(join);
