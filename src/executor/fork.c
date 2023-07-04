@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:28:55 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 13:07:46 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:17:24 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,38 @@ void	init_child(int id, t_bt *tree, t_data *data)
 	(void)id;
 }
 
-void	exec_loop(char **split, t_data *data)
+static void	exec_loop_2(char **split, char *tmp, int i, t_data *data)
 {
-	char	*tmp;
 	char	**paths;
 	char	**paths2;
-	int		i;
 
+	paths = ft_split(tmp, ':');
+	free(tmp);
+	paths2 = (char **)ft_calloc(array_size(paths) + 1, sizeof(char *));
+	while (paths[i] != NULL)
+	{
+		paths2[i] = ft_strjoin(paths[i], "/");
+		free(paths[i++]);
+	}
+	free(paths);
 	i = 0;
+	while (paths2[i] != NULL)
+	{
+		data->join = ft_strjoin(paths2[i], split[0]);
+		free(paths2[i++]);
+		execve(data->join, split, data->env);
+		free(data->join);
+	}
+	free(paths2);
+}
+
+static void	exec_loop(char **split, t_data *data)
+{
+	char	*tmp;
+
 	tmp = ft_getenv("PATH", data->env);
 	if (tmp != NULL)
-	{
-		paths = ft_split(tmp, ':');
-		free(tmp);
-		paths2 = (char **)ft_calloc(array_size(paths) + 1, sizeof(char *));
-		while (paths[i] != NULL)
-		{
-			paths2[i] = ft_strjoin(paths[i], "/");
-			i++;
-		}
-		i = 0;
-		while (paths[i])
-			free(paths[i++]);
-		free(paths);
-		i = 0;
-		while (paths2[i] != NULL)
-		{
-			data->join = ft_strjoin(paths2[i], split[0]);
-			free(paths2[i]);
-			execve(data->join, split, data->env);
-			free(data->join);
-			i++;
-		}
-		free(paths2);
-	}
-	(void)split;
+		exec_loop_2(split, tmp, 0, data);
 }
 
 void	pipe_child(char **split, t_bt *tree, t_data *data)
