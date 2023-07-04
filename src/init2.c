@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:23:22 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 13:57:09 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:50:33 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ static void	sort_export_ascii(char **export, int size, int i)
 
 void	init_export(t_data *data, int i)
 {
-	extern char	**environ;
-
 	data->export = NULL;
 	data->export = malloc(sizeof(char *) * (array_size(data->env) + 1));
 	if (!data->export)
