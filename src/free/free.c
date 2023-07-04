@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:34:23 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 09:52:39 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:10:10 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void	free_after_execution(t_data *data)
 	if (data->tokens != NULL)
 		free_tokens(data->tokens);
 	if (data->prompt != NULL)
-	{
 		free(data->prompt);
-		// data->prompt = NULL;
-	}
 	if (data->fd_in[0] > 0)
 		close(data->fd_in[0]);
 	if (data->fd_in[1] > 0)
