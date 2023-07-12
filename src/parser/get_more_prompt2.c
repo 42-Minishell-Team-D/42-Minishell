@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_more_prompt2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:45:53 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 17:01:02 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:20:39 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,12 @@ int	check_valid_last_pipe(char *prompt)
 {
 	int	i;
 
+	if (prompt[0] == '\0')
+		return (0);
 	i = ft_strlen(prompt) - 1;
 	if (prompt[0] == '|')
 		return (0);
-	while (prompt[i] == ' ' && i != 0)
+	while (prompt[i] == ' ' && prompt[i] == '\t' && i > 0)
 		i--;
 	if (prompt[i] == '|')
 		return (1);
