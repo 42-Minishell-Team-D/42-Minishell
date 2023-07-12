@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:40:53 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/12 11:33:21 by loris            ###   ########.fr       */
+/*   Updated: 2023/07/12 11:43:46 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,11 @@ int	main(void)
 	while (data.prompt)
 	{
 		data.prompt = get_prompt(&data);
+		if (data.prompt == NULL)
+		{
+			write(1, "exit\n", 5);
+			break ;
+		}
 		if (data.prompt != NULL && check_empty_prompt(&data) == 0)
 		{
 			free(data.prompt);
