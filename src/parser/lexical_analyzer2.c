@@ -99,21 +99,15 @@ char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data)
 {
 	ptr++;
 	if (*ptr == '?')
-	{
-		data->itoa = ft_itoa(data->rt);
-		p->char_temp = ft_strjoin(p->token, data->itoa);
-		ft_strlcpy(p->token, p->char_temp, ft_strlen(p->char_temp) + 1);
-		p->n += ft_strlen(data->itoa);
-		free(data->itoa);
-		free(p->char_temp);
-		ptr++;
-	}
+		ptr = hda_join(ptr, data->rt, p, data);
 	else if (*ptr == '\'' || *ptr == '\"')
 		ptr = hda_quotes(ptr, p);
 	else if (*ptr != '\0' && *ptr != ' ')
 		ptr = handle_dollar_anal_2(ptr, p, data);
 	else
 		p->token[p->n++] = '$';
+	if (*ptr == '$')
+		ptr = hda_join(ptr, data->ms_id, p, data);
 	if (*ptr == '$')
 		ptr = handle_dollar_anal(ptr, p, data);
 	return (ptr);

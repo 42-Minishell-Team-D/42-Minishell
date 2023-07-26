@@ -12,6 +12,18 @@
 
 #include "../../libs/minishell.h"
 
+char	*hda_join(char *ptr, int itoa, t_parser *p, t_data *data)
+{
+	data->itoa = ft_itoa(itoa);
+	p->char_temp = ft_strjoin(p->token, data->itoa);
+	ft_strlcpy(p->token, p->char_temp, ft_strlen(p->char_temp) + 1);
+	p->n += ft_strlen(data->itoa);
+	free(data->itoa);
+	free(p->char_temp);
+	ptr++;
+	return (ptr);
+}
+
 char	*hda_quotes(char *ptr, t_parser *p)
 {
 	char	temp;

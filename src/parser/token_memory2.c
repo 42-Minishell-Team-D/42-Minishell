@@ -32,7 +32,7 @@ static void	handle_dollar_2(char *ptr, t_parser *p, t_data *data)
 static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 {
 	if (*ptr == '?')
-		ptr = hda_tkn_question(ptr, p, data);
+		ptr = hda_tkn_join(ptr, data->rt, p, data);
 	else if (*ptr == '\'' || *ptr == '\"')
 		ptr = hda_tkn_quotes(ptr, p);
 	else if (*ptr != '\0' && *ptr != ' ')
@@ -50,6 +50,8 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 	}
 	else
 		p->token_alloc[p->i]++;
+	if (*ptr == '$')
+		ptr = hda_tkn_join(ptr, data->ms_id, p, data);
 	if (*ptr == '$')
 		ptr = handle_dollar(ptr, p, data);
 	return (ptr);

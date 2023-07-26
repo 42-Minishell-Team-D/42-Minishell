@@ -68,6 +68,7 @@ typedef struct parser
 typedef struct minishell
 {
 	int					rt;
+	int					ms_id;
 	char				*prompt;
 	pid_t				childs_pid[10];
 	int					n;
@@ -99,10 +100,11 @@ int		exec_unset(char **split, t_data *data);
 /*		src/parser	*/
 void	reset_p_vars(t_parser *p);
 char	*hda_quotes(char *ptr, t_parser *p);
+char	*hda_join(char *ptr, int itoa, t_parser *p, t_data *data);
 int		lexical_analyzer(t_data *data, t_parser *p, char *ptr);
 void	malloc_token(t_data *data, t_parser *p);
 char	*hda_tkn_quotes(char *ptr, t_parser *p);
-char	*hda_tkn_question(char *ptr, t_parser *p, t_data *data);
+char	*hda_tkn_join(char *ptr, int itoa, t_parser *p, t_data *data);
 void	token_memory_alloc(t_data *data, t_parser *p);
 char	*lexical_prompt_filter(char *prompt);
 void	lexical_filter(t_data *data, t_parser *p);

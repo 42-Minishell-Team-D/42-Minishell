@@ -28,6 +28,7 @@ void	init_sa(struct sigaction sa, struct sigaction sb)
 void	init_stuff(t_data *data, char **prompt)
 {
 	data->rt = 0;
+	data->ms_id = getpid();
 	data->n = 0;
 	while (data->n < 10)
 		data->childs_pid[data->n++] = -1;

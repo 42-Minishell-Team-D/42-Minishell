@@ -12,9 +12,9 @@
 
 #include "../../libs/minishell.h"
 
-char	*hda_tkn_question(char *ptr, t_parser *p, t_data *data)
+char	*hda_tkn_join(char *ptr, int itoa, t_parser *p, t_data *data)
 {
-	data->itoa = ft_itoa(data->rt);
+	data->itoa = ft_itoa(itoa);
 	p->token_alloc[p->i] += ft_strlen(data->itoa);
 	free(data->itoa);
 	ptr++;
