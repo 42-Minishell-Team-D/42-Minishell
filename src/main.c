@@ -67,11 +67,14 @@
 // 	printf("\n");
 // }
 
+// if (data->slash_r == 0)
+	// write(1, "\r", 1);
+// data->slash_r = 0; 
+// put betwen like 75 and 76 and delete (void)data to put as it was
+
 static char	*get_prompt(t_data *data)
 {
-	if (data->slash_r == 0)
-		write(1, "\r", 1);
-	data->slash_r = 0;
+	(void)data;
 	return (readline("minishell$ "));
 }
 

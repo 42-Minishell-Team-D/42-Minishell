@@ -59,15 +59,17 @@ static void	redirect_pipe_fork(t_bt *tree, t_data *data)
 	}
 }
 
+// if (ft_strncmp(data->split[0], "echo\0", 7) == 0 &&
+// ft_strncmp(data->split[1], "-n\0", 3) == 0 && data->split[1] != NULL)
+	// data->slash_r = 1;
+// included betweet 71 and 72 for slash_r
+// (probably not needed anymore)
 void	redirect_pipe(t_bt *tree, t_data *data)
 {
 	int		id;
 
 	id = tree->id / 2;
 	data->split = clear_quotes(ft_split_args(tree->args, &data->p));
-	if (ft_strncmp(data->split[0], "echo\0", 7) == 0 && \
-	ft_strncmp(data->split[1], "-n\0", 3) == 0 && data->split[1] != NULL)
-		data->slash_r = 1;
 	if (builtin_checker_parent(data->split) > 0)
 		redirect_pipe_fork(tree, data);
 	else
