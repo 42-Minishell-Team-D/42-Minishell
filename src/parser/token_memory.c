@@ -12,6 +12,20 @@
 
 #include "../../libs/minishell.h"
 
+char	*hda_tkn_quotes(char *ptr, t_parser *p)
+{
+	char	temp;
+
+	temp = *ptr;
+	ptr++;
+	while (*ptr != '\0' && *ptr != temp)
+	{
+		p->token_alloc[p->i]++;
+		ptr++;
+	}
+	return (++ptr);
+}
+
 static void	malloc_token2(t_data *data, t_parser *p)
 {
 	reset_p_vars(p);

@@ -38,6 +38,8 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 		free(data->itoa);
 		ptr++;
 	}
+	else if (*ptr == '\'' || *ptr == '\"')
+		ptr = hda_tkn_quotes(ptr, p);
 	else if (*ptr != '\0' && *ptr != ' ')
 	{
 		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')

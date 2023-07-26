@@ -12,6 +12,20 @@
 
 #include "../../libs/minishell.h"
 
+char	*hda_quotes(char *ptr, t_parser *p)
+{
+	char	temp;
+
+	temp = *ptr;
+	ptr++;
+	while (*ptr != '\0' && *ptr != temp)
+	{
+		p->token[p->n++] = *ptr;
+		ptr++;
+	}
+	return (++ptr);
+}
+
 static void	lexical_quote_updater(char *ptr, t_parser *p)
 {
 	if (*ptr == '"' && !p->in_single)

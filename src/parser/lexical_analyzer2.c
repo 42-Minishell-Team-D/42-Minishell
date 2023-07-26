@@ -108,6 +108,8 @@ char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data)
 		free(p->char_temp);
 		ptr++;
 	}
+	else if (*ptr == '\'' || *ptr == '\"')
+		ptr = hda_quotes(ptr, p);
 	else if (*ptr != '\0' && *ptr != ' ')
 		ptr = handle_dollar_anal_2(ptr, p, data);
 	else
