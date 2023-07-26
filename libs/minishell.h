@@ -102,6 +102,7 @@ char	*hda_quotes(char *ptr, t_parser *p);
 int		lexical_analyzer(t_data *data, t_parser *p, char *ptr);
 void	malloc_token(t_data *data, t_parser *p);
 char	*hda_tkn_quotes(char *ptr, t_parser *p);
+char	*hda_tkn_question(char *ptr, t_parser *p, t_data *data);
 void	token_memory_alloc(t_data *data, t_parser *p);
 char	*lexical_prompt_filter(char *prompt);
 void	lexical_filter(t_data *data, t_parser *p);

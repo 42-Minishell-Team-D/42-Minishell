@@ -12,6 +12,15 @@
 
 #include "../../libs/minishell.h"
 
+char	*hda_tkn_question(char *ptr, t_parser *p, t_data *data)
+{
+	data->itoa = ft_itoa(data->rt);
+	p->token_alloc[p->i] += ft_strlen(data->itoa);
+	free(data->itoa);
+	ptr++;
+	return (ptr);
+}
+
 char	*hda_tkn_quotes(char *ptr, t_parser *p)
 {
 	char	temp;
