@@ -12,14 +12,13 @@
 
 #include "../../libs/minishell.h"
 
-int option_checker(char **split, int *n)
+int	option_checker(char **split, int *n)
 {
 	int	i;
-	int ret;
+	int	ret;
 
 	ret = 0;
 	(*n) = 1;
-
 	if (ft_strncmp(split[1], "-", 1) != 0)
 		return (0);
 	while (split[*n] != NULL && ft_strncmp(split[*n], "-", 1) == 0)
@@ -48,7 +47,6 @@ int	exec_echo(char **split)
 		write(1, "\n", 1);
 		return (0);
 	}
-	
 	dash = option_checker(split, &n);
 	while (split[n] != NULL)
 	{
@@ -62,6 +60,5 @@ int	exec_echo(char **split)
 	}
 	if (dash == 0)
 		ft_printf_fd(1, "\n");
-	return (0);	
+	return (0);
 }
-
