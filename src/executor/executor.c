@@ -65,6 +65,7 @@ static void	finish_executor(t_data *data)
 	while (data->childs_pid[data->n] >= 0)
 		waitpid(data->childs_pid[data->n++], &status, 0);
 	data->rt = WEXITSTATUS(status);
+	init_sa(data->sa, data->sb);
 	close_free_pipes(data);
 }
 

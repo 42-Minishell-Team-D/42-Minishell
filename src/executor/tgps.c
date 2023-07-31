@@ -76,6 +76,8 @@ int	init_executor(t_data *data)
 
 	i = 0;
 	init_pipes(data);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (i < get_number_of_processes(data->tree) - 1)
 	{
 		if (pipe(data->pipes[i++]) < 0)
