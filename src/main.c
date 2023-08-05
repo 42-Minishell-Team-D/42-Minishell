@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:40:53 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/08/05 17:18:31 by loris            ###   ########.fr       */
+/*   Updated: 2023/08/05 19:01:52 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ static int	main2(t_data *data)
 	if (data->fd_in[1] > 0)
 		close(data->fd_in[1]);
 	parser(data);
+	if (data->tokens[0] == NULL)
+		return (1);
 	if (data->tokens[0][0] == '\0')
 		return (1);
 	if (redirect_input_check(data) > 0)
