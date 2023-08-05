@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_more_prompt.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:40:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/07/04 18:40:32 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:18:32 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ static int	get_more_prompt_hduc(t_data *data, int b, t_parser *p, char *join)
 {
 	data->tmp = heredoc_readline(data, get_eof(data->prompt, p), "\0");
 	if (data->tmp == NULL)
+	{
+		printf("minishell: warning: here-document delimited by end-of-file\n");
 		return (1);
+	}
 	if (ft_strncmp("\0", data->tmp, 3) == 0)
 	{
 		update_prompt(data, p);
