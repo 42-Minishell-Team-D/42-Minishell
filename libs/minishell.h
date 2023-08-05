@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 19:34:47 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:16:40 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@
 # define GREAT 3
 # define PIPE 5
 
-typedef struct binary_tree
+typedef struct s_binary_tree
 {
 	char				*args;
 	int					id;
 	void				*data;
-	struct binary_tree	*left;
-	struct binary_tree	*right;
-	struct binary_tree	*parent;
+	struct s_binary_tree	*left;
+	struct s_binary_tree	*right;
+	struct s_binary_tree	*parent;
 }					t_bt;
 
-typedef struct parser
+typedef struct s_parser
 {
 	int		n;
 	int		i;
@@ -65,7 +65,7 @@ typedef struct parser
 	char	*token;
 }				t_parser;
 
-typedef struct minishell
+typedef struct s_minishell
 {
 	int					rt;
 	int					ms_id;
@@ -83,8 +83,8 @@ typedef struct minishell
 	int					**pipes;
 	struct sigaction	sa;
 	struct sigaction	sb;
-	struct parser		p;
-	struct binary_tree	*tree;
+	struct s_parser		p;
+	struct s_binary_tree	*tree;
 	int					slash_r;
 }					t_data;
 
