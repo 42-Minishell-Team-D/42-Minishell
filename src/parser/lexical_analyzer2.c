@@ -89,7 +89,6 @@ static char	*handle_dollar_anal_2(char *ptr, t_parser *p, t_data *data)
 		}
 		if (is_new_token(*ptr, *(ptr + 1)) > 1)
 			break ;
-		// ft_printf_fd(2, "p.in_double = %d\n", p->in_double);
 		ptr++;
 		p->temp++;
 	}
