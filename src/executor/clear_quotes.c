@@ -23,6 +23,7 @@ char	**clear_quotes(char **split)
 		{
 			split[i][ft_strlen(split[i]) - 1] = '\0';
 			delete_char_filter(&split[i][0]);
+			continue ;
 		}
 		i++;
 	}
