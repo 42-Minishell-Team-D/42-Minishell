@@ -22,50 +22,50 @@
 // 	printf("\n");
 // }
 
-void print_tree(t_bt *tree)
-{
-	t_bt	*left_tree;
+// void print_tree(t_bt *tree)
+// {
+// 	t_bt	*left_tree;
 
-	left_tree = tree;
-	printf("Tree:\n");
-	while (tree != NULL)
-	{
-		printf("ID: %i	Token: %s", tree->id, tree->args);
-		if (tree->left != NULL)
-			printf("	Left: %i", tree->left->id);
-		else
-			printf("	Left: NULL");
-		if (tree->right != NULL)
-			printf("print_tree	Right: %i", tree->right->id);
-		else
-			printf("	Right: NULL");
-		if (tree->parent != NULL)
-			printf("	Parent: %i", tree->parent->id);
-		else
-			printf("	Parent: NULL");
-		printf("\n");
-		if (tree->left != NULL)
-		{
-			left_tree = tree->left;
-			printf("ID: %i	Token: %s", left_tree->id, left_tree->args);
-			if (left_tree->left != NULL)
-				printf("	Left: %i", left_tree->left->id);
-			else
-				printf("	Left: NULL");
-			if (left_tree->right != NULL)
-				printf("	Right: %i", left_tree->right->id);
-			else
-				printf("	Right: NULL");
-			if (left_tree->parent != NULL)
-				printf("	Parent: %i", left_tree->parent->id);
-			else
-				printf("	Parent: NULL");
-			printf("\n");
-		}
-		tree = tree->right;
-	}
-	printf("\n");
-}
+// 	left_tree = tree;
+// 	printf("Tree:\n");
+// 	while (tree != NULL)
+// 	{
+// 		printf("ID: %i	Token: %s", tree->id, tree->args);
+// 		if (tree->left != NULL)
+// 			printf("	Left: %i", tree->left->id);
+// 		else
+// 			printf("	Left: NULL");
+// 		if (tree->right != NULL)
+// 			printf("print_tree	Right: %i", tree->right->id);
+// 		else
+// 			printf("	Right: NULL");
+// 		if (tree->parent != NULL)
+// 			printf("	Parent: %i", tree->parent->id);
+// 		else
+// 			printf("	Parent: NULL");
+// 		printf("\n");
+// 		if (tree->left != NULL)
+// 		{
+// 			left_tree = tree->left;
+// 			printf("ID: %i	Token: %s", left_tree->id, left_tree->args);
+// 			if (left_tree->left != NULL)
+// 				printf("	Left: %i", left_tree->left->id);
+// 			else
+// 				printf("	Left: NULL");
+// 			if (left_tree->right != NULL)
+// 				printf("	Right: %i", left_tree->right->id);
+// 			else
+// 				printf("	Right: NULL");
+// 			if (left_tree->parent != NULL)
+// 				printf("	Parent: %i", left_tree->parent->id);
+// 			else
+// 				printf("	Parent: NULL");
+// 			printf("\n");
+// 		}
+// 		tree = tree->right;
+// 	}
+// 	printf("\n");
+// }
 
 // if (data->slash_r == 0)
 	// write(1, "\r", 1);
@@ -111,7 +111,6 @@ static int	main2(t_data *data)
 	data->tree = create_tree(data->tokens, data->tree, 0);
 	if (redirect_input_check(data) > 0)
 	{
-		print_tree(data->tree);
 		free_after_execution(data);
 		return (1);
 	}
