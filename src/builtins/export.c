@@ -6,7 +6,7 @@
 /*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:11:11 by loris             #+#    #+#             */
-/*   Updated: 2023/08/10 16:05:01 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:53:31 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ static void	update_export(char *var, t_data *data)
 		free(data->tmp);
 		i++;
 	}
+	if (b == 1 && is_equal_sign(var) == 0)
+		return ;
 	update_export2(b, data, i, var);
 }
 
