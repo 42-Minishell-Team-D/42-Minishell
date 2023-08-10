@@ -45,26 +45,15 @@ static int	quote_split_handle(char *token, t_parser *p)
 		while (token[p->i] != '"' && token[p->i] != '\0')
 			p->i++;
 		delete_char_filter(&token[p->i]);
-		/*if (token[p->i + 1] == '"' && !p->in_single && !p->in_double)
-		{
-			delete_char_filter(&token[p->i]);
-			delete_char_filter(&token[p->i]);
-			return (1);
-		}
-		else
-			p->in_double = !p->in_double;
-			*/
+		return (1);
 	}
 	if (token[p->i] == '\'' && !p->in_single && !p->in_double)
 	{
-		if (token[p->i + 1] == '\'')
-		{
-			delete_char_filter(&token[p->i]);
-			delete_char_filter(&token[p->i]);
-			return (1);
-		}
-		else
-			p->in_single = !p->in_single;
+		delete_char_filter(&token[p->i]);
+		while (token[p->i] != '"' && token[p->i] != '\0')
+			p->i++;
+		delete_char_filter(&token[p->i]);
+		return (1);
 	}
 	return (0);
 }
