@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:09:59 by loris             #+#    #+#             */
-/*   Updated: 2023/08/10 17:19:34 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/08/10 23:26:21 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,34 @@ static int	exists_perms(const char *path, int option)
 	return (0);
 }
 
-static void	update_pwd(t_data *data, char *next_dir)
+static void	update_pwd(t_data *data)
 {
 	int		n;
-	char	pwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
 	n = 0;
+	getcwd(cwd, sizeof(cwd));
 	while (data->env[n] != NULL)
 	{
 		if (ft_strncmp(data->env[n], "PWD=", 4) == 0)
 		{
-			if (data->env[n] != NULL)
-				free(data->env[n]);
+			free(data->env[n]);
 			data->env[n] = NULL;
-			chdir(next_dir);
-			getcwd(pwd, sizeof(pwd));
-			data->env[n] = ft_strjoin("PWD=", pwd);
+			data->env[n] = ft_strjoin("PWD=", cwd);
 			break ;
+		}
+		n++;
+	}
+	n = 0;
+	while (data->export[n] != NULL)
+	{
+		if (ft_strncmp(&data->export[n][11], "PWD=", 4) == 0)
+		{
+			free(data->export[n]);
+			data->export[n] = NULL;
+			data->join = ft_strjoin("declare -x PWD=\"", cwd);
+			data->export[n] = ft_strjoin(data->join, "\"\0");
+			free(data->join);
 		}
 		n++;
 	}
@@ -48,19 +59,31 @@ static void	update_pwd(t_data *data, char *next_dir)
 static void	update_oldpwd(t_data *data)
 {
 	int		n;
-	char	pwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
 	n = 0;
+	getcwd(cwd, sizeof(cwd));
 	while (data->env[n] != NULL)
 	{
 		if (ft_strncmp(data->env[n], "OLDPWD=", 7) == 0)
 		{
-			if (data->env[n] != NULL)
-				free(data->env[n]);
+			free(data->env[n]);
 			data->env[n] = NULL;
-			getcwd(pwd, sizeof(pwd));
-			data->env[n] = ft_strjoin("OLDPWD=", pwd);
+			data->env[n] = ft_strjoin("OLDPWD=", cwd);
 			break ;
+		}
+		n++;
+	}
+	n = 0;
+	while (data->export[n] != NULL)
+	{
+		if (ft_strncmp(&data->export[n][11], "OLDPWD=", 7) == 0)
+		{
+			free(data->export[n]);
+			data->export[n] = NULL;
+			data->join = ft_strjoin("declare -x PWD=\"", cwd);
+			data->export[n] = ft_strjoin(data->join, "\"\0");
+			free(data->join);
 		}
 		n++;
 	}
@@ -78,7 +101,8 @@ static int	if_split_null(t_data *data)
 		return (1);
 	}
 	update_oldpwd(data);
-	update_pwd(data, home);
+	chdir(home);
+	update_pwd(data);
 	free(home);
 	return (0);
 }
@@ -102,6 +126,7 @@ int	exec_cd(char **split, t_data *data)
 		return (1);
 	}
 	update_oldpwd(data);
-	update_pwd(data, split[1]);
+	update_pwd(data);
+	chdir(split[1]);
 	return (0);
 }
