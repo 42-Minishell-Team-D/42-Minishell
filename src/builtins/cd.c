@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:09:59 by loris             #+#    #+#             */
-/*   Updated: 2023/07/04 19:21:58 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/08/10 17:19:34 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/minishell.h"
+
+static void	update_OLDPWD_PWD();
+{
+	
+}
 
 int	exec_cd(char **split, t_data *data)
 {
@@ -27,6 +32,7 @@ int	exec_cd(char **split, t_data *data)
 		}
 		free(home);
 		chdir(home);
+		update_OLDPWD_PWD();
 		return (0);
 	}
 	if (split[2] != NULL)
@@ -37,5 +43,6 @@ int	exec_cd(char **split, t_data *data)
 %s: No such file or directory\n", split[1]);
 		return (1);
 	}
+	update_OLDPWD_PWD();
 	return (0);
 }

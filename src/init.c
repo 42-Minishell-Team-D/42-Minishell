@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 18:55:07 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/08/10 17:03:24 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	init_env(t_data *data, int i)
 	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));
 	if (!data->env)
 		free_if_err(data->env, 1);
-	while (i < array_size(environ) - 2)
+	while (i < array_size(environ) - 1)
 	{
 		data->env[i] = ft_strjoin(environ[i], "\0");
 		i++;
