@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:23:22 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/07/04 17:50:33 by loris            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:05:00 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,36 @@ char	*quote(char *export, int i, int j)
 	return (export);
 }
 
-static void	sort_export_ascii2(int i, int size, char **export)
+void	sort_export_ascii(char **export, int size)
 {
+	int		i;
 	int		j;
 	char	*temp;
 
+	i = 0;
 	j = 0;
-	while (j < size - i - 1)
+	while (i < size)
 	{
-		if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
+		while (j < size - i - 1)
 		{
-			temp = export[j];
-			export[j] = export[j + 1];
-			export[j + 1] = temp;
+			if (ft_strncmp(export[j], export[j + 1], nb_char_max(export)) > 0)
+			{
+				temp = export[j];
+				export[j] = export[j + 1];
+				export[j + 1] = temp;
+			}
+			j++;
 		}
-		j++;
+		j = 0;
+		i++;
 	}
 }
 
-static void	sort_export_ascii(char **export, int size, int i)
+static void	add_declare_export(char **export, int size)
 {
+	int		i;
 	char	*join;
 
-	while (i < size)
-	{
-		sort_export_ascii2(i, size, export);
-		i++;
-	}
 	i = 0;
 	while (i < size)
 	{
@@ -82,5 +85,6 @@ void	init_export(t_data *data, int i)
 		i++;
 	}
 	data->export[i] = NULL;
-	sort_export_ascii(data->export, array_size(data->export), 0);
+	add_declare_export(data->export, array_size(data->export));
+	sort_export_ascii(data->export, array_size(data->export));
 }

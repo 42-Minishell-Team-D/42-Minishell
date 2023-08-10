@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:11:11 by loris             #+#    #+#             */
-/*   Updated: 2023/07/03 22:47:08 by loris            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:05:01 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	exec_export(char **split, t_data *data, t_bt *tree)
 				if (is_equal_sign(split[i]) == 1)
 					update_env(split[i], data, NULL, i);
 				update_export(split[i], data);
+				sort_export_ascii(data->export, array_size(data->export));
 			}
 			i++;
 		}

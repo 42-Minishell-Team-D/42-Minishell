@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:56:41 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/08/05 18:16:40 by loris            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:05:21 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	init_export(t_data *data, int i);
 void	init_sa(struct sigaction sa, struct sigaction sb);
 void	init_stuff(t_data *data, char **prompt);
 char	*quote(char *export, int i, int j);
+void	sort_export_ascii(char **export, int size);
 
 /*			src/utils1.c		*/
 int		array_size(char **s);
