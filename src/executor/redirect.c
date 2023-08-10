@@ -79,7 +79,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	else if (id > 0 && tree->parent->right != NULL && data->pipes[id][1] > 0)
 		close(data->pipes[id][1]);
 	id = 0;
-	while (data->split[id])
+	while (data->split[id] != NULL)
 		free(data->split[id++]);
 	free(data->split);
 }
@@ -100,7 +100,7 @@ failed to open/create file :/\n", tree->args);
 		return (tree->parent);
 	}
 	rd = read(data->pipes[tree->id / 2 - 1][0], buf, 1024);
-	while (rd > 0)
+	while (buf[0] != '\0' && rd > 0)
 	{
 		write(fd, buf, rd);
 		if (ft_strncmp(data->tokens[tree->id / 2 - 1], "\0", 1) == 0)

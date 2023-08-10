@@ -62,5 +62,6 @@ char	**ft_split_args(char *token, t_parser *p)
 	split[p->n] = (char *)ft_calloc(sizeof(char), p->i + 1 - p->temp);
 	ft_strlcpy(split[p->n++], &token[p->temp], p->i + 1 - p->temp);
 	split[p->n] = NULL;
+	reset_p_vars(p);
 	return (split);
 }
