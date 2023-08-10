@@ -69,7 +69,7 @@ void	redirect_pipe(t_bt *tree, t_data *data)
 	int		id;
 
 	id = tree->id / 2;
-	data->split = clear_quotes(ft_split_args(tree->args, &data->p));
+	data->split = ft_split_args(tree->args, &data->p);
 	if (builtin_checker_parent(data->split) > 0)
 		redirect_pipe_fork(tree, data);
 	else

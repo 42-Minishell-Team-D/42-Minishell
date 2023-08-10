@@ -120,7 +120,7 @@ static void update_SHLVL(t_data *data)
 	b = 0;
 	while (data->env[i] != NULL && b == 0)
 	{
-		ft_printf_fd(1, "data->env[i] = %s\n", data->env[i]);
+		// ft_printf_fd(1, "data->env[i] = %s\n", data->env[i]);
 		if (ft_strncmp(data->env[i], "SHLVL=", 6) == 0)
 			b = 1;
 		i++;
