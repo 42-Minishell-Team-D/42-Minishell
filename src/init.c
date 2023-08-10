@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/08/10 18:02:58 by lpenelon         ###   ########.fr       */
+/*   Updated: 2023/08/10 23:30:22 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void	handler(int sig, siginfo_t *id, void *content)
 	return ;
 }
 
-static int get_after_equal_sign(char *var)
+static int	get_after_equal_sign(char *var)
 {
-	int	i;
-	char *value;
-	int ret;
+	int		i;
+	char	*value;
+	int		ret;
 
 	i = 0;
 	ret = 0;
@@ -78,7 +78,7 @@ static int get_after_equal_sign(char *var)
 	return (ret);
 }
 
-static void	increment_SHLVL(t_data *data)
+static void	increment_shlvl(t_data *data)
 {
 	int	i;
 	int	value;
@@ -91,7 +91,9 @@ static void	increment_SHLVL(t_data *data)
 			value = get_after_equal_sign(data->env[i]);
 			if (data->env[i] != NULL)
 				free(data->env[i]);
-			data->env[i] = ft_strjoin("SHLVL=", ft_itoa(value + 1));
+			data->itoa = ft_itoa(value + 1);
+			data->env[i] = ft_strjoin("SHLVL=", data->itoa);
+			free(data->itoa);
 			break ;
 		}
 		i++;
@@ -129,7 +131,7 @@ static void update_SHLVL(t_data *data)
 	if (b == 0)	// SHLVL doesn't exist, create it to 0
 		add_to_env(data);
 	// increment SHLVL value by 1 or put to 1 if value is not numeric
-	increment_SHLVL(data);
+	increment_shlvl(data);
 }
 
 void	init_env(t_data *data, int i)
