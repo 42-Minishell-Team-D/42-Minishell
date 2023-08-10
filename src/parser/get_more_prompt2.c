@@ -22,7 +22,7 @@ int	speed_prompt(char *prompt, int *n)
 		if (prompt[*n] == '\0')
 			return (1);
 	}
-	if (prompt[*n] == '\'')
+	else if (prompt[*n] == '\'')
 	{
 		(*n)++;
 		while (prompt[*n] != '\0' && prompt[*n] != '\'')
@@ -99,7 +99,8 @@ int	check_valid_syntax(char *prompt)
 		return (1);
 	if (prompt[n] == '|')
 		return (1);
-	while (prompt[n])
+	n = 0;
+	while (prompt[n] != '\0')
 	{
 		if (speed_prompt(prompt, &n) == 1)
 			return (1);
