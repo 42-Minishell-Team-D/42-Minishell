@@ -89,7 +89,7 @@ typedef struct s_minishell
 }					t_data;
 
 /*			src/builtins/			*/
-int		exec_cd(char **split);
+int		exec_cd(char **split, t_data *data);
 int		exec_echo(char **split);
 int		exec_env(t_data *data);
 int		exec_exit(char **split, t_data *data, int i, char *join);

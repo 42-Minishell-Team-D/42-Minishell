@@ -12,18 +12,22 @@
 
 #include "../../libs/minishell.h"
 
-int	exec_cd(char **split)
+int	exec_cd(char **split, t_data *data)
 {
 	char	*home;
-
+	
 	home = NULL;
 	if (split[1] == NULL)
 	{
-		home = getenv("HOME");
-		chdir(home);
+		home = ft_getenv("HOME", data->env);
+		if (home == NULL)
+		{
+			ft_printf_fd(2, "minishell: cd: HOME not set\n");
+			return (1);
+		}
 		free(home);
+		chdir(home);
 		return (0);
-
 	}
 	if (split[2] != NULL)
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");

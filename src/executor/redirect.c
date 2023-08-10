@@ -30,7 +30,7 @@ char *join, t_bt *tree)
 {
 	data->rt = 1;
 	if (ft_strncmp(split[0], "cd\0", 3) == 0)
-		data->rt = exec_cd(split);
+		data->rt = exec_cd(split, data);
 	else if (ft_strncmp(split[0], "export\0", 7) == 0 && split[1] != NULL)
 		data->rt = exec_export(split, data, tree);
 	else if (ft_strncmp(split[0], "unset\0", 6) == 0 && \
