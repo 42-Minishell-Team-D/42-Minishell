@@ -44,13 +44,13 @@
 
 typedef struct s_binary_tree
 {
-	char				*args;
-	int					id;
-	void				*data;
+	char					*args;
+	int						id;
+	void					*data;
 	struct s_binary_tree	*left;
 	struct s_binary_tree	*right;
 	struct s_binary_tree	*parent;
-}					t_bt;
+}							t_bt;
 
 typedef struct s_parser
 {
@@ -67,25 +67,25 @@ typedef struct s_parser
 
 typedef struct s_minishell
 {
-	int					rt;
-	int					ms_id;
-	char				*prompt;
-	pid_t				childs_pid[10];
-	int					n;
-	char				*itoa;
-	int					fd_in[2];
-	char				**tokens;
-	char				**env;
-	char				*join;
-	char				*tmp;
-	char				**split;
-	char				**export;
-	int					**pipes;
-	struct sigaction	sa;
-	struct sigaction	sb;
-	struct s_parser		p;
+	int						rt;
+	int						ms_id;
+	char					*prompt;
+	pid_t					childs_pid[10];
+	int						n;
+	char					*itoa;
+	int						fd_in[2];
+	char					**tokens;
+	char					**env;
+	char					*join;
+	char					*tmp;
+	char					**split;
+	char					**export;
+	int						**pipes;
+	struct sigaction		sa;
+	struct sigaction		sb;
+	struct s_parser			p;
 	struct s_binary_tree	*tree;
-	int					slash_r;
+	int						slash_r;
 }					t_data;
 
 /*			src/builtins/			*/
@@ -103,6 +103,7 @@ char	*hda_quotes(char *ptr, t_parser *p);
 char	*hda_join(char *ptr, int itoa, t_parser *p, t_data *data);
 int		lexical_analyzer(t_data *data, t_parser *p, char *ptr);
 void	malloc_token(t_data *data, t_parser *p);
+void	delete_token(char **token);
 char	*hda_tkn_quotes(char *ptr, t_parser *p);
 char	*hda_tkn_join(char *ptr, int itoa, t_parser *p, t_data *data);
 void	token_memory_alloc(t_data *data, t_parser *p);

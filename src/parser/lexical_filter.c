@@ -12,7 +12,7 @@
 
 #include "../../libs/minishell.h"
 
-static void	delete_token(char **token)
+void	delete_token(char **token)
 {
 	char	**ptr;
 

@@ -60,6 +60,8 @@ static int	get_more_prompt_hduc(t_data *data, int b, t_parser *p, char *join)
 		update_prompt(data, p);
 		if (b == 0)
 			pipe(data->fd_in);
+		if (data->tmp != NULL)
+			free(data->tmp);
 		return (0);
 	}
 	join = ft_strjoin(p->char_temp, data->tmp);
