@@ -40,7 +40,7 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
 		{
 			if ((p->in_double == 0 && *ptr == '"') || *ptr == '\0'
-			|| (*ptr == '\'' && p->in_single == 0))
+				|| (*ptr == '\'' && p->in_single == 0))
 				break ;
 			if (is_new_token(*ptr, *(ptr + 1)) > 1)
 				break ;
