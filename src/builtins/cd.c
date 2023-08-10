@@ -15,7 +15,7 @@
 int	exec_cd(char **split, t_data *data)
 {
 	char	*home;
-	
+
 	home = NULL;
 	if (split[1] == NULL)
 	{
