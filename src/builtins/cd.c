@@ -36,6 +36,7 @@ static void	update_pwd(t_data *data, char *next_dir)
 			if (data->env[n] != NULL)
 				free(data->env[n]);
 			data->env[n] = NULL;
+			// exit(1);
 			chdir(next_dir);
 			getcwd(pwd, sizeof(pwd));
 			data->env[n] = ft_strjoin("PWD=", pwd);
