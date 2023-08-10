@@ -14,8 +14,17 @@
 
 int	exec_cd(char **split)
 {
+	char	*home;
+
+	home = NULL;
 	if (split[1] == NULL)
-		return (chdir(getenv("HOME")));
+	{
+		home = getenv("HOME");
+		chdir(home);
+		free(home);
+		return (0);
+
+	}
 	if (split[2] != NULL)
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
 	else if (chdir(split[1]) == -1)
