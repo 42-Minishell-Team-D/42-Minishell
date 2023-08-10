@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/08/10 23:30:22 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/08/10 23:31:21 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ static void add_to_env(t_data *data)
 
 static void update_SHLVL(t_data *data)
 {
-	int i;
-	int b;
+	int	i;
+	int	b;
 
 	i = 0;
 	b = 0;
