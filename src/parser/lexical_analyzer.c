@@ -38,21 +38,13 @@ char	*hda_quotes(char *ptr, t_parser *p)
 	return (++ptr);
 }
 
-static void	lexical_quote_updater(char *ptr, t_parser *p)
-{
-	if (*ptr == '"' && !p->in_single)
-		p->in_double = !p->in_double;
-	if (*ptr == '\'' && !p->in_double)
-		p->in_single = !p->in_single;
-}
-
 int	lexical_analyzer(t_data *data, t_parser *p, char *ptr)
 {
 	while (*ptr == ' ')
 		ptr++;
 	while (*ptr != '\0')
 	{
-		lexical_quote_updater(ptr, p);
+		quote_updater(ptr, p);
 		if (*ptr == '$' && !p->in_single)
 			ptr = handle_dollar_anal(ptr, p, data);
 		if (*ptr == '\0')

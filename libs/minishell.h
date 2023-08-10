@@ -102,6 +102,7 @@ int		exec_unset(char **split, t_data *data);
 /*		src/parser	*/
 void	reset_p_vars(t_parser *p);
 char	*hda_quotes(char *ptr, t_parser *p);
+void	quote_updater(char *ptr, t_parser *p);
 char	*hda_join(char *ptr, int itoa, t_parser *p, t_data *data);
 int		lexical_analyzer(t_data *data, t_parser *p, char *ptr);
 void	malloc_token(t_data *data, t_parser *p);
