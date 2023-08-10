@@ -41,6 +41,8 @@
 # define LESS 4
 # define GREAT 3
 # define PIPE 5
+# define EXISTS 100
+# define PERMS 200
 
 typedef struct s_binary_tree
 {
