@@ -36,7 +36,7 @@ static int	determine_args(char *ptr, t_parser *p)
 	return (p->n + 1);
 }
 
-static int	quote_split_handle(char *token, t_parser *p)
+/*static int	quote_split_handle(char *token, t_parser *p)
 {
 	if (token[p->i] == '"' && !p->in_single)
 	{
@@ -63,7 +63,7 @@ static int	quote_split_handle(char *token, t_parser *p)
 			p->in_single = !p->in_single;
 	}
 	return (0);
-}
+}*/
 
 char	**ft_split_args(char *token, t_parser *p)
 {
@@ -76,8 +76,31 @@ char	**ft_split_args(char *token, t_parser *p)
 	reset_p_vars(p);
 	while (token[p->i])
 	{
-		if (quote_split_handle(token, p) == 1)
-			continue ;
+		// if (quote_split_handle(token, p) == 1)
+		// 	continue ;
+		if (token[p->i] == '"' && !p->in_single)
+		{
+			if (token[p->i + 1] == '"' && !p->in_single && !p->in_double)
+			{
+				delete_char_filter(&token[p->i]);
+				delete_char_filter(&token[p->i]);
+				continue ;
+			}
+			else
+				p->in_double = !p->in_double;
+
+			}
+		if (token[p->i] == '\'' && !p->in_single && !p->in_double)
+		{
+			if (token[p->i + 1] == '\'')
+			{
+				delete_char_filter(&token[p->i]);
+				delete_char_filter(&token[p->i]);
+				continue ;
+			}
+			else
+				p->in_single = !p->in_single;
+		}
 		if (token[p->i] == ' ' && !p->in_double && !p->in_single)
 		{
 			split[p->n] = (char *)ft_calloc(sizeof(char), p->i + 1 - p->temp);
