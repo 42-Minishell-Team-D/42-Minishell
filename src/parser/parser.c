@@ -48,6 +48,13 @@ void	parser(t_data *data)
 	p->in_double = 0;
 	p->in_single = 0;
 	lexical_analyzer(data, p, data->prompt);
+
+	int	i = 0;
+	while (data->tokens[i] != NULL)
+	 	printf("token = %s\n", data->tokens[i++]);
+	printf("---------------------------\n");
+	exit(1);
+		
 	if (p->token != NULL)
 		free(p->token);
 	reset_p_vars(p);
@@ -62,8 +69,3 @@ void	parser(t_data *data)
 }
 
 //	Parser Print	
-	// int	i = 0;
-	// while (data->tokens[i] != NULL)
-	//  	printf("token = %s\n", data->tokens[i++]);
-	// printf("---------------------------\n");
-	// exit(1);
