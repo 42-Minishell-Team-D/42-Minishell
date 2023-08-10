@@ -103,6 +103,8 @@ failed to open/create file :/\n", tree->args);
 	while (rd > 0)
 	{
 		write(fd, buf, rd);
+		if (ft_strncmp(data->tokens[tree->id / 2 - 1], "\0", 1) == 0)
+			close(data->pipes[tree->id / 2 - 1][0]);
 		rd = read(data->pipes[tree->id / 2 - 1][0], buf, 1024);
 	}
 	close(fd);

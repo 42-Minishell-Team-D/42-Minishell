@@ -59,7 +59,6 @@ void	parser(t_data *data)
 	if (is_new_token(data->tokens[0][0], data->tokens[0][1]) > 0 && \
 	ft_strncmp(data->tokens[0], "|\0", 2) != 0)
 		add_first_empty_token(data);
-	
 }
 
 //	Parser Print	

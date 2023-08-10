@@ -19,7 +19,7 @@ static char	*handle_special_char_2_anal(char *ptr, int special,
 	{
 		data->tokens[p->i][0] = '<';
 		data->tokens[p->i++][1] = '<';
-		re<<ok | turn (ptr + 2);
+		return (ptr + 2);
 	}
 	else if (special == PIPE)
 	{
