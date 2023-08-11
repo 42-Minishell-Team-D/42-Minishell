@@ -17,14 +17,16 @@ static void	free_and_exit(t_data *data, int ret, char *join, char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	while (split[i] != NULL)
 		free(split[i++]);
-	free(split);
-	free(join);
+	if (split != NULL)
+		free(split);
+	if (join != NULL)
+		free(join);
 	free_after_execution(data);
 	rl_clear_history();
 	free_at_exit(data);
-	exit (ret);
+	exit(ret);
 }
 
 int	exec_exit_else(char **split, t_data *data, int i, char *join)

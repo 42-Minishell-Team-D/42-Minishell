@@ -47,6 +47,7 @@ static void	update_pwd(t_data *data, int n)
 			data->join = ft_strjoin("declare -x PWD=\"", cwd);
 			data->export[n] = ft_strjoin(data->join, "\"\0");
 			free(data->join);
+			data->join = NULL;
 		}
 		n++;
 	}
@@ -76,6 +77,7 @@ static void	update_oldpwd(t_data *data, int n)
 			data->join = ft_strjoin("declare -x OLDPWD=\"", cwd);
 			data->export[n] = ft_strjoin(data->join, "\"\0");
 			free(data->join);
+				data->join = NULL;
 		}
 		n++;
 	}
