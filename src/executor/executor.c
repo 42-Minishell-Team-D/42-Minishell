@@ -79,7 +79,7 @@ void	executor(t_data *data)
 	if (ft_strncmp(tree->args, "\0", 1) != 0)
 		redirect_pipe(tree, data);
 	else
-		write(data->pipes[0][1], "\0", 1);
+		write(data->pipes[0][1], "\0", 1);	
 	if (data->fd_in[0] > 0)
 		close(data->fd_in[0]);
 	tree = tree->right;

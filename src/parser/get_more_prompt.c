@@ -60,8 +60,6 @@ static int	get_more_prompt_hduc(t_data *data, int b, t_parser *p, char *join)
 		update_prompt(data, p);
 		if (b == 0)
 			pipe(data->fd_in);
-		if (data->tmp != NULL)
-			free(data->tmp);
 		return (0);
 	}
 	join = ft_strjoin(p->char_temp, data->tmp);
@@ -106,6 +104,9 @@ int	get_more_prompt(t_data *data, t_parser *p, int b)
 		if (get_more_prompt_pipe(data, NULL) == 1)
 			return (1);
 	}
+	ft_printf_fd(2, "data->prompt = %s\n", data->prompt);
+	if (ft_strlen(data->prompt) == 0)
+		return (1);
 	if (check_valid_last_pipe(data->prompt) == 1 || \
 	(check_valid_heredoc(data->prompt) == 1))
 		get_more_prompt(data, p, 1);
