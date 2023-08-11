@@ -5,7 +5,7 @@ LIBS = -lreadline
 RM = rm
 LIBFT = ./libs/libft/libft.a
 FT_PRINTF_FD = ./libs/ft_printf_fd/libftprintf.a
-FILESC = ./src/main.c ./src/init.c ./src/init2.c \
+FILESC = ./src/main.c ./src/init.c ./src/init2.c ./src/init3.c \
 		./src/builtins/cd.c ./src/builtins/echo.c ./src/builtins/env.c	./src/builtins/exit.c \
 		./src/builtins/export.c ./src/builtins/export2.c ./src/builtins/pwd.c ./src/builtins/unset.c \
 		./src/parser/lexical_analyzer.c ./src/parser/lexical_analyzer2.c \

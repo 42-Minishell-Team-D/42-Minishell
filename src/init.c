@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:21:38 by lpenelon          #+#    #+#             */
-/*   Updated: 2023/08/10 23:31:21 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/08/11 10:09:42 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,90 +60,4 @@ void	handler(int sig, siginfo_t *id, void *content)
 		rl_redisplay();
 	}
 	return ;
-}
-
-static int	get_after_equal_sign(char *var)
-{
-	int		i;
-	char	*value;
-	int		ret;
-
-	i = 0;
-	ret = 0;
-	while (var[i] != '\0' && var[i] != '=')
-		i++;
-	value = ft_substr(var, i + 1, 500);
-	ret = ft_atoi(value);
-	free(value);
-	return (ret);
-}
-
-static void	increment_shlvl(t_data *data)
-{
-	int	i;
-	int	value;
-
-	i = 0;
-	while (data->env[i] != NULL)
-	{
-		if (ft_strncmp(data->env[i], "SHLVL=", 6) == 0)
-		{
-			value = get_after_equal_sign(data->env[i]);
-			if (data->env[i] != NULL)
-				free(data->env[i]);
-			data->itoa = ft_itoa(value + 1);
-			data->env[i] = ft_strjoin("SHLVL=", data->itoa);
-			free(data->itoa);
-			break ;
-		}
-		i++;
-	}
-}
-
-static void add_to_env(t_data *data)
-{
-	int size;
-
-	size = array_size(data->env);
-	// data->env = ft_realloc(data->env, sizeof(char *) *
-	// (size + 2));
-	// if (data->env == NULL)
-	// 	return ;
-	data->env[size] = ft_strdup("SHLVL=0");
-	// data->env[size + 1] = NULL;
-}
-
-static void update_SHLVL(t_data *data)
-{
-	int	i;
-	int	b;
-
-	i = 0;
-	b = 0;
-	while (data->env[i] != NULL && b == 0)
-	{
-		if (ft_strncmp(data->env[i], "SHLVL=", 6) == 0)
-			b = 1;
-		i++;
-	}
-	if (b == 0)
-		add_to_env(data);
-	increment_shlvl(data);
-}
-
-void	init_env(t_data *data, int i)
-{
-	extern char	**environ;
-
-	data->env = NULL;
-	data->env = calloc(sizeof(char *), (array_size(environ) + 2));
-	if (!data->env)
-		free_if_err(data->env, 1);
-	while (i < array_size(environ))
-	{
-		data->env[i] = ft_strjoin(environ[i], "\0");
-		i++;
-	}
-	update_SHLVL(data);
-	// data->env[i + 1] = NULL;
 }
