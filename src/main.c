@@ -76,7 +76,7 @@ static char	*get_prompt(t_data *data)
 static int	check_empty_prompt(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data->prompt[i] != '\0')
 	{
