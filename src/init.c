@@ -105,12 +105,12 @@ static void add_to_env(t_data *data)
 	int size;
 
 	size = array_size(data->env);
-	data->env = ft_realloc(data->env, sizeof(char *) * \
-	(size + 2));
-	if (data->env == NULL)
-		return ;
+	// data->env = ft_realloc(data->env, sizeof(char *) *
+	// (size + 2));
+	// if (data->env == NULL)
+	// 	return ;
 	data->env[size] = ft_strdup("SHLVL=0");
-	data->env[size + 1] = NULL;
+	// data->env[size + 1] = NULL;
 }
 
 static void update_SHLVL(t_data *data)
@@ -122,15 +122,12 @@ static void update_SHLVL(t_data *data)
 	b = 0;
 	while (data->env[i] != NULL && b == 0)
 	{
-		// ft_printf_fd(1, "data->env[i] = %s\n", data->env[i]);
 		if (ft_strncmp(data->env[i], "SHLVL=", 6) == 0)
 			b = 1;
 		i++;
 	}
-	// ft_printf_fd(1, "b = %i\n", b);
-	if (b == 0)	// SHLVL doesn't exist, create it to 0
+	if (b == 0)
 		add_to_env(data);
-	// increment SHLVL value by 1 or put to 1 if value is not numeric
 	increment_shlvl(data);
 }
 
@@ -139,14 +136,14 @@ void	init_env(t_data *data, int i)
 	extern char	**environ;
 
 	data->env = NULL;
-	data->env = malloc(sizeof(char *) * (array_size(environ) + 1));	// maybe change that to be more precise
+	data->env = calloc(sizeof(char *), (array_size(environ) + 2));
 	if (!data->env)
 		free_if_err(data->env, 1);
-	while (i < array_size(environ) - 1)
+	while (i < array_size(environ))
 	{
 		data->env[i] = ft_strjoin(environ[i], "\0");
 		i++;
 	}
 	update_SHLVL(data);
-	data->env[i + 1] = NULL;
+	// data->env[i + 1] = NULL;
 }
