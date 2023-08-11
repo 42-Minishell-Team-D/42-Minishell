@@ -12,6 +12,23 @@
 
 #include "../libs/minishell.h"
 
+void	tkn_memo_hda_while(char *ptr, t_parser *p, t_data *data)
+{
+	while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
+	{
+		if (*ptr == '"' || *ptr == '\0' || *ptr == '\'')
+		{
+			quote_updater(ptr, p);
+			break ;
+		}
+		if (is_new_token(*ptr, *(ptr + 1)) > 1)
+			break ;
+		ptr++;
+		p->temp++;
+	}
+	handle_dollar_2_bleh(ptr, p, data);
+}
+
 void	quote_updater(char *ptr, t_parser *p)
 {
 	if (*ptr == '"' && !p->in_single)

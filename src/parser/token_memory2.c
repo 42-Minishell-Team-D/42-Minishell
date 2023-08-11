@@ -12,7 +12,7 @@
 
 #include "../../libs/minishell.h"
 
-static void	handle_dollar_2(char *ptr, t_parser *p, t_data *data)
+void	handle_dollar_2_bleh(char *ptr, t_parser *p, t_data *data)
 {
 	char	*getenv;
 
@@ -36,21 +36,7 @@ static char	*handle_dollar(char *ptr, t_parser *p, t_data *data)
 	else if (*ptr == '\'' || *ptr == '\"')
 		ptr = hda_tkn_quotes(ptr, p);
 	else if (*ptr != '\0' && *ptr != ' ')
-	{
-		while (*ptr != '\0' && *ptr != ' ' && *ptr != '$')
-		{
-			if (*ptr == '"' || *ptr == '\0' || *ptr == '\'')
-			{
-				quote_updater(ptr, p);
-				break ;
-			}
-			if (is_new_token(*ptr, *(ptr + 1)) > 1)
-				break ;
-			ptr++;
-			p->temp++;
-		}
-		handle_dollar_2(ptr, p, data);
-	}
+		tkn_memo_hda_while(ptr, p, data);
 	else
 		p->token_alloc[p->i]++;
 	if (*ptr == '$')
