@@ -138,7 +138,6 @@ void	close_unused_pipes(int i, t_bt *tree, t_data *data);
 int		get_number_of_processes(t_bt *tree);
 void	redirect_pipe(t_bt *tree, t_data *data);
 t_bt	*redirect_great(t_bt *tree, t_data *data, int option, int rd);
-char	**clear_quotes(char **split);
 void	init_child(int id, t_bt *tree, t_data *data);
 void	pipe_child(char **split, t_bt *tree, t_data *data);
 char	*get_eof(char *prompt, t_parser *p);

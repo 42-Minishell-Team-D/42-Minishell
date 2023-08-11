@@ -87,6 +87,7 @@ void	pipe_child(char **split, t_bt *tree, t_data *data)
 		if (tree->parent->right != NULL)
 			dup2(data->pipes[id][1], 1);
 	}
+	close_free_pipes(data);
 	if (builtin_executor_child(split, data, tree) == 0)
 		return ;
 	exec_loop(split, data);

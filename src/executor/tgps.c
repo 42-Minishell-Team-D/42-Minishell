@@ -52,6 +52,7 @@ static void	close_unused_pipes_2(int id, t_bt *tree, t_data *data)
 			close(data->pipes[n][1]);
 		n++;
 	}
+	free(data->pipes);
 }
 
 void	close_unused_pipes(int id, t_bt *tree, t_data *data)
@@ -64,6 +65,7 @@ void	close_unused_pipes(int id, t_bt *tree, t_data *data)
 		{
 			close(data->pipes[id][0]);
 			close(data->pipes[id][1]);
+			free(data->pipes[id]);
 		}
 	}
 	else

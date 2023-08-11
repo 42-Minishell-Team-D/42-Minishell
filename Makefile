@@ -14,8 +14,7 @@ FILESC = ./src/main.c ./src/init.c ./src/init2.c ./src/init3.c \
 		./src/parser/token_memory2.c \
 		./src/parser/get_more_prompt_utils.c ./src/free/free.c ./src/free/free_if_err.c  \
 		./src/executor/executor.c ./src/executor/redirect.c \
-		./src/executor/fork.c \
-		./src/executor/tgps.c  ./src/executor/clear_quotes.c \
+		./src/executor/fork.c ./src/executor/tgps.c \
 		./src/utils1.c ./src/utils2.c ./src/utils3.c ./src/builtins/utils_builtins.c \
 
 OBJS = $(FILESC:.c=.o)
