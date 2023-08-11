@@ -115,11 +115,13 @@ void	lexical_filter(t_data *data, t_parser *p);
 void	parser(t_data *data);
 t_bt	*create_tree(char **parser, t_bt *tree, int i);
 int		check_syntax(t_bt *tree);
+void	handle_dollar_2_bleh(char *ptr, t_parser *p, t_data *data);
 int		get_more_prompt(t_data *data, t_parser *p, int baal);
 int		check_valid_syntax(char *prompt);
 int		redirect_input_check(t_data *data);
 int		check_valid_last_pipe(char *prompt);
 char	*handle_dollar_anal(char *ptr, t_parser *p, t_data *data);
+void	tkn_memo_hda_while(char *ptr, t_parser *p, t_data *data);
 char	*handle_special_char_anal(char *ptr, t_parser *p, t_data *data);
 int		check_valid_heredoc(char *prompt);
 
