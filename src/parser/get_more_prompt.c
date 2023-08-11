@@ -104,7 +104,6 @@ int	get_more_prompt(t_data *data, t_parser *p, int b)
 		if (get_more_prompt_pipe(data, NULL) == 1)
 			return (1);
 	}
-	ft_printf_fd(2, "data->prompt = %s\n", data->prompt);
 	if (ft_strlen(data->prompt) == 0)
 		return (1);
 	if (check_valid_last_pipe(data->prompt) == 1 || \
