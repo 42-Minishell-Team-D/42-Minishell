@@ -119,35 +119,41 @@ static int	main2(t_data *data)
 	return (0);
 }
 
+static void	main1(t_data *data)
+{
+	while (data->prompt)
+	{
+		data->prompt = get_prompt(data);
+		if (data->prompt == NULL)
+		{
+			write(1, "exit\n", 5);
+			break ;
+		}
+		if (data->prompt != NULL && check_empty_prompt(data) == 0)
+		{
+			free(data->prompt);
+			continue ;
+		}
+		if (data->prompt != NULL && data->prompt[0] != '\0'
+			&& data->prompt[0] != '\n')
+			data->prompt = ft_realloc(data->prompt, \
+			ft_strlen(data->prompt) + 1);
+		if (data->prompt != NULL && data->prompt[0] != '\0')
+		{
+			add_history(data->prompt);
+			data->p.char_temp = ft_calloc(1, 1);
+			if (main2(data) == 1)
+				continue ;
+		}
+	}
+}
+
 int	main(void)
 {
 	t_data		data;
 
 	init_stuff(&data, &data.prompt);
-	while (data.prompt)
-	{
-		data.prompt = get_prompt(&data);
-		if (data.prompt == NULL)
-		{
-			write(1, "exit\n", 5);
-			break ;
-		}
-		if (data.prompt != NULL && check_empty_prompt(&data) == 0)
-		{
-			free(data.prompt);
-			continue ;
-		}
-		if (data.prompt != NULL && data.prompt[0] != '\0'
-			&& data.prompt[0] != '\n')
-			data.prompt = ft_realloc(data.prompt, ft_strlen(data.prompt) + 1);
-		if (data.prompt != NULL && data.prompt[0] != '\0')
-		{
-			add_history(data.prompt);
-			data.p.char_temp = ft_calloc(1, 1);
-			if (main2(&data) == 1)
-				continue ;
-		}
-	}
+	main1(&data);
 	rl_clear_history();
 	free_at_exit(&data);
 	return (data.rt);
