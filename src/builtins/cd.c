@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpenelon <lpenelon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:09:59 by loris             #+#    #+#             */
-/*   Updated: 2023/08/10 23:26:21 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/08/11 10:32:41 by lpenelon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	update_oldpwd(t_data *data)
 		{
 			free(data->export[n]);
 			data->export[n] = NULL;
-			data->join = ft_strjoin("declare -x PWD=\"", cwd);
+			data->join = ft_strjoin("declare -x OLDPWD=\"", cwd);
 			data->export[n] = ft_strjoin(data->join, "\"\0");
 			free(data->join);
 		}
@@ -126,7 +126,7 @@ int	exec_cd(char **split, t_data *data)
 		return (1);
 	}
 	update_oldpwd(data);
-	update_pwd(data);
 	chdir(split[1]);
+	update_pwd(data);
 	return (0);
 }
