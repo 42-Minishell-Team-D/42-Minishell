@@ -1,4 +1,4 @@
-# 🐚 Minishell
+# Minishell (The Almighty!)
 
 > A simple Unix shell built from scratch — part of the 42 School core curriculum.
 
